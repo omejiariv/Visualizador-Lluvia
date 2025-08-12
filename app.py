@@ -1,62 +1,105 @@
+import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import streamlit as st
 from pathlib import Path
+from io import BytesIO
 
-# ===== Función para cargar datos =====
+# =====================
+# CARGA Y PROCESAMIENTO
+# =====================
 @st.cache_data
 def cargar_datos():
+    # Leer datos base
     df = pd.read_csv(Path("data/EstHM_CV.csv"))
-    pptn = pd.read_csv(Path("data/Transp_Est_Pptn.csv"))
-    meta = df.merge(pptn, on="Estacion", how="inner")
-    return df, pptn, meta
+    pptn_raw = pd.read_csv(Path("data/Transp_Est_Pptn.csv"))
 
-# ===== Cargar datos =====
-df, pptn_raw, meta = cargar_datos()
+    # Ajustar formato de pptn_raw
+    pptn_t = pptn_raw.set_index("Estacion").T.reset_index()
+    pptn_t.rename(columns={"index": "Fecha"}, inplace=True)
 
-st.title("📊 Visualizador de Cobertura de Precipitaciones")
-st.markdown("Explora la cobertura de datos de estaciones meteorológicas a lo largo del tiempo.")
+    # Convertir fechas
+    pptn_t["Fecha"] = pd.to_datetime(pptn_t["Fecha"], errors="coerce")
 
-# ===== Selección de parámetros =====
-mostrar_porcentaje = st.checkbox("Mostrar porcentaje de cobertura", value=True)
-paletas = ["viridis", "plasma", "coolwarm", "YlGnBu", "magma"]
-paleta_sel = st.selectbox("Selecciona paleta de colores:", paletas, index=0)
-invertir_colores = st.checkbox("Invertir colores", value=False)
+    # Aplanar datos de precipitaciones
+    pptn_melt = pptn_t.melt(id_vars="Fecha", var_name="Estacion", value_name="Precipitacion")
+    pptn_melt.dropna(subset=["Precipitacion"], inplace=True)
 
-# ===== Calcular cobertura =====
-cobertura = pptn_raw.set_index("Estacion").notna().groupby(level=0).mean()
-if mostrar_porcentaje:
-    cobertura *= 100
+    # Unir con metadatos
+    df = pptn_melt.merge(df, on="Estacion", how="left")
 
-cbar_label = "% de cobertura" if mostrar_porcentaje else "Cobertura (proporción)"
+    return df, pptn_raw
 
-# ===== Ajuste de intensidad =====
-vmin = st.slider(
-    "Valor mínimo de la escala de colores:",
-    0.0 if mostrar_porcentaje else 0,
-    100.0 if mostrar_porcentaje else 12,
-    0.0 if mostrar_porcentaje else 0
-)
-vmax = st.slider(
-    "Valor máximo de la escala de colores:",
-    0.0 if mostrar_porcentaje else 0,
-    100.0 if mostrar_porcentaje else 12,
-    100.0 if mostrar_porcentaje else 12
-)
+# =====================
+# CARGAR DATOS
+# =====================
+df, pptn_raw = cargar_datos()
 
-# ===== Mapa de calor =====
-cmap_final = paleta_sel + ("_r" if invertir_colores else "")
-fig, ax = plt.subplots(figsize=(12, 6))
-sns.heatmap(
-    cobertura,
-    cmap=cmap_final,
-    cbar_kws={'label': cbar_label},
-    ax=ax,
-    vmin=vmin,
-    vmax=vmax
-)
-ax.set_title("Cobertura de datos por estación y año", fontsize=14)
-ax.set_xlabel("Año")
-ax.set_ylabel("Estación")
-st.pyplot(fig)
+# =====================
+# INTERFAZ DE STREAMLIT
+# =====================
+st.set_page_config(page_title="Visualizador de Lluvia", layout="wide")
+st.title("🌧 Visualizador de Lluvia")
+
+# Mostrar datos
+st.subheader("Datos Combinados")
+st.dataframe(df.head())
+
+# =====================
+# FILTROS
+# =====================
+estaciones = st.multiselect("Selecciona estaciones:", df["Estacion"].unique())
+if estaciones:
+    df = df[df["Estacion"].isin(estaciones)]
+
+# Rango de fechas
+if not df.empty:
+    fecha_min = df["Fecha"].min()
+    fecha_max = df["Fecha"].max()
+
+    rango_fechas = st.date_input(
+        "Selecciona rango de fechas:",
+        value=(fecha_min, fecha_max),
+        min_value=fecha_min,
+        max_value=fecha_max
+    )
+
+    if isinstance(rango_fechas, tuple) and len(rango_fechas) == 2:
+        df = df[(df["Fecha"] >= pd.to_datetime(rango_fechas[0])) &
+                (df["Fecha"] <= pd.to_datetime(rango_fechas[1]))]
+
+# =====================
+# BOTÓN DE DESCARGA
+# =====================
+def to_excel(dataframe):
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+        dataframe.to_excel(writer, index=False, sheet_name="Datos Filtrados")
+    return output.getvalue()
+
+if not df.empty:
+    excel_bytes = to_excel(df)
+    st.download_button(
+        label="⬇ Descargar datos filtrados en Excel",
+        data=excel_bytes,
+        file_name="datos_filtrados.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+
+# =====================
+# GRÁFICOS
+# =====================
+if not df.empty:
+    st.subheader("Precipitación a lo largo del tiempo")
+    plt.figure(figsize=(12,6))
+    sns.lineplot(data=df, x="Fecha", y="Precipitacion", hue="Estacion")
+    plt.xticks(rotation=45)
+    st.pyplot(plt)
+
+    # Histograma
+    st.subheader("Distribución de Precipitaciones")
+    plt.figure(figsize=(10,5))
+    sns.histplot(df["Precipitacion"], kde=True)
+    st.pyplot(plt)
+else:
+    st.warning("No hay datos para mostrar con los filtros seleccionados.")
