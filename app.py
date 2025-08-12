@@ -9,7 +9,7 @@
 # streamlit
 # pandas
 # numpy
-# plotly
+# plotly==5.22.0
 #
 # --- Contenido sugerido de README.md ---
 # # 🌧 Visualizador de Precipitación Anual
@@ -39,7 +39,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.express as px
+
+try:
+    import plotly.express as px
+except ModuleNotFoundError:
+    st.error("La librería 'plotly' no está instalada. Asegúrate de incluirla en requirements.txt con la versión recomendada.")
+    st.stop()
 
 st.title("🌧 Visualizador de Precipitación Anual")
 
@@ -47,10 +52,14 @@ st.title("🌧 Visualizador de Precipitación Anual")
 archivo = st.file_uploader("Sube un archivo CSV con datos de lluvia anual", type=["csv"])
 
 if archivo is not None:
-    # Cargar datos
-    df = pd.read_csv(archivo)
-    df.rename(columns={df.columns[0]: "Año"}, inplace=True)
-    df["Año"] = df["Año"].astype(int)
+    try:
+        # Cargar datos
+        df = pd.read_csv(archivo)
+        df.rename(columns={df.columns[0]: "Año"}, inplace=True)
+        df["Año"] = df["Año"].astype(int)
+    except Exception as e:
+        st.error(f"Error al leer el archivo CSV: {e}")
+        st.stop()
 
     # Sidebar - Selección de estaciones y rango de años
     estaciones = df.columns[1:]
