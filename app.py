@@ -71,4 +71,60 @@ df_filtrado = df[df["Estacion"].isin(estaciones_sel)][columnas_datos + list(meta
 
 # ----------------------------
 # PESTAÑAS PRINCIPALES
-# ------
+# ----------------------------
+tabs = st.tabs(["📊 Datos", "📈 Gráficos", "📄 Información estaciones", "🗺️ Mapa"])
+
+# ----------------------------
+# TABLA DE DATOS
+# ----------------------------
+with tabs[0]:
+    st.subheader("Tabla de precipitaciones filtrada")
+    st.dataframe(df_filtrado)
+
+# ----------------------------
+# GRÁFICOS
+# ----------------------------
+with tabs[1]:
+    st.subheader("Gráficos de precipitaciones")
+    df_melt = df_filtrado.melt(id_vars=["Estacion"], value_vars=[str(a) for a in range(rango_años[0], rango_años[1] + 1)],
+                               var_name="Año", value_name="Precipitación")
+    fig = px.line(df_melt, x="Año", y="Precipitación", color="Estacion", markers=True)
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.subheader("Estadísticas")
+    stats = df_melt.groupby("Estacion").agg(
+        Promedio=("Precipitación", "mean"),
+        Mínimo=("Precipitación", "min"),
+        Máximo=("Precipitación", "max")
+    ).reset_index()
+    st.dataframe(stats)
+
+# ----------------------------
+# INFORMACIÓN DE ESTACIONES
+# ----------------------------
+with tabs[2]:
+    st.subheader("Metadatos de estaciones")
+    st.dataframe(meta)
+
+# ----------------------------
+# MAPA
+# ----------------------------
+with tabs[3]:
+    st.subheader("Mapa de estaciones")
+    if "x" in meta.columns and "y" in meta.columns:
+        layer = pdk.Layer(
+            "ScatterplotLayer",
+            data=meta,
+            get_position='[x, y]',
+            get_radius=800,
+            get_color=[0, 128, 255],
+            pickable=True
+        )
+        view_state = pdk.ViewState(
+            latitude=meta["y"].mean(),
+            longitude=meta["x"].mean(),
+            zoom=7
+        )
+        st.pydeck_chart(pdk.Deck(layers=[layer], initial_view_state=view_state))
+    else:
+        st.warning("No se encontraron coordenadas en los metadatos.")
