@@ -2,129 +2,186 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import pydeck as pdk
+from pathlib import Path
+from io import BytesIO
 
-# ----------------------------
-# CONFIGURACIÓN INICIAL
-# ----------------------------
-st.set_page_config(page_title="Visor de Precipitaciones - Antioquia", layout="wide")
+# =========================
+# CONFIGURACIÓN DE LA PÁGINA
+# =========================
+st.set_page_config(
+    page_title="Visualizador de Lluvia - Antioquia",
+    page_icon="🌧️",
+    layout="wide"
+)
 
-# Cargar datos
+# =========================
+# FUNCIÓN PARA CARGAR DATOS
+# =========================
 @st.cache_data
 def cargar_datos():
-    # Datos de precipitaciones
-    pptn = pd.read_csv("Transp_Est_Pptn.csv")
-    pptn["Estacion"] = pptn["Estacion"].astype(str)
+    pptn = pd.read_csv(Path("data/Transp_Est_Pptn.csv"))
+    meta = pd.read_csv(Path("data/EstHM_CV.csv"))
 
-    # Datos de metadatos
-    meta = pd.read_csv("EstHM_CV.csv")
-    meta["Estacion"] = meta["Estacion"].astype(str)
+    # Convertir a formato largo
+    pptn_long = pptn.melt(
+        id_vars=["Estacion"],
+        var_name="Año",
+        value_name="Precipitación"
+    )
+    pptn_long["Año"] = pptn_long["Año"].astype(int)
 
-    # Unión por columna 'Estacion'
-    df = pd.merge(meta, pptn, on="Estacion", how="inner")
+    # Unir metadatos
+    df = pptn_long.merge(meta, on="Estacion", how="left")
+
     return df, pptn, meta
 
-df, pptn, meta = cargar_datos()
+# =========================
+# FUNCIÓN PARA DESCARGAR EN EXCEL
+# =========================
+def to_excel(df):
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+        df.to_excel(writer, index=False, sheet_name="Datos")
+    processed_data = output.getvalue()
+    return processed_data
 
-# ----------------------------
-# SIDEBAR - FILTROS
-# ----------------------------
+df, pptn_raw, meta = cargar_datos()
+
+# =========================
+# INTERFAZ
+# =========================
+st.title("🌧️ Visualizador de Lluvia - Antioquia")
+
+# ---- SIDEBAR ----
 st.sidebar.header("Filtros")
 
-# Selector de estaciones
+# Filtro estaciones
 estaciones_unicas = sorted(df["Estacion"].unique())
-col1, col2 = st.sidebar.columns([1, 1])
+col1, col2 = st.sidebar.columns(2)
+if col1.button("Seleccionar todo"):
+    estaciones_sel = estaciones_unicas
+elif col2.button("Limpiar"):
+    estaciones_sel = []
+else:
+    estaciones_sel = st.sidebar.multiselect(
+        "Seleccionar estaciones",
+        estaciones_unicas,
+        default=estaciones_unicas
+    )
 
-if "estaciones_sel" not in st.session_state:
-    st.session_state.estaciones_sel = estaciones_unicas
+# Filtro años
+años_unicos = sorted(df["Año"].unique())
+col3, col4 = st.sidebar.columns(2)
+if col3.button("Todos los años"):
+    años_sel = años_unicos
+elif col4.button("Limpiar años"):
+    años_sel = []
+else:
+    años_sel = st.sidebar.multiselect(
+        "Seleccionar años",
+        años_unicos,
+        default=años_unicos
+    )
 
-def seleccionar_todas():
-    st.session_state.estaciones_sel = estaciones_unicas
+# =========================
+# FILTRADO DE DATOS
+# =========================
+df_filtrado = df[df["Estacion"].isin(estaciones_sel) & df["Año"].isin(años_sel)]
 
-def limpiar_seleccion():
-    st.session_state.estaciones_sel = []
+# =========================
+# BOTONES DE DESCARGA
+# =========================
+if not df_filtrado.empty:
+    st.download_button(
+        label="📥 Descargar CSV",
+        data=df_filtrado.to_csv(index=False).encode("utf-8"),
+        file_name="precipitacion_filtrada.csv",
+        mime="text/csv"
+    )
 
-with col1:
-    if st.button("Seleccionar todas"):
-        seleccionar_todas()
-with col2:
-    if st.button("Limpiar"):
-        limpiar_seleccion()
+    st.download_button(
+        label="📥 Descargar Excel",
+        data=to_excel(df_filtrado),
+        file_name="precipitacion_filtrada.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
 
-estaciones_sel = st.sidebar.multiselect(
-    "Selecciona estaciones",
-    options=estaciones_unicas,
-    default=st.session_state.estaciones_sel
-)
-st.session_state.estaciones_sel = estaciones_sel
-
-# Selector de rango de años
-años = [col for col in pptn.columns if col.isdigit()]
-años = sorted(map(int, años))
-min_año, max_año = min(años), max(años)
-rango_años = st.sidebar.slider("Rango de años", min_año, max_año, (min_año, max_año))
-
-# ----------------------------
-# FILTRAR DATOS
-# ----------------------------
-columnas_datos = ["Estacion"] + [str(a) for a in range(rango_años[0], rango_años[1] + 1)]
-df_filtrado = df[df["Estacion"].isin(estaciones_sel)][columnas_datos + list(meta.columns[1:])]
-
-# ----------------------------
+# =========================
 # PESTAÑAS PRINCIPALES
-# ----------------------------
-tabs = st.tabs(["📊 Datos", "📈 Gráficos", "📄 Información estaciones", "🗺️ Mapa"])
+# =========================
+tab1, tab2, tab3, tab4 = st.tabs([
+    "📊 Visualización",
+    "📈 Estadísticas",
+    "📋 Metadatos",
+    "🗺️ Mapa"
+])
 
-# ----------------------------
-# TABLA DE DATOS
-# ----------------------------
-with tabs[0]:
-    st.subheader("Tabla de precipitaciones filtrada")
+# ---- TABLA Y GRÁFICA ----
+with tab1:
+    st.subheader("Datos filtrados")
     st.dataframe(df_filtrado)
 
-# ----------------------------
-# GRÁFICOS
-# ----------------------------
-with tabs[1]:
-    st.subheader("Gráficos de precipitaciones")
-    df_melt = df_filtrado.melt(id_vars=["Estacion"], value_vars=[str(a) for a in range(rango_años[0], rango_años[1] + 1)],
-                               var_name="Año", value_name="Precipitación")
-    fig = px.line(df_melt, x="Año", y="Precipitación", color="Estacion", markers=True)
-    st.plotly_chart(fig, use_container_width=True)
-
-    st.subheader("Estadísticas")
-    stats = df_melt.groupby("Estacion").agg(
-        Promedio=("Precipitación", "mean"),
-        Mínimo=("Precipitación", "min"),
-        Máximo=("Precipitación", "max")
-    ).reset_index()
-    st.dataframe(stats)
-
-# ----------------------------
-# INFORMACIÓN DE ESTACIONES
-# ----------------------------
-with tabs[2]:
-    st.subheader("Metadatos de estaciones")
-    st.dataframe(meta)
-
-# ----------------------------
-# MAPA
-# ----------------------------
-with tabs[3]:
-    st.subheader("Mapa de estaciones")
-    if "x" in meta.columns and "y" in meta.columns:
-        layer = pdk.Layer(
-            "ScatterplotLayer",
-            data=meta,
-            get_position='[x, y]',
-            get_radius=800,
-            get_color=[0, 128, 255],
-            pickable=True
+    if not df_filtrado.empty:
+        fig = px.line(
+            df_filtrado,
+            x="Año",
+            y="Precipitación",
+            color="Estacion",
+            markers=True,
+            title="Precipitación anual por estación"
         )
-        view_state = pdk.ViewState(
-            latitude=meta["y"].mean(),
-            longitude=meta["x"].mean(),
-            zoom=7
-        )
-        st.pydeck_chart(pdk.Deck(layers=[layer], initial_view_state=view_state))
+        st.plotly_chart(fig, use_container_width=True)
+
+# ---- ESTADÍSTICAS ----
+with tab2:
+    if not df_filtrado.empty:
+        st.subheader("Resumen estadístico")
+        promedio = df_filtrado.groupby("Estacion")["Precipitación"].mean()
+        max_val = df_filtrado.loc[df_filtrado["Precipitación"].idxmax()]
+        min_val = df_filtrado.loc[df_filtrado["Precipitación"].idxmin()]
+
+        st.write("### Promedio por estación")
+        st.dataframe(promedio)
+
+        st.write("### Máximo")
+        st.write(max_val)
+
+        st.write("### Mínimo")
+        st.write(min_val)
     else:
-        st.warning("No se encontraron coordenadas en los metadatos.")
+        st.warning("No hay datos para calcular estadísticas.")
+
+# ---- METADATOS ----
+with tab3:
+    st.subheader("Metadatos de estaciones")
+    meta_cols = [
+        "Estacion", "Nombre_Est", "Porc_datos", "Celda_XY",
+        "Conteo_celda", "Depto", "Mpio", "AH", "Z_SZH", "x", "y"
+    ]
+    st.dataframe(meta[meta_cols])
+
+# ---- MAPA ----
+with tab4:
+    st.subheader("Mapa de estaciones - Antioquia")
+    if not meta.empty:
+        meta_map = meta.dropna(subset=["x", "y"])
+        st.pydeck_chart(pdk.Deck(
+            map_style="mapbox://styles/mapbox/light-v9",
+            initial_view_state=pdk.ViewState(
+                latitude=meta_map["y"].mean(),
+                longitude=meta_map["x"].mean(),
+                zoom=7,
+                pitch=0
+            ),
+            layers=[
+                pdk.Layer(
+                    'ScatterplotLayer',
+                    data=meta_map,
+                    get_position='[x, y]',
+                    get_fill_color='[0, 100, 200, 160]',
+                    get_radius=5000,
+                    pickable=True
+                )
+            ],
+            tooltip={"text": "{Nombre_Est}\nEstación: {Estacion}"}
+        ))
