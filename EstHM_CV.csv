@@ -1,4 +1,4 @@
-estacion,Porc_datos,pct_nulos,Celda_XY,Conteo_celda,Nombre_Est,Depto,Mpio,AH, Z_SZH,x,y
+Estacion,Porc_datos,pct_nulos,Celda_XY,Conteo_celda,Nombre_Est,Depto,Mpio,AH, Z_SZH,x,y
 "11010010,""78,4"",""21,6"",""(3 , 4)"",5,VUELTA LA ,Chocó, Cértegui , Caribe , Darién Río Andágueda,""4607247,584"",""2162360,662"""
 "11020010,""99,6"",""0,4"",""(4 , 5)"",12,CARMEN DE ATRATO ,Chocó, El Carmen, Caribe , Darién Alto Atrato,""4652177,228"",""2211863,751"""
 "11020020,""41,5"",""58,5"",""(3 , 4)"",5,GUADUAS ,Chocó, El Carmen, Caribe , Darién Alto Atrato,""4647517,517"",""2196190,599"""
@@ -788,3 +788,4 @@ estacion,Porc_datos,pct_nulos,Celda_XY,Conteo_celda,Nombre_Est,Depto,Mpio,AH, Z_
 "56010040,""33,3"",""66,7"",""(3 , 2)"",1,NUQUI ,Chocó, Nuquí, Pacifico , Directos Pacifico Frontera Panamá ,""4527415,54"",""2190481,828"""
 "56015010,""86,9"",""13,1"",""(4 , 2)"",1,PANAMERICANA ,Chocó, Bahía Solano (Mutis) , Pacifico , Directos Pacifico Frontera Panamá ,""4512487,411"",""2247700,998"""
 "56015020,""0,0"",""100,0"",""(6 , 1)"",1,ALTO CURICHE ,Chocó, Juradó , Pacifico , Directos Directos Pacifico Frontera Panamá ,""4486111,988"",""2339577,545"""
+
