@@ -14,10 +14,28 @@ os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(IMAGES_DIR, exist_ok=True)
 
 # ==========================
+# Funciones auxiliares
+# ==========================
+def estandarizar_nombre_columna(df):
+    """Estandariza el nombre de la columna 'Estacion' en un DataFrame."""
+    # Lista de posibles nombres de columna
+    nombres_validos = ['Estacion', 'estacion', 'ID_Estacion', 'estacion_id']
+    
+    for col in df.columns:
+        if col.strip().lower() in [n.lower() for n in nombres_validos]:
+            df.rename(columns={col: 'Estacion'}, inplace=True)
+            return df
+    return df
+
+# ==========================
 # Función para cargar CSV
 # ==========================
 @st.cache_data
 def cargar_datos():
+    """
+    Carga los archivos CSV de lluvia y estaciones.
+    Maneja diferentes codificaciones y delimitadores.
+    """
     pptn_path = os.path.join(DATA_DIR, "lluvia.csv")
     estaciones_path = os.path.join(DATA_DIR, "estaciones.csv")
 
@@ -35,9 +53,9 @@ def cargar_datos():
             st.stop()
         else:
             st.stop()
-
+    
+    # Intenta leer los archivos CSV, probando diferentes separadores y codificaciones
     try:
-        # Intenta leer los archivos con diferentes parámetros
         pptn_raw = pd.read_csv(pptn_path, encoding="utf-8")
         meta = pd.read_csv(estaciones_path, encoding="utf-8")
     except (UnicodeDecodeError, pd.errors.ParserError):
@@ -45,24 +63,17 @@ def cargar_datos():
             pptn_raw = pd.read_csv(pptn_path, sep=';', encoding="latin-1")
             meta = pd.read_csv(estaciones_path, sep=';', encoding="latin-1")
         except Exception as e:
-            st.error(f"Error al leer los archivos CSV: {e}")
+            st.error(f"Error al leer los archivos CSV. Por favor, revisa el formato de tus archivos.")
             st.stop()
 
-    # == Lógica para corregir el nombre de la columna 'Estacion' ==
-    def estandarizar_nombre_columna(df):
-        for col in df.columns:
-            if col.strip().lower() in ['estacion', 'estaciones', 'id_estacion', 'estacion_id']:
-                df.rename(columns={col: 'Estacion'}, inplace=True)
-                return df
-        return df
-
+    # Estandariza la columna 'Estacion' en ambos DataFrames
     pptn_raw = estandarizar_nombre_columna(pptn_raw)
     meta = estandarizar_nombre_columna(meta)
-    # =============================================================
 
+    # Verifica si la columna 'Estacion' existe después de la estandarización
     if "Estacion" not in pptn_raw.columns or "Estacion" not in meta.columns:
         st.error(
-            "Los CSV deben contener una columna de estación (ej. 'Estacion', 'estacion', 'ID_Estacion')."
+            "Los CSV deben contener una columna de estación con un nombre como: 'Estacion', 'estacion', 'ID_Estacion', etc."
         )
         st.stop()
 
@@ -73,6 +84,9 @@ def cargar_datos():
 # Función para cargar shapefiles
 # ==========================
 def cargar_shapefiles():
+    """
+    Carga los archivos de shapefile desde la carpeta de datos.
+    """
     shp_path = os.path.join(DATA_DIR, "mapa.shp")
     shx_path = os.path.join(DATA_DIR, "mapa.shx")
     dbf_path = os.path.join(DATA_DIR, "mapa.dbf")
@@ -98,6 +112,7 @@ def cargar_shapefiles():
 # ==========================
 # App principal
 # ==========================
+st.set_page_config(layout="wide")
 st.title("Visualizador de Lluvia con Mapas y Animación de Imágenes")
 
 # Cargar datos
