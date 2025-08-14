@@ -35,27 +35,35 @@ def cargar_datos():
             st.stop()
         else:
             st.stop()
-    
-    # Intenta leer los archivos CSV, probando diferentes separadores y codificaciones
+
     try:
+        # Intenta leer los archivos con diferentes parámetros
         pptn_raw = pd.read_csv(pptn_path, encoding="utf-8")
         meta = pd.read_csv(estaciones_path, encoding="utf-8")
     except (UnicodeDecodeError, pd.errors.ParserError):
         try:
-            # Si falla, intenta con delimitador ';' y codificación latin-1
             pptn_raw = pd.read_csv(pptn_path, sep=';', encoding="latin-1")
             meta = pd.read_csv(estaciones_path, sep=';', encoding="latin-1")
-        except (UnicodeDecodeError, pd.errors.ParserError):
-            try:
-                # Si falla de nuevo, intenta con el delimitador por defecto (',') y latin-1
-                pptn_raw = pd.read_csv(pptn_path, encoding="latin-1")
-                meta = pd.read_csv(estaciones_path, encoding="latin-1")
-            except Exception as e:
-                st.error(f"Error al leer los archivos CSV: {e}")
-                st.stop()
+        except Exception as e:
+            st.error(f"Error al leer los archivos CSV: {e}")
+            st.stop()
+
+    # == Lógica para corregir el nombre de la columna 'Estacion' ==
+    def estandarizar_nombre_columna(df):
+        for col in df.columns:
+            if col.strip().lower() in ['estacion', 'estaciones', 'id_estacion', 'estacion_id']:
+                df.rename(columns={col: 'Estacion'}, inplace=True)
+                return df
+        return df
+
+    pptn_raw = estandarizar_nombre_columna(pptn_raw)
+    meta = estandarizar_nombre_columna(meta)
+    # =============================================================
 
     if "Estacion" not in pptn_raw.columns or "Estacion" not in meta.columns:
-        st.error("Los CSV deben contener la columna 'Estacion'.")
+        st.error(
+            "Los CSV deben contener una columna de estación (ej. 'Estacion', 'estacion', 'ID_Estacion')."
+        )
         st.stop()
 
     df = pd.merge(pptn_raw, meta, on="Estacion", how="inner")
@@ -107,13 +115,12 @@ st.dataframe(df.head())
 # Bucle de imágenes optimizado
 # ==========================
 image_files = [f for f in os.listdir(IMAGES_DIR) if f.lower().endswith((".png", ".jpg", ".jpeg"))]
-image_files.sort()  # Opcional: para asegurar que las imágenes se muestren en orden alfabético
+image_files.sort()
 
 if image_files:
     if "slideshow_running" not in st.session_state:
         st.session_state.slideshow_running = False
     
-    # Usar st.columns para los botones
     col1, col2 = st.columns(2)
     with col1:
         if st.button("▶ Iniciar animación"):
@@ -124,7 +131,6 @@ if image_files:
 
     img_container = st.empty()
 
-    # Bucle que se ejecuta solo si la animación está activa
     if st.session_state.slideshow_running:
         for img in image_files:
             if not st.session_state.slideshow_running:
@@ -132,9 +138,7 @@ if image_files:
             img_container.image(os.path.join(IMAGES_DIR, img), use_container_width=True)
             time.sleep(3)
         
-        # Una vez que termina el bucle, la animación se detiene automáticamente
         if st.session_state.slideshow_running:
             st.session_state.slideshow_running = False
-
 else:
     st.warning(f"No se encontraron imágenes en la carpeta '{IMAGES_DIR}'.")
