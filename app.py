@@ -1,148 +1,114 @@
-import pandas as pd
-import shapefile  # PyShp
-import matplotlib.pyplot as plt
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import shapefile
 from pathlib import Path
+import os
 import time
 
-# ========================================
-# Cargar datos CSV
-# ========================================
+# ============================
+# Cargar datos con validación
+# ============================
 @st.cache_data
 def cargar_datos():
-    meta = pd.read_csv(Path("data/EstHM_CV.csv"))
-    pptn_raw = pd.read_csv(Path("data/Transp_Est_Pptn.csv"))
-    df = pd.merge(pptn_raw, meta, on="Estacion", how="inner")
+    try:
+        meta = pd.read_csv(Path("data/EstHM_CV.csv"))
+        pptn_raw = pd.read_csv(Path("data/Transp_Est_Pptn.csv"))
+    except FileNotFoundError:
+        st.error("❌ No se encontraron 'EstHM_CV.csv' y/o 'Transp_Est_Pptn.csv' en la carpeta data/.")
+        st.stop()
+
+    # Normalizar nombres de columnas
+    meta.columns = meta.columns.str.strip().str.lower()
+    pptn_raw.columns = pptn_raw.columns.str.strip().str.lower()
+
+    # Depuración
+    st.write("📄 Columnas en meta:", list(meta.columns))
+    st.write("📄 Columnas en pptn_raw:", list(pptn_raw.columns))
+
+    # Validar existencia
+    if "estacion" not in meta.columns:
+        st.error(f"El archivo 'EstHM_CV.csv' no contiene la columna 'Estacion'. Columnas: {list(meta.columns)}")
+        st.stop()
+    if "estacion" not in pptn_raw.columns:
+        st.error(f"El archivo 'Transp_Est_Pptn.csv' no contiene la columna 'Estacion'. Columnas: {list(pptn_raw.columns)}")
+        st.stop()
+
+    # Unir
+    df = pd.merge(pptn_raw, meta, on="estacion", how="inner")
+
     return df, pptn_raw, meta
 
-# ========================================
-# Leer shapefile con PyShp y detectar campo ID estación
-# ========================================
-def leer_shapefile(ruta_shp):
-    sf = shapefile.Reader(ruta_shp)
-    shapes = sf.shapes()
-    records = sf.records()
-    fields = [f[0] for f in sf.fields[1:]]
+# ============================
+# Cargar shapefile con control de errores
+# ============================
+def cargar_shapefile(path):
+    base = Path(path)
+    if not base.with_suffix(".shp").exists():
+        st.error(f"❌ No se encontró el archivo {base}.shp")
+        return None
+    for ext in [".shx", ".dbf"]:
+        if not base.with_suffix(ext).exists():
+            st.error(f"❌ Falta {base}{ext}. El shapefile necesita .shp, .shx y .dbf en la misma carpeta.")
+            return None
+    try:
+        return shapefile.Reader(str(base.with_suffix(".shp")))
+    except Exception as e:
+        st.error(f"Error cargando shapefile: {e}")
+        return None
 
-    # Intentar detectar el campo que contiene el ID de la estación
-    posibles_ids = ["estacion", "id", "codigo", "cod", "id_estacion"]
-    campo_id = None
-    for candidato in posibles_ids:
-        for f in fields:
-            if f.strip().lower() == candidato:
-                campo_id = f
-                break
-        if campo_id:
-            break
+# ============================
+# Guardar shapefiles subidos
+# ============================
+def guardar_archivos_subidos(archivos):
+    data_dir = Path("data")
+    data_dir.mkdir(exist_ok=True)
+    for archivo in archivos:
+        with open(data_dir / archivo.name, "wb") as f:
+            f.write(archivo.read())
+    st.success("📂 Archivos guardados en /data para usos futuros.")
 
-    if campo_id:
-        id_idx = fields.index(campo_id)
-    else:
-        st.warning("No se detectó automáticamente el campo de ID de estación. Usando la primera columna.")
-        id_idx = 0
-
-    return shapes, records, fields, id_idx
-
-# ========================================
-# Validar que el shapefile tenga estaciones en los datos
-# ========================================
-def validar_shapefile(records, id_idx, estaciones_csv):
-    ids_shp = {rec[id_idx] for rec in records}
-    ids_csv = set(estaciones_csv)
-    comunes = ids_shp & ids_csv
-    if not comunes:
-        return False, ids_shp, ids_csv
-    return True, ids_shp, ids_csv
-
-# ========================================
-# Graficar mapa
-# ========================================
-def graficar_mapa(shapes, records, df, year, id_idx, invert_colors=False):
-    fig, ax = plt.subplots(figsize=(8, 8))
-    cmap = plt.cm.Blues_r if invert_colors else plt.cm.Blues
-
-    pptn_dict = df.set_index("Estacion")[str(year)].to_dict()
-    min_val, max_val = min(pptn_dict.values()), max(pptn_dict.values())
-
-    for shape_rec, rec in zip(shapes, records):
-        est_id = rec[id_idx]
-        if est_id in pptn_dict:
-            color_val = (pptn_dict[est_id] - min_val) / (max_val - min_val + 1e-6)
-            color = cmap(color_val)
-        else:
-            color = (0.8, 0.8, 0.8)
-
-        x, y = zip(*shape_rec.points)
-        ax.fill(x, y, color=color, edgecolor="black", linewidth=0.5)
-
-    ax.set_title(f"Mapa de precipitación - {year}", fontsize=14)
-    ax.axis("equal")
+# ============================
+# Dibujar mapa
+# ============================
+def dibujar_mapa(sf, color="Blues"):
+    fig, ax = plt.subplots(figsize=(8, 6))
+    for shape_rec in sf.shapeRecords():
+        x = [p[0] for p in shape_rec.shape.points]
+        y = [p[1] for p in shape_rec.shape.points]
+        ax.plot(x, y, color="black", linewidth=0.5)
+    ax.set_aspect("equal")
     ax.axis("off")
-    return fig
-
-# ========================================
-# Interfaz
-# ========================================
-st.title("Visualizador de Lluvia por Año")
-
-# Cargar datos de lluvia
-df, pptn_raw, meta = cargar_datos()
-
-# Detectar años automáticamente
-years = sorted([c for c in pptn_raw.columns if c != "Estacion"])
-
-# Rutas por defecto
-ruta_shp = Path("data/estaciones.shp")
-ruta_shx = Path("data/estaciones.shx")
-ruta_dbf = Path("data/estaciones.dbf")
-
-# Verificar si los archivos existen
-if not (ruta_shp.exists() and ruta_shx.exists() and ruta_dbf.exists()):
-    st.warning("No se encontró el shapefile completo en la carpeta `data/`. "
-               "Debe contener `.shp`, `.shx` y `.dbf` con el mismo nombre.")
-
-    st.info("Puede subir manualmente los tres archivos del shapefile:")
-    uploaded_shp = st.file_uploader("Suba el archivo .shp", type="shp")
-    uploaded_shx = st.file_uploader("Suba el archivo .shx", type="shx")
-    uploaded_dbf = st.file_uploader("Suba el archivo .dbf", type="dbf")
-
-    if uploaded_shp and uploaded_shx and uploaded_dbf:
-        # Guardar en carpeta data/ para uso futuro
-        Path("data").mkdir(exist_ok=True)
-        with open(ruta_shp, "wb") as f:
-            f.write(uploaded_shp.read())
-        with open(ruta_shx, "wb") as f:
-            f.write(uploaded_shx.read())
-        with open(ruta_dbf, "wb") as f:
-            f.write(uploaded_dbf.read())
-
-        shapes, records, fields, id_idx = leer_shapefile(ruta_shp)
-        valido, ids_shp, ids_csv = validar_shapefile(records, id_idx, df["Estacion"])
-        if not valido:
-            st.error("El shapefile subido no contiene ninguna estación que coincida con los datos de lluvia.")
-            st.stop()
-    else:
-        st.stop()
-else:
-    shapes, records, fields, id_idx = leer_shapefile(ruta_shp)
-    valido, ids_shp, ids_csv = validar_shapefile(records, id_idx, df["Estacion"])
-    if not valido:
-        st.error("El shapefile en `data/` no contiene estaciones presentes en los datos de lluvia.")
-        st.stop()
-
-# Controles de la interfaz
-invert_colors = st.checkbox("Invertir colores (Azul = más lluvia)", value=False)
-modo_animacion = st.checkbox("Animar todos los años", value=False)
-
-if not modo_animacion:
-    year = st.selectbox("Selecciona un año", years)
-    fig = graficar_mapa(shapes, records, df, year, id_idx, invert_colors=invert_colors)
     st.pyplot(fig)
-else:
-    stop = st.button("Detener animación")
-    for y in years:
-        if stop:
+
+# ============================
+# Streamlit App
+# ============================
+st.title("🌧️ Visualizador de Lluvia")
+
+# Subida manual
+archivos = st.file_uploader(
+    "Sube shapefiles (.shp, .shx, .dbf)",
+    type=["shp", "shx", "dbf"],
+    accept_multiple_files=True
+)
+if archivos:
+    guardar_archivos_subidos(archivos)
+
+# Cargar shapefile
+sf = cargar_shapefile("data/mapa")
+if sf:
+    dibujar_mapa(sf, color="Blues")
+
+# Cargar CSVs
+df, pptn_raw, meta = cargar_datos()
+st.write(df.head())
+
+# Animación de mapas
+if sf and st.button("▶ Iniciar animación"):
+    while True:
+        for i in range(3):
+            dibujar_mapa(sf, color="Blues_r")  # Azul = más lluvia
+            time.sleep(3)
+        if st.button("⏹ Detener animación"):
             break
-        fig = graficar_mapa(shapes, records, df, y, id_idx, invert_colors=invert_colors)
-        st.pyplot(fig)
-        time.sleep(3)
