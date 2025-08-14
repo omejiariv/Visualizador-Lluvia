@@ -1,9 +1,5 @@
 streamlit
 pandas
-plotly
-pydeck
-xlsxwriter
-numpy
-matplotlib
-seaborn
 geopandas
+matplotlib
+imageio
