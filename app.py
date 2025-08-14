@@ -1,127 +1,112 @@
-import streamlit as st
+import os
 import pandas as pd
-import numpy as np
+import shapefile
+import streamlit as st
 import matplotlib.pyplot as plt
-import shapefile  # PyShp
-from pathlib import Path
-from scipy.interpolate import griddata
 import time
 
-# ============================
-# FUNCIONES AUXILIARES
-# ============================
-def shapefiles_existen(basepath):
-    return all(Path(f"{basepath}{ext}").exists() for ext in [".shp", ".shx", ".dbf"])
+DATA_DIR = "data"
+os.makedirs(DATA_DIR, exist_ok=True)
 
-def guardar_shapefiles(archivos):
-    Path("data").mkdir(exist_ok=True)
-    nombres_permitidos = {".shp": "mapa.shp", ".shx": "mapa.shx", ".dbf": "mapa.dbf"}
-    for archivo in archivos:
-        ext = Path(archivo.name).suffix.lower()
-        if ext in nombres_permitidos:
-            with open(Path("data") / nombres_permitidos[ext], "wb") as f:
-                f.write(archivo.read())
-
-def cargar_shapefile(path):
-    try:
-        return shapefile.Reader(path)
-    except Exception as e:
-        st.error(f"Error al leer shapefile: {e}")
-        return None
-
+# ==========================
+# Función para cargar CSV
+# ==========================
 @st.cache_data
 def cargar_datos():
-    try:
-        pptn_raw = pd.read_csv("data/lluvia.csv")
-        meta = pd.read_csv("data/estaciones.csv")
-    except FileNotFoundError:
-        st.error("Faltan archivos de datos: 'lluvia.csv' y/o 'estaciones.csv'.")
-        return None, None, None
+    pptn_path = os.path.join(DATA_DIR, "lluvia.csv")
+    estaciones_path = os.path.join(DATA_DIR, "estaciones.csv")
 
-    # Validación de columnas
+    if not os.path.exists(pptn_path) or not os.path.exists(estaciones_path):
+        st.warning("No se encontraron los archivos CSV. Por favor súbelos.")
+        lluvia_file = st.file_uploader("Sube lluvia.csv", type=["csv"], key="lluvia_csv")
+        estaciones_file = st.file_uploader("Sube estaciones.csv", type=["csv"], key="estaciones_csv")
+
+        if lluvia_file and estaciones_file:
+            with open(pptn_path, "wb") as f:
+                f.write(lluvia_file.getbuffer())
+            with open(estaciones_path, "wb") as f:
+                f.write(estaciones_file.getbuffer())
+            st.success("Archivos CSV guardados en data/. Recarga la aplicación.")
+            st.stop()
+        else:
+            st.stop()
+
+    try:
+        pptn_raw = pd.read_csv(pptn_path, encoding="utf-8")
+        meta = pd.read_csv(estaciones_path, encoding="utf-8")
+    except UnicodeDecodeError:
+        pptn_raw = pd.read_csv(pptn_path, encoding="latin-1")
+        meta = pd.read_csv(estaciones_path, encoding="latin-1")
+
     if "Estacion" not in pptn_raw.columns or "Estacion" not in meta.columns:
-        st.error("Archivos CSV no contienen la columna 'Estacion'.")
-        return None, None, None
+        st.error("Los CSV deben contener la columna 'Estacion'.")
+        st.stop()
 
     df = pd.merge(pptn_raw, meta, on="Estacion", how="inner")
     return df, pptn_raw, meta
 
-def generar_mapa(df, fecha, shapefile_obj, invertir_colores=False):
-    datos_fecha = df[df["Fecha"] == fecha]
-    if datos_fecha.empty:
-        st.warning(f"No hay datos para {fecha}")
-        return
+# ==========================
+# Función para cargar shapefiles
+# ==========================
+def cargar_shapefiles():
+    shp_path = os.path.join(DATA_DIR, "mapa.shp")
+    shx_path = os.path.join(DATA_DIR, "mapa.shx")
+    dbf_path = os.path.join(DATA_DIR, "mapa.dbf")
 
-    x = datos_fecha["Longitud"].values
-    y = datos_fecha["Latitud"].values
-    z = datos_fecha["Precipitacion"].values
+    if not (os.path.exists(shp_path) and os.path.exists(shx_path) and os.path.exists(dbf_path)):
+        st.warning("No se encontraron shapefiles. Por favor súbelos (.shp, .shx, .dbf).")
+        uploaded_files = st.file_uploader(
+            "Sube shapefiles", type=["shp", "shx", "dbf"], accept_multiple_files=True
+        )
 
-    xi = np.linspace(min(x), max(x), 200)
-    yi = np.linspace(min(y), max(y), 200)
-    xi, yi = np.meshgrid(xi, yi)
-    zi = griddata((x, y), z, (xi, yi), method="cubic")
-
-    fig, ax = plt.subplots(figsize=(8, 6))
-    cmap = "Blues_r" if invertir_colores else "Blues"
-    cs = ax.contourf(xi, yi, zi, cmap=cmap, levels=15)
-
-    for shape_rec in shapefile_obj.shapeRecords():
-        x_coords = [i[0] for i in shape_rec.shape.points]
-        y_coords = [i[1] for i in shape_rec.shape.points]
-        ax.plot(x_coords, y_coords, "k-", linewidth=0.5)
-
-    plt.colorbar(cs, ax=ax, label="Precipitación (mm)")
-    ax.set_title(f"Mapa de precipitación - {fecha}")
-    st.pyplot(fig)
-
-# ============================
-# INTERFAZ PRINCIPAL
-# ============================
-st.title("🌧️ Visualizador de Lluvia")
-
-# Paso 1: Verificar shapefiles
-if not shapefiles_existen("data/mapa"):
-    st.info("📂 No se han encontrado shapefiles completos. Sube los tres archivos: .shp, .shx, .dbf")
-    archivos = st.file_uploader(
-        "Sube shapefiles (.shp, .shx, .dbf)",
-        type=["shp", "shx", "dbf"],
-        accept_multiple_files=True
-    )
-    if archivos:
-        guardar_shapefiles(archivos)
-        if shapefiles_existen("data/mapa"):
-            st.success("✅ Archivos shapefile guardados correctamente en /data.")
+        if uploaded_files:
+            for file in uploaded_files:
+                with open(os.path.join(DATA_DIR, file.name), "wb") as f:
+                    f.write(file.getbuffer())
+            st.success("Shapefiles guardados en data/. Recarga la aplicación.")
+            st.stop()
         else:
-            st.error("⚠️ Faltan uno o más archivos. Asegúrate de subir los tres: .shp, .shx, .dbf")
-        st.stop()
-else:
-    st.success("✅ Shapefiles encontrados en /data.")
+            st.stop()
 
-# Paso 2: Cargar shapefile
-sf = cargar_shapefile("data/mapa.shp")
-if not sf:
-    st.stop()
+    sf = shapefile.Reader(shp_path)
+    return sf
 
-# Paso 3: Cargar datos de lluvia
+# ==========================
+# App principal
+# ==========================
+st.title("Visualizador de Lluvia con Mapas y Animación de Imágenes")
+
+# Cargar datos
 df, pptn_raw, meta = cargar_datos()
-if df is None:
-    st.stop()
+sf = cargar_shapefiles()
 
-# Paso 4: Controles
-invertir_colores = st.checkbox("Invertir colores (Azul = Mucha lluvia)", value=False)
-modo_animacion = st.radio("Modo", ["Manual", "Animación en bucle"])
+st.write("Datos cargados correctamente:")
+st.dataframe(df.head())
 
-if modo_animacion == "Manual":
-    fecha_sel = st.selectbox("Selecciona una fecha", sorted(df["Fecha"].unique()))
-    generar_mapa(df, fecha_sel, sf, invertir_colores)
+# ==========================
+# Bucle de imágenes optimizado
+# ==========================
+image_files = [f for f in os.listdir("imagenes") if f.lower().endswith((".png", ".jpg", ".jpeg"))]
+
+if image_files:
+    if "slideshow_running" not in st.session_state:
+        st.session_state.slideshow_running = False
+
+    col1, col2 = st.columns(2)
+    with col1:
+        if st.button("▶ Iniciar animación"):
+            st.session_state.slideshow_running = True
+    with col2:
+        if st.button("⏹ Detener animación"):
+            st.session_state.slideshow_running = False
+
+    img_container = st.empty()
+
+    while st.session_state.slideshow_running:
+        for img in image_files:
+            if not st.session_state.slideshow_running:
+                break
+            img_container.image(os.path.join("imagenes", img), use_container_width=True)
+            time.sleep(3)
 else:
-    fechas = sorted(df["Fecha"].unique())
-    if st.button("Iniciar animación"):
-        placeholder = st.empty()
-        while True:
-            for fecha in fechas:
-                with placeholder:
-                    generar_mapa(df, fecha, sf, invertir_colores)
-                time.sleep(3)
-                if st.button("Detener"):
-                    st.stop()
+    st.warning("No se encontraron imágenes en la carpeta 'imagenes'.")
