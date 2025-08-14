@@ -9,3 +9,4 @@ pyproj
 fiona
 rasterio
 pyshp
+rtree
