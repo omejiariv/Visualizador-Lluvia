@@ -2,100 +2,62 @@ import streamlit as st
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
-import imageio
+import time
 from pathlib import Path
-import os
 
-# ========== CONFIG STREAMLIT ==========
 st.set_page_config(page_title="Visualizador de Lluvia", layout="wide")
 
-st.title("🌧️ Visualizador de Precipitación - Animación y Control Manual")
-
-# ========== CONTROLES ==========
-modo = st.radio("Selecciona el modo", ["Animación automática", "Control manual"])
-invertir_colores = st.checkbox("Invertir colores (azul = más lluvia)", value=True)
-tiempo_entre_frames = st.slider("Segundos entre imágenes (solo para animación)", 1, 10, 3)
-
-# Estado de animación
-if "animando" not in st.session_state:
-    st.session_state.animando = False
-
-if modo == "Animación automática":
-    col1, col2 = st.columns(2)
-    if col1.button("▶️ Iniciar animación"):
-        st.session_state.animando = True
-    if col2.button("⏸️ Detener animación"):
-        st.session_state.animando = False
-
-# ========== CARGA DE DATOS ==========
 @st.cache_data
 def cargar_datos():
-    meta = pd.read_csv("data/EstHM_CV.csv")
-    pptn = pd.read_csv("data/Transp_Est_Pptn.csv")
-    meta["Estacion"] = meta["Estacion"].astype(str)
-    pptn["Estacion"] = pptn["Estacion"].astype(str)
-    df = pd.merge(pptn, meta, on="Estacion", how="inner")
-    gdf = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df.Longitud, df.Latitud), crs="EPSG:4326")
-    anios = [col for col in pptn.columns if col != "Estacion"]
-    return gdf, anios
+    meta = pd.read_csv(Path("data/EstHM_CV.csv"))
+    pptn_raw = pd.read_csv(Path("data/Transp_Est_Pptn.csv"))
+    pptn = pptn_raw.melt(id_vars=["Estacion"], var_name="Año", value_name="Precipitacion")
+    df = pd.merge(meta, pptn, on="Estacion", how="inner")
+    return df, pptn_raw, meta
 
-gdf, anios = cargar_datos()
+df, pptn_raw, meta = cargar_datos()
 
-# ========== FUNCIÓN PARA PLOTEAR UN AÑO ==========
-def plot_precipitacion(anio):
-    fig, ax = plt.subplots(figsize=(8, 6))
-    gdf.plot(
-        ax=ax,
-        column=anio,
-        cmap="Blues_r" if invertir_colores else "Blues",
-        legend=True,
-        markersize=80
-    )
-    ax.set_title(f"Precipitación en {anio}", fontsize=16)
-    ax.axis("off")
-    st.pyplot(fig)
+# Selección de animación
+estaciones = df["Estacion"].unique()
+est_sel = st.selectbox("Selecciona la estación", estaciones)
+df_est = df[df["Estacion"] == est_sel]
 
-# ========== MODO MANUAL ==========
-if modo == "Control manual":
-    if "indice_anio" not in st.session_state:
-        st.session_state.indice_anio = 0
+# Opción de colores
+invertir = st.checkbox("Invertir colores (Azul = más lluvia)")
+if invertir:
+    cmap = "Blues_r"
+else:
+    cmap = "Blues"
 
-    col_prev, col_next = st.columns([1, 1])
-    if col_prev.button("⬅️ Anterior"):
-        st.session_state.indice_anio = (st.session_state.indice_anio - 1) % len(anios)
-    if col_next.button("➡️ Siguiente"):
-        st.session_state.indice_anio = (st.session_state.indice_anio + 1) % len(anios)
+# Animación en bucle
+iniciar = st.button("Iniciar animación")
+detener = st.button("Detener animación")
 
-    plot_precipitacion(anios[st.session_state.indice_anio])
+fig, ax = plt.subplots(figsize=(6, 6))
+gdf = gpd.GeoDataFrame(meta, geometry=gpd.points_from_xy(meta.Longitud, meta.Latitud), crs="EPSG:4326")
 
-# ========== FUNCIÓN PARA GENERAR GIF ==========
-def generar_gif():
-    frames = []
-    for anio in anios:
-        fig, ax = plt.subplots(figsize=(8, 6))
-        gdf.plot(
-            ax=ax,
-            column=anio,
-            cmap="Blues_r" if invertir_colores else "Blues",
-            legend=True,
-            markersize=80
-        )
-        ax.set_title(f"Precipitación en {anio}", fontsize=16)
+if iniciar:
+    st.session_state["animando"] = True
+if detener:
+    st.session_state["animando"] = False
+
+if "animando" not in st.session_state:
+    st.session_state["animando"] = False
+
+placeholder = st.empty()
+
+while st.session_state["animando"]:
+    for año in sorted(df_est["Año"].unique()):
+        df_año = df[df["Año"] == año]
+        gdf_merge = gdf.merge(df_año, on="Estacion", how="left")
+
+        fig, ax = plt.subplots(figsize=(6, 6))
+        gdf_merge.plot(column="Precipitacion", cmap=cmap, legend=True, ax=ax, markersize=50)
+        ax.set_title(f"Precipitación {año}", fontsize=16)
         ax.axis("off")
-        ruta_temp = f"frame_{anio}.png"
-        plt.savefig(ruta_temp, dpi=150, bbox_inches="tight")
-        plt.close(fig)
-        frames.append(imageio.imread(ruta_temp))
-        os.remove(ruta_temp)
-    imageio.mimsave("lluvias.gif", frames, duration=tiempo_entre_frames, loop=0)
+        
+        placeholder.pyplot(fig)
+        time.sleep(3)
 
-# ========== MODO AUTOMÁTICO ==========
-if modo == "Animación automática":
-    if st.button("💾 Generar GIF"):
-        generar_gif()
-        st.success("GIF generado!")
-        st.image("lluvias.gif")
-
-    if st.session_state.animando:
-        generar_gif()
-        st.image("lluvias.gif")
+        if not st.session_state["animando"]:
+            break
