@@ -6,3 +6,4 @@ xlsxwriter
 numpy
 matplotlib
 seaborn
+geopandas
