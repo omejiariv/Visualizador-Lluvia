@@ -1,88 +1,81 @@
 import streamlit as st
 import pandas as pd
-import geopandas as gpd
+import shapefile  # PyShp para leer shapefiles
 import matplotlib.pyplot as plt
-import time
+from matplotlib.colors import Normalize
+import numpy as np
 from pathlib import Path
+import time
 
-# ==============================
-# CONFIGURACIÓN GENERAL
-# ==============================
-st.set_page_config(page_title="Visualizador de Lluvias", layout="wide")
-
-# ==============================
-# FUNCIÓN PARA CARGAR DATOS
-# ==============================
+# ======================
+# Cargar datos
+# ======================
 @st.cache_data
 def cargar_datos():
-    meta = pd.read_csv(Path("data/EstHM_CV.csv"))
-    pptn_raw = pd.read_csv(Path("data/Transp_Est_Pptn_.csv"))
+    df = pd.read_csv(Path("data/EstHM_CV.csv"))
+    pptn_raw = pd.read_csv(Path("data/Transp_Est_Pptn.csv"))
+    return df, pptn_raw
 
-    # Convertir primera columna a string para asegurar el merge
-    meta["Estacion"] = meta["Estacion"].astype(str)
-    pptn_raw["Estacion"] = pptn_raw["Estacion"].astype(str)
-
-    # Unir metadatos con precipitaciones
-    df = pd.merge(meta, pptn_raw, on="Estacion", how="inner")
-
-    return df, pptn_raw, meta
-
-# ==============================
-# FUNCIÓN PARA CARGAR SHAPEFILE
-# ==============================
+# ======================
+# Cargar shapefile sin geopandas
+# ======================
 @st.cache_data
-def cargar_shapefile():
-    gdf = gpd.read_file(Path("data/Estaciones.shp"))
-    gdf["Estacion"] = gdf["Estacion"].astype(str)
-    return gdf
+def cargar_shapefile(ruta):
+    sf = shapefile.Reader(ruta)
+    shapes = sf.shapes()
+    return shapes
 
-# ==============================
-# FUNCIÓN PARA GRAFICAR MAPA
-# ==============================
-def graficar_mapa(gdf, datos, anio):
-    fig, ax = plt.subplots(figsize=(8, 6))
-    # Sin fondo de calles, solo puntos
-    gdf.plot(ax=ax, color="lightgrey", edgecolor="black", alpha=0.3)
+# ======================
+# Dibujar mapa
+# ======================
+def dibujar_mapa(shapes, df, fecha, invertir=False):
+    fig, ax = plt.subplots(figsize=(8, 8))
 
-    # Graficar precipitaciones con colores invertidos
-    datos.plot(
-        column=str(anio),
-        cmap="Blues_r",  # azul = más lluvia
-        legend=True,
-        ax=ax,
-        markersize=50
-    )
+    # Dibujar polígonos del shapefile
+    for shape in shapes:
+        puntos = np.array(shape.points)
+        partes = list(shape.parts) + [len(puntos)]
+        for i in range(len(partes) - 1):
+            seg = puntos[partes[i]:partes[i+1]]
+            ax.plot(seg[:, 0], seg[:, 1], color="black", linewidth=0.5)
 
-    ax.set_title(f"Precipitación en {anio}", fontsize=14)
-    ax.axis("off")
+    # Colorear estaciones
+    data_fecha = df[df["fecha"] == fecha]
+    norm = Normalize(vmin=df["pptn"].min(), vmax=df["pptn"].max())
+
+    cmap = plt.cm.Blues_r if invertir else plt.cm.Blues
+    sc = ax.scatter(data_fecha["lon"], data_fecha["lat"],
+                    c=data_fecha["pptn"], cmap=cmap, norm=norm,
+                    s=50, edgecolor="black")
+
+    plt.colorbar(sc, ax=ax, label="Precipitación (mm)")
+    ax.set_title(f"Lluvia - {fecha}")
+    ax.set_xlabel("Longitud")
+    ax.set_ylabel("Latitud")
+    ax.set_aspect('equal')
+    return fig
+
+# ======================
+# MAIN APP
+# ======================
+st.title("Visualizador de Lluvia - Sin GeoPandas")
+
+df, pptn_raw = cargar_datos()
+shapes = cargar_shapefile("data/limite_municipal.shp")
+
+fechas = sorted(df["fecha"].unique())
+modo = st.radio("Modo de visualización", ["Manual", "Automático"])
+invertir_colores = st.checkbox("Invertir colores (Azul = más lluvia)")
+
+if modo == "Manual":
+    fecha_sel = st.selectbox("Seleccione fecha", fechas)
+    fig = dibujar_mapa(shapes, df, fecha_sel, invertir=invertir_colores)
     st.pyplot(fig)
 
-# ==============================
-# CARGA DE DATOS
-# ==============================
-df, pptn_raw, meta = cargar_datos()
-gdf = cargar_shapefile()
-
-# ==============================
-# INTERFAZ
-# ==============================
-st.title("Visualizador de Precipitaciones")
-
-opcion = st.radio("Modo de visualización", ["Manual", "Animación automática"])
-
-anios = [col for col in pptn_raw.columns if col != "Estacion"]
-
-if opcion == "Manual":
-    anio_sel = st.selectbox("Seleccione un año", anios)
-    gdf_merged = gdf.merge(pptn_raw[["Estacion", anio_sel]], on="Estacion", how="left")
-    graficar_mapa(gdf, gdf_merged, anio_sel)
-
 else:
-    velocidad = 3  # segundos entre imágenes
-    placeholder = st.empty()
-
-    for anio in anios:
-        gdf_merged = gdf.merge(pptn_raw[["Estacion", anio]], on="Estacion", how="left")
-        with placeholder.container():
-            graficar_mapa(gdf, gdf_merged, anio)
-        time.sleep(velocidad)
+    boton_inicio = st.button("Iniciar animación")
+    if boton_inicio:
+        for fecha in fechas:
+            fig = dibujar_mapa(shapes, df, fecha, invertir=invertir_colores)
+            st.pyplot(fig)
+            time.sleep(3)
