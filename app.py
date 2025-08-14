@@ -5,8 +5,13 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import time
 
+# ==========================
+# Configuración inicial
+# ==========================
 DATA_DIR = "data"
+IMAGES_DIR = "imagenes"
 os.makedirs(DATA_DIR, exist_ok=True)
+os.makedirs(IMAGES_DIR, exist_ok=True)
 
 # ==========================
 # Función para cargar CSV
@@ -26,17 +31,28 @@ def cargar_datos():
                 f.write(lluvia_file.getbuffer())
             with open(estaciones_path, "wb") as f:
                 f.write(estaciones_file.getbuffer())
-            st.success("Archivos CSV guardados en data/. Recarga la aplicación.")
+            st.success("Archivos CSV guardados en data/. Por favor, recarga la aplicación.")
             st.stop()
         else:
             st.stop()
-
+    
+    # Intenta leer los archivos CSV, probando diferentes separadores y codificaciones
     try:
         pptn_raw = pd.read_csv(pptn_path, encoding="utf-8")
         meta = pd.read_csv(estaciones_path, encoding="utf-8")
-    except UnicodeDecodeError:
-        pptn_raw = pd.read_csv(pptn_path, encoding="latin-1")
-        meta = pd.read_csv(estaciones_path, encoding="latin-1")
+    except (UnicodeDecodeError, pd.errors.ParserError):
+        try:
+            # Si falla, intenta con delimitador ';' y codificación latin-1
+            pptn_raw = pd.read_csv(pptn_path, sep=';', encoding="latin-1")
+            meta = pd.read_csv(estaciones_path, sep=';', encoding="latin-1")
+        except (UnicodeDecodeError, pd.errors.ParserError):
+            try:
+                # Si falla de nuevo, intenta con el delimitador por defecto (',') y latin-1
+                pptn_raw = pd.read_csv(pptn_path, encoding="latin-1")
+                meta = pd.read_csv(estaciones_path, encoding="latin-1")
+            except Exception as e:
+                st.error(f"Error al leer los archivos CSV: {e}")
+                st.stop()
 
     if "Estacion" not in pptn_raw.columns or "Estacion" not in meta.columns:
         st.error("Los CSV deben contener la columna 'Estacion'.")
@@ -63,7 +79,7 @@ def cargar_shapefiles():
             for file in uploaded_files:
                 with open(os.path.join(DATA_DIR, file.name), "wb") as f:
                     f.write(file.getbuffer())
-            st.success("Shapefiles guardados en data/. Recarga la aplicación.")
+            st.success("Shapefiles guardados en data/. Por favor, recarga la aplicación.")
             st.stop()
         else:
             st.stop()
@@ -77,8 +93,12 @@ def cargar_shapefiles():
 st.title("Visualizador de Lluvia con Mapas y Animación de Imágenes")
 
 # Cargar datos
-df, pptn_raw, meta = cargar_datos()
-sf = cargar_shapefiles()
+try:
+    df, pptn_raw, meta = cargar_datos()
+    sf = cargar_shapefiles()
+except Exception as e:
+    st.error(f"Error al cargar datos o shapefiles. Detalles: {e}")
+    st.stop()
 
 st.write("Datos cargados correctamente:")
 st.dataframe(df.head())
@@ -86,12 +106,14 @@ st.dataframe(df.head())
 # ==========================
 # Bucle de imágenes optimizado
 # ==========================
-image_files = [f for f in os.listdir("imagenes") if f.lower().endswith((".png", ".jpg", ".jpeg"))]
+image_files = [f for f in os.listdir(IMAGES_DIR) if f.lower().endswith((".png", ".jpg", ".jpeg"))]
+image_files.sort()  # Opcional: para asegurar que las imágenes se muestren en orden alfabético
 
 if image_files:
     if "slideshow_running" not in st.session_state:
         st.session_state.slideshow_running = False
-
+    
+    # Usar st.columns para los botones
     col1, col2 = st.columns(2)
     with col1:
         if st.button("▶ Iniciar animación"):
@@ -102,11 +124,17 @@ if image_files:
 
     img_container = st.empty()
 
-    while st.session_state.slideshow_running:
+    # Bucle que se ejecuta solo si la animación está activa
+    if st.session_state.slideshow_running:
         for img in image_files:
             if not st.session_state.slideshow_running:
                 break
-            img_container.image(os.path.join("imagenes", img), use_container_width=True)
+            img_container.image(os.path.join(IMAGES_DIR, img), use_container_width=True)
             time.sleep(3)
+        
+        # Una vez que termina el bucle, la animación se detiene automáticamente
+        if st.session_state.slideshow_running:
+            st.session_state.slideshow_running = False
+
 else:
-    st.warning("No se encontraron imágenes en la carpeta 'imagenes'.")
+    st.warning(f"No se encontraron imágenes en la carpeta '{IMAGES_DIR}'.")
