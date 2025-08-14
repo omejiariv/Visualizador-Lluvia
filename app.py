@@ -57,27 +57,46 @@ paleta_manual = st.sidebar.selectbox(
 )
 
 # -------------------------------
-# Slider de años
+# Selector de años con rango
 # -------------------------------
 if "Año" in pptn_raw.columns:
     años_disponibles = sorted(pptn_raw["Año"].dropna().unique())
-    año_seleccionado = st.sidebar.select_slider(
-        "📅 Año de análisis",
-        options=["Promedio"] + list(años_disponibles),
-        value="Promedio"
+    modo_años = st.sidebar.radio(
+        "📅 Selección de periodo",
+        ["Promedio total", "Un año", "Rango de años"],
+        index=0
     )
+
+    if modo_años == "Un año":
+        año_inicio = st.sidebar.selectbox("Selecciona el año", años_disponibles)
+        año_fin = año_inicio
+    elif modo_años == "Rango de años":
+        año_inicio, año_fin = st.sidebar.select_slider(
+            "Selecciona rango",
+            options=años_disponibles,
+            value=(años_disponibles[0], años_disponibles[-1])
+        )
+    else:
+        año_inicio, año_fin = None, None
 else:
-    año_seleccionado = "Promedio"
+    modo_años = "Promedio total"
+    año_inicio, año_fin = None, None
 
 # -------------------------------
 # Procesamiento
 # -------------------------------
 st.title("🌧 Visualizador de Lluvia")
 
-if año_seleccionado == "Promedio":
+if modo_años == "Promedio total":
     datos = pptn_raw.groupby("Estacion")["Precipitacion"].mean().reset_index()
+    titulo_mapa = "Precipitación promedio histórica"
 else:
-    datos = pptn_raw[pptn_raw["Año"] == año_seleccionado].groupby("Estacion")["Precipitacion"].mean().reset_index()
+    datos = pptn_raw[(pptn_raw["Año"] >= año_inicio) & (pptn_raw["Año"] <= año_fin)] \
+        .groupby("Estacion")["Precipitacion"].mean().reset_index()
+    if año_inicio == año_fin:
+        titulo_mapa = f"Precipitación en {año_inicio}"
+    else:
+        titulo_mapa = f"Precipitación promedio {año_inicio}-{año_fin}"
 
 # Merge con coordenadas
 if "lat" in meta.columns and "lon" in meta.columns:
@@ -90,8 +109,6 @@ shapefile_path = Path("data") / "cuencas.shp"
 cmap = sns.color_palette(paleta_manual, as_cmap=True)
 if invertir_colores:
     cmap = cmap.reversed()
-
-titulo_mapa = f"Precipitación {'Promedio' if año_seleccionado == 'Promedio' else 'en ' + str(año_seleccionado)}"
 
 if shapefile_path.exists():
     gdf = gpd.read_file(shapefile_path)
