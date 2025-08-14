@@ -1,10 +1,10 @@
+streamlit
 pandas
 numpy
 matplotlib
-streamlit
+plotly
 geopandas
 shapely
 pyproj
 fiona
 rasterio
-plotly
