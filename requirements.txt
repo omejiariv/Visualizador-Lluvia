@@ -3,3 +3,8 @@ pandas
 geopandas
 matplotlib
 imageio
+shapely
+fiona
+pyproj
+rtree
+pyarrow
