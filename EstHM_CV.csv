@@ -1,0 +1,790 @@
+Estacion;Porc_datos;Cont_celda;Nom_Est;Depto;Mpio;AH; ZSZH
+11010010;78;5;VUELTA LA ;ChocÛ; CÈrtegui ; Caribe ; DariÈn RÌo And·gueda
+11020010;100;12;CARMEN DE ATRATO ;ChocÛ; El Carmen; Caribe ; DariÈn Alto Atrato
+11020020;42;5;GUADUAS ;ChocÛ; El Carmen; Caribe ; DariÈn Alto Atrato
+11020050;95;5;PINON EL ;ChocÛ; El Carmen ; Caribe ; DariÈn Alto Atrato
+11025010;91;12;MANSA LA ;Antioquia; Ciudad Bolivar; Caribe ; DariÈn Alto Atrato
+11030010;94;7;CERTEGUI ;ChocÛ; CÈrtegui ; Caribe ; DariÈn rÌo Quito 
+11030030;72;6;MANAGRU ;ChocÛ; El CantÛn Del San Pablo (Managr√∫) ; Caribe ; DariÈn rÌo Quito 
+11030040;76;7;PAIMADO ;ChocÛ; Rio Quito (PaimadÛ) ; Caribe ; DariÈn rÌo Quito 
+11035010;66;5;LLORO ;ChocÛ; LlorÛ ; Caribe ; DariÈn rÌo Quito 
+11035020;72;7;SAN ISIDRO ;ChocÛ; Rio Quito (PaimadÛ) ; Caribe ; DariÈn rÌo Quito 
+11040010;98;5;TUTUNENDO ;ChocÛ; QuibdÛ ; Caribe ; DariÈn rÌo Bebaram· y otros Directos Atrato (md) 
+11045010;95;7;AEROPUERTO EL CARANO ;ChocÛ; QuibdÛ ; Caribe ; DariÈn rÌo Cabi y otros Directos Atrato (md)
+11045030;5;7;HUAPANGO ;ChocÛ; QuibdÛ ; Caribe ; DariÈn rÌo Cabi y otros Directos Atrato (md)
+11050010;97;4;TagachÌ;ChocÛ; QuibdÛ ; Caribe ; DariÈn Directos Atrato entre rÌos Bebaram· y MurrÌ (md) 
+11050020;76;4;BETE ;ChocÛ; Medio Atrato (BetÈ) ; Caribe ; DariÈn 
+11050030;83;4;El Buey;ChocÛ; Medio Atrato (BetÈ) ; Caribe ; DariÈn Directos Atrato entre rÌos Quito y Bojay· (mi)
+11050040;28;7;CALAORRA ;ChocÛ; QuibdÛ ; Caribe ; DariÈn Directos Atrato entre rÌos Quito y Bojay· (mi)
+11050060;85;4;Alto del Buey;ChocÛ; Medio Atrato (BetÈ) ; Caribe ; DariÈn Directos Atrato entre rÌos Quito y Bojay· (mi)
+11060010;99;4;BUCHADO ;Antioquia; Vigia Del Fuerte ; Caribe ; DariÈn Directos Atrato entre rÌos Bebaram· y MurrÌ (md) 
+11070020;85;2;El Roble;Antioquia; Urrao ; Caribe ; DariÈn rÌo MurrÌ 
+11070030;83;18;La Clarita;Antioquia; Urrao ; Caribe ; DariÈn rÌo MurrÌ 
+11070040;6;2;URRAO ;Antioquia; Urrao ; Caribe ; DariÈn rÌo MurrÌ 
+11070130;56;12;BRECHON EL ;Antioquia; Urrao ; Caribe ; DariÈn rÌo MurrÌ 
+11075010;38;18;La Honda;Antioquia; Urrao ; Caribe ; DariÈn rÌo MurrÌ 
+11075020;83;18;URRAO ;Antioquia; Urrao ; Caribe ; DariÈn rÌo MurrÌ 
+11077030;61;4;La Playa;Antioquia; Vigia Del Fuerte ; Caribe ; DariÈn rÌo MurrÌ 
+11080010;99;4;Bellavista;ChocÛ; Bojay· (Bellavista) ; Caribe ; DariÈn Directos Atrato entre rÌos Quito y Bojay· (mi) 
+11085010;47;4;LOMA LA ;ChocÛ; Bojay· (Bellavista) ; Caribe ; DariÈn RÌo Bojay·
+11090010;84;4;OPOGADO ;ChocÛ; Bojay· (Bellavista) ; Caribe ; DariÈn rÌo NapipÌ RÌo OpogadÛ
+11100010;45;4;VIGIA DE CURVARADO ;ChocÛ; Carmen Del DariÈn (CurbaradÛ) ; Caribe ; DariÈn RÌo MurindÛ Directos al Atrato
+11100020;85;4;DOMINGODO ;ChocÛ; Carmen Del DariÈn (CurbaradÛ) ; Caribe ; DariÈn rÌo Sucio 
+11100030;8;4;MURINDO ;Antioquia; MurindÛ ; Caribe ; DariÈn RÌo MurindÛ Directos al Atrato
+11105010;15;4;MURINDO ;Antioquia; MurindÛ ; Caribe ; DariÈn RÌo MurindÛ Directos al Atrato
+11110010;98;8;NORMAL SANTA TERESA ;Antioquia; Frontino ; Caribe ; DariÈn rÌo Sucio 
+11110020;89;18;ABRIAQUI ;Antioquia; AbriaquÌ; Caribe ; DariÈn rÌo Sucio 
+11110030;83;3;FUEMIA ;Antioquia; Frontino ; Caribe ; DariÈn rÌo Sucio 
+11110040;6;8;CANASGORDAS ;Antioquia; Ca√±asgordas; Caribe ; DariÈn rÌo Sucio 
+11110110;47;18;BoquerÛn de Toyo;Antioquia; Giraldo ; Caribe ; DariÈn rÌo Sucio 
+11115020;89;8;Ca√±asgordas Aut;Antioquia;Ca√±asgordas;Caribe; Atrato DariÈn RÌo Sucio
+11115030;14;3;NUTIBARA ;Antioquia; Frontino ; Caribe ; DariÈn rÌo Sucio 
+11115040;68;3;MUSINGA ;Antioquia; Frontino ; Caribe ; DariÈn rÌo Sucio 
+11120010;10;4;SALAQUI ;ChocÛ; Riosucio; Caribe ; DariÈn rÌo SalaquÌ y otros directos Bajo Atrato 
+11120040;80;4;RIOSUCIO ;ChocÛ; Riosucio; Caribe ; DariÈn rÌo Sucio 
+11125010;38;2;TERESITA LA ;ChocÛ; Riosucio; Caribe ; DariÈn rÌo SalaquÌ y otros directos Bajo Atrato 
+11130020;71;4;HONDA LA ;ChocÛ; Riosucio; Caribe ; DariÈn rÌo SalaquÌ y otros directos Bajo Atrato 
+11130030;2;3;SAUTATA ;ChocÛ; Riosucio; Caribe ; DariÈn rÌo Tanela y otros Directos al Caribe 
+11135010;53;3;SAUTATA ;ChocÛ; Riosucio; Caribe ; DariÈn rÌo Tanela y otros Directos al Caribe 
+11135020;11;4;BALSA LA ;ChocÛ; Riosucio; Caribe ; DariÈn rÌo SalaquÌ y otros directos Bajo Atrato 
+11135030;89;3;Unguia Aut;ChocÛ; UnguÌa ; Caribe ; DariÈn rÌo Tanela y otros Directos al Caribe 
+11140010;3;18;MARIRRIO ;Antioquia; Turbo ; Caribe ; DariÈn Directos Bajo Atrato entre rÌo Sucio y desembocadura 
+11145010;15;4;BAJIRA ;ChocÛ; Riosucio; Caribe ; DariÈn rÌo Sucio 
+11150010;87;7;TITUMATE ;ChocÛ; UnguÌa ; Caribe ; DariÈn rÌo Tolo y otros Directos al Caribe 
+11150020;87;7;TANELA ;ChocÛ; UnguÌa ; Caribe ; DariÈn rÌo Tanela y otros Directos al Caribe 
+11150030;77;2;ACANDI ;ChocÛ; AcandÌ; Caribe ; DariÈn rÌo Tolo y otros Directos al Caribe 
+11155010;10;2;PLAYA LA ;ChocÛ; AcandÌ; Caribe ; DariÈn rÌo Tolo y otros Directos al Caribe 
+11155020;3;7;GLORIA LA ;ChocÛ; UnguÌa ; Caribe ; DariÈn rÌo Tanela y otros Directos al Caribe 
+12010010;92;18;TORMENTO EL ;Antioquia; Turbo ; Caribe ; Litoral rÌo LeÛn 
+12010030;88;4;BARRANQUILLITA ;Antioquia; ChigorodÛ ; Caribe ; Litoral rÌo LeÛn 
+12010040;15;18;TULENAPA ;Antioquia; ChigorodÛ ; Caribe ; Litoral rÌo LeÛn 
+12010050;76;18;TOSCANA LA ;Antioquia; Carepa ; Caribe ; Litoral rÌo LeÛn 
+12010060;81;18;LORENA LA ;Antioquia; ApartadÛ ; Caribe ; Litoral rÌo LeÛn 
+12010070;83;18;CASCO EL ;Antioquia; ApartadÛ ; Caribe ; Litoral rÌo LeÛn 
+12010080;31;18;SANTA ISABEL ;Antioquia; Carepa ; Caribe ; Litoral rÌo LeÛn 
+12010090;83;18;TRIGANA ;Antioquia; Carepa ; Caribe ; Litoral rÌo LeÛn 
+12010100;78;15;EUPOL ;Antioquia; Turbo ; Caribe ; Litoral RÌo LeÛn
+12010110;84;18;PRADO MAR ;Antioquia; Turbo ; Caribe ; Litoral rÌo Mulatos y otros directos al Caribe 
+12010120;84;18;SANTA MARTHA ;Antioquia; Turbo ; Caribe ; Litoral rÌo LeÛn 
+12010130;3;18;CHIGORODO ;Antioquia; ChigorodÛ ; Caribe ; Litoral rÌo LeÛn 
+12010140;8;18;RIOGRANDE ;Antioquia; Turbo ; Caribe ; Litoral rÌo LeÛn 
+12010150;0;3;VILLA ARTEAGA ;Antioquia; Mutat· ; Caribe ; Litoral rÌo LeÛn 
+12010160;24;15;SAN JOSE APARTADO ;Antioquia; ApartadÛ ; Caribe ; Litoral RÌo LeÛn
+12010170;41;4;NUEVO ORIENTE ;Antioquia; Turbo ; Caribe ; DariÈn Directos Bajo Atrato entre rÌo Sucio y desembocadura 
+12010180;24;15;CHOROMANDO HACIENDA ;Antioquia; Turbo ; Caribe ; Litoral RÌo LeÛn
+12015010;64;3;VILLARTEAGA ;Antioquia; Mutat· ; Caribe ; Litoral rÌo LeÛn 
+12015020;83;18;UNIBAN ;Antioquia; ApartadÛ ; Caribe ; Litoral rÌo LeÛn 
+12015030;14;18;Idema Montecrisanto;Antioquia; ChigorodÛ ; Caribe ; Litoral rÌo LeÛn 
+12015040;1;18;NEGRA LA 1 ;Antioquia; Turbo ; Caribe ; Litoral rÌo LeÛn 
+12015050;19;18;RIOGRANDE ;Antioquia; Turbo ; Caribe ; Litoral rÌo LeÛn 
+12015060;58;18;Tulenapa Aut;Antioquia; Carepa ; Caribe ; Litoral RÌo LeÛn
+12015070;72;18;AEROPUERTO LOS CEDROS ;Antioquia; Carepa ; Caribe ; Litoral rÌo LeÛn 
+12015080;12;15;CERRAZON LA ;Antioquia; ChigorodÛ ; Caribe ; Litoral RÌo LeÛn
+12015090;69;3;PALMERA LA ;Antioquia; ChigorodÛ ; Caribe ; Litoral rÌo LeÛn 
+12020010;95;2;PUEBLO BELLO ;Antioquia; Turbo ; Caribe ; Litoral rÌo Mulatos y otros directos al Caribe 
+12020040;17;15;NUEVA ANTIOQUIA ;Antioquia; Turbo ; Caribe ; Litoral RÌo Mulatos y otros directos al Caribe 
+12020170;12;7;PLAYONA LA ;Antioquia; Turbo ; Caribe ; Litoral rÌo Mulatos y otros directos al Caribe 
+12025010;26;7;AEROPUERTO GONZALO ;Antioquia; Turbo ; Caribe ; Litoral rÌo Mulatos y otros directos al Caribe 
+12025020;13;7;CARIBIA ;Antioquia; NecoclÌ; Caribe ; Litoral rÌo Mulatos y otros directos al Caribe 
+12025030;62;1;El Mellito;Antioquia; NecoclÌ; Caribe ; Litoral rÌo Mulatos y otros directos al Caribe 
+12025040;45;7;Turbo Aut;Antioquia; Turbo ; Caribe ; Litoral 
+12030010;92;5;San Juan de Urab·;Antioquia; San Juan De Urab· ; Caribe ; Litoral rÌo Mulatos y otros directos al Caribe 
+12030020;90;5;El Carmelo;Antioquia; Arboletes ; Caribe ; Litoral rÌo San Juan 
+12040010;88;5;JARAMAGAL ;CÛrdoba; Puerto Escondido ; Caribe ; Litoral Rio Canalete y otros Arroyos Directos al Caribe
+12040020;95;5;CANALETE ;CÛrdoba; Canalete ; Caribe ; Litoral Rio Canalete y otros Arroyos Directos al Caribe
+12045010;84;5;ARBOLETES ;Antioquia; Arboletes ; Caribe ; Litoral Rio Canalete y otros Arroyos Directos al Caribe
+12045020;86;1;Cristo Rey Aut;CÛrdoba; Puerto Escondido ; Caribe ; Litoral Rio Canalete y otros Arroyos Directos al Caribe 
+13010010;14;2;MOLINILLO ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13010020;7;15;TUCURA ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13010040;14;2;FLECHA LA ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13015010;10;15;URRA 2 ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13015020;7;15;TUCURA ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13015030;36;15;CAMPO BELLO ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13015040;31;15;REPRESA URRA ;CÛrdoba; Tierralta ; Caribe ; Medio Sin√∫ 
+13020020;42;15;CIELO EL ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13020040;19;15;SAIZA ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13025020;2;15;ESMERALDA LA ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13025030;47;15;DESPENSA LA ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13030010;95;10;TIERRALTA ;CÛrdoba; Tierralta ; Caribe ; Medio Sin√∫ 
+13035010;33;15;PUERTO NUEVO ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13035501;80;28;AEROPUERTO LOS GARZONES ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13040010;49;2;QUIMARI ;CÛrdoba; Tierralta ; Caribe ; Alto Sin√∫ Urr· 
+13040030;55;10;PEZVAL ;CÛrdoba; Valencia ; Caribe ; Medio Sin√∫ 
+13045010;27;10;JARAGUAY ;CÛrdoba; Valencia ; Caribe ; Medio Sin√∫ 
+13050010;93;28;SANTA LUCIA ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13050020;84;28;SANTA CRUZ HACIENDA ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13050030;94;10;LOMA VERDE ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13050040;7;10;TRES PIEDRAS ;CÛrdoba; MonterÌa ; Caribe ; Medio Sin√∫ 
+13055010;12;28;VORAGINE LA ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13055030;58;28;GALAN ;CÛrdoba; MonterÌa ; Caribe ; Medio Sin√∫ 
+13060010;87;28;SAN ANTERITO ;CÛrdoba; MonterÌa ; Caribe ; Medio Sin√∫ 
+13060020;97;10;BUENOS AIRES ;CÛrdoba; MonterÌa ; Caribe ; Medio Sin√∫ 
+13060030;95;10;CARAMELO ;CÛrdoba; Tierralta ; Caribe ; Medio Sin√∫ 
+13065010;16;10;TORPEZA LA ;CÛrdoba; MonterÌa ; Caribe ; Medio Sin√∫ 
+13065020;74;10;MARACAYO ;CÛrdoba; MonterÌa ; Caribe ; Medio Sin√∫ 
+13070010;88;13;LIMON EL ;CÛrdoba; San Bernardo Del Viento ; Caribe ; Bajo Sin√∫ 
+13070020;90;5;MOMIL ;CÛrdoba; Momil ; Caribe ; Bajo Sin√∫ 
+13070030;50;13;SABANA NUEVA ;CÛrdoba; San Pelayo ; Caribe ; Bajo Sin√∫ 
+13070040;97;28;RABOLARGO ;CÛrdoba; CeretÈ ; Caribe ; Bajo Sin√∫ 
+13070050;91;28;CERETE ;CÛrdoba; CeretÈ ; Caribe ; Bajo Sin√∫ 
+13070070;98;28;BOCA DE LA CEIBA ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13070080;31;13;SIGLO EL ;CÛrdoba; CiÈnaga De Oro ; Caribe ; Bajo Sin√∫ 
+13070090;96;13;SAN CARLOS ;CÛrdoba; San Carlos; Caribe ; Bajo Sin√∫ 
+13070100;96;13;SANTA ROSA ;CÛrdoba; San Carlos; Caribe ; Bajo Sin√∫ 
+13070110;98;28;CARRIZAL ;CÛrdoba; San Carlos; Caribe ; Bajo Sin√∫ 
+13070120;95;13;CALLEMAR ;CÛrdoba; San Carlos; Caribe ; Bajo Sin√∫ 
+13070130;52;28;CALIFORNIA ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13070140;54;28;COROZA 1 ;CÛrdoba; CeretÈ ; Caribe ; Bajo Sin√∫ 
+13070150;51;28;MOCARI ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13070160;46;13;BERASTEGUI ;CÛrdoba; CiÈnaga De Oro ; Caribe ; Bajo Sin√∫ 
+13070170;81;28;BUENOS AIRES 1 ;CÛrdoba; San Carlos; Caribe ; Bajo Sin√∫ 
+13070180;80;13;CARRILLO ;CÛrdoba; San Pelayo ; Caribe ; Bajo Sin√∫ 
+13070190;82;28;COROZA 2 ;CÛrdoba; San Carlos; Caribe ; Bajo Sin√∫ 
+13070200;45;28;COROCITO ;CÛrdoba; San Pelayo ; Caribe ; Bajo Sin√∫ 
+13070210;44;13;COTORRA ;CÛrdoba; Cotorra ; Caribe ; Bajo Sin√∫ 
+13070220;47;28;FLOR DEL SINU ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13070230;51;28;HORIZONTE ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13070240;45;13;CERRO BAHIA ;CÛrdoba; Lorica ; Caribe ; Bajo Sin√∫ 
+13070250;47;13;TRAPICHE EL ;CÛrdoba; Lorica ; Caribe ; Bajo Sin√∫ 
+13070260;45;28;LAMAS 3 ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13070270;49;28;MONTERIA ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13070280;80;28;SABANAL ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13070290;61;28;TAMPA ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13070300;8;5;CHIMA ;CÛrdoba; Chima; Caribe ; Bajo Sin√∫ 
+13070310;1;5;CHIMA ;CÛrdoba; Chima; Caribe ; Bajo Sin√∫ 
+13070330;2;13;ICOTEAS LAS ;CÛrdoba; Cotorra ; Caribe ; Bajo Sin√∫ 
+13070340;43;28;PALMA DE VINO ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13070390;0;13;CIENAGA DE ORO ;CÛrdoba; CiÈnaga De Oro ; Caribe ; Bajo Sin√∫ 
+13070420;2;13;CNO EL MUERTO ;CÛrdoba; Lorica ; Caribe ; Bajo Sin√∫ 
+13070440;57;5;VILLA MARCELA ;CÛrdoba; San Antero ; Caribe ; Litoral Directos Caribe Golfo de Morrosquillo 
+13075010;85;5;CHIMA ;CÛrdoba; Chima; Caribe ; Bajo Sin√∫ 
+13075020;96;13;SALADO EL ;CÛrdoba; CiÈnaga De Oro ; Caribe ; Bajo Sin√∫ 
+13075030;90;28;TURIPANA ;CÛrdoba; CeretÈ ; Caribe ; Bajo Sin√∫ 
+13075040;9;13;AEROPUERTO BERASTEGUI ;CÛrdoba; CiÈnaga De Oro ; Caribe ; Bajo Sin√∫ 
+13075050;61;28;UNIV DE CORDOBA ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13075060;2;28;MONTERIA ;CÛrdoba; MonterÌa ; Caribe ; Bajo Sin√∫ 
+13077070;97;13;CIENAGA DE ORO ;CÛrdoba; CiÈnaga De Oro ; Caribe ; Bajo Sin√∫ 
+13080010;97;28;SAN ANTONIO ;CÛrdoba; San Pelayo ; Caribe ; Bajo Sin√∫ 
+13080020;6;13;LORICA ;CÛrdoba; Lorica ; Caribe ; Bajo Sin√∫ 
+13080030;0;28;SAN ANTONIO ;CÛrdoba; San Pelayo ; Caribe ; Bajo Sin√∫ 
+13080060;1;13;DOCTRINA LA ;CÛrdoba; Lorica ; Caribe ; Bajo Sin√∫ 
+13085010;91;13;DOCTRINA LA ;CÛrdoba; Lorica ; Caribe ; Bajo Sin√∫ 
+13085030;93;13;SAN BERNARDO DEL VIENTO ;CÛrdoba; San Bernardo Del Viento ; Caribe ; Bajo Sin√∫ 
+13085050;78;13;Lorica Ita Aut;CÛrdoba; Lorica ; Caribe ; Bajo Sin√∫ 
+16050140;7;5;JURISDICCIONES ;Norte de Santander; Ì¬Åbrego ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+21210020;94;24;JUNTAS LAS ;Tolima; IbaguÈ ; Magdalena Cauca ; rÌo Coello 
+21210100;40;24;RANCHO EL ;Tolima; IbaguÈ ; Magdalena Cauca ; rÌo Coello 
+21210110;71;24;PLACER EL ;Tolima; IbaguÈ ; Magdalena Cauca ; rÌo Coello 
+21210220;94;24;PALMAR EL ;Tolima; IbaguÈ ; Magdalena Cauca ; rÌo Coello 
+21210260;32;24;SILENCIO EL ;Tolima; IbaguÈ ; Magdalena Cauca ; rÌo Coello 
+21230070;88;10;SAN JUAN D RIOSECO ;Cundinamarca; San Juan De Rioseco ; Magdalena Cauca ; rÌo Seco y otros Directos al Magdalena 
+21230090;78;12;ARRANCAPLUMAS ;Cundinamarca; Guaduas ; Magdalena Cauca ; rÌo Seco y otros Directos al Magdalena 
+21230120;66;12;BELLEZA LA ;Cundinamarca; ChaguanÌ ; Magdalena Cauca ; rÌo Seco y otros Directos al Magdalena 
+21240040;28;23;SANTA ISABEL ;Tolima; Santa Isabel ; Magdalena Cauca ; rÌo Totare (1 , 7) 
+21240070;86;23;ANZOATEGUI ;Tolima; Anzo·tegui ; Magdalena Cauca ; rÌo Totare (1 , 7) 
+21240110;60;23;BODEGA LA ;Tolima; Santa Isabel ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21245050;0;24;AFRICA ABAJO ;Tolima; Santa Isabel ; Magdalena Cauca ; rÌo Totare (1 , 6) 
+21245070;0;24;AFRICA LA LINEA ;Tolima; Santa Isabel ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+21245090;29;23;ERMITA LA ;Tolima; Santa Isabel ; Magdalena Cauca ; rÌo Totare (1 , 7) 
+21245100;3;24;TOTARITO ;Tolima; Santa Isabel ; Magdalena Cauca ; rÌo Totare (1 , 6) 
+21245120;3;23;ALTO PURIMA ;Tolima; Santa Isabel ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21245140;75;23;SANTA ISABEL ;Tolima; Santa Isabel ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250050;59;23;ALTO DEL OSO ;Tolima; Murillo ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250060;21;24;Idema Armero;Tolima; Armero (Guayabal) ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250070;94;23;SIERRA LA ;Tolima; LÈrida ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250100;58;23;ESTRELLA LA ;Tolima; Venadillo ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250120;62;24;VILLAHERMOSA ;Tolima; Villahermosa ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250150;4;24;PUENTE KM 85 EL ;Tolima; Armero (Guayabal) ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250170;48;24;BOQUERON ;Tolima; Villahermosa ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250190;33;23;GARCIA HACIENDA ;Tolima; LÈrida ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250310;1;10;IDEMA ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250350;4;10;TRIUNFO EL HACIENDA ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250360;4;24;PUENTE EL KM 89 ;Tolima; Armero (Guayabal) ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250370;27;24;FLORIDA LA HACIENDA ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250410;0;24;BLEDONIA ;Tolima; LÈrida ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250430;59;10;CAMPAMENTO AMBALEM ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250440;4;23;ALEGRIAS ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250450;95;24;POTOSI HACIENDA ;Tolima; Armero (Guayabal) ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250460;85;23;VENADILLO ;Tolima; Venadillo ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250480;62;24;SANTA BARBARA ;Tolima; Murillo ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250500;96;24;LIBANO ;Tolima; LÌbano ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250510;22;24;Armero Granja C Unive;Tolima; Armero (Guayabal) ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250530;3;24;PALMA LA ;Tolima; LÌbano ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250540;39;10;BOCATOMA C NORTE ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250550;21;23;ESPERANZA LOBONES ;Tolima; LÈrida ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250560;37;23;CHORRILLO ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250570;36;23;IGUACITOS ;Tolima; LÈrida ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250580;34;23;BOQUERON ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250590;39;10;BOCATOMA C CENTRAL ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250600;35;10;GAMBA ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250610;36;10;ALSACIA ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250620;37;23;MANGON EL ;Tolima; LÈrida ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250630;36;23;BALMORAL ;Tolima; LÈrida ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21250640;2;10;PIEDRAS NEGRAS ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21255070;0;24;BLEDONIA ;Tolima; LÈrida ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21255080;89;10;SALTO EL ;Tolima; Ambalema ; Magdalena Cauca ; rÌo Coello 
+21255090;66;24;ARMERO GRANJA ;Tolima; Armero (Guayabal) ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21255110;82;23;SANTA ISABEL ;Tolima; Santa Isabel ; Magdalena Cauca ; rÌo Totare (1 , 7) 
+21255120;80;24;VILLAHERMOSA ;Tolima; Villahermosa ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21255140;58;23;QUINTA LA ;Tolima; LÈrida ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21255150;49;23;GARCIA HACIENDA ;Tolima; LÈrida ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+21255170;98;23;Murillo Aut;Tolima; Murillo ; Magdalena Cauca ; rÌo Lagunilla y Otros Directos al Magdalena 
+22050100;61;23;GUAYABOS LOS ;Tolima; Coyaima ; Magdalena Cauca ; rÌo Totare (1 , 7) 
+23010020;94;24;EDEN EL ;Tolima; Fresno ; Magdalena Cauca ; rÌo GualÌ 
+23010070;4;24;MACARENA LA HACIENDA ;Tolima; Mariquita ; Magdalena Cauca ; rÌo GualÌ 
+23010080;97;12;Idema Honda;Tolima; Honda ; Magdalena Cauca ; rÌo GualÌ 
+23010110;5;24;SUBESTACION ELECTR ;Tolima; Mariquita ; Magdalena Cauca ; rÌo GualÌ 
+23015040;50;24;AEROPUERTO MARIQUITA ;Tolima; Mariquita ; Magdalena Cauca ; rÌo GualÌ 
+23020080;87;24;MANZANARES ;Caldas; Manzanares ; Magdalena Cauca ; rÌo GuarinÛ 
+23020090;88;13;MARULANDA ;Caldas; Marulanda ; Magdalena Cauca ; rÌo GuarinÛ 
+23020100;88;24;VICTORIA LA ;Caldas; Victoria ; Magdalena Cauca ; rÌo GuarinÛ 
+23025020;85;12;ESPERANZA LA ;Tolima; Honda ; Magdalena Cauca ; rÌo GualÌ 
+23025040;65;24;ALBANIA ;Tolima; Mariquita ; Magdalena Cauca ; rÌo GuarinÛ 
+23030010;5;10;ESPERANZA LA HACIENDA ;Cundinamarca; Puerto Salgar ; Magdalena Cauca ; Directos al Magdalena entre rÌos Seco y Negro (md) 
+23035020;73;10;AEROPUERTO PALANQUERO ;Cundinamarca; Puerto Salgar ; Magdalena Cauca ; Directos al Magdalena entre rÌos Seco y Negro (md) 
+23040030;88;10;Idema Dorada;Caldas; La Dorada ; Magdalena Cauca ; Directos Magdalena entre rÌos GuarinÛ y La Miel 
+23040050;1;10;BASCULA LA ;Caldas; La Dorada ; Magdalena Cauca ; Directos Magdalena entre rÌos GuarinÛ y La Miel 
+23040060;4;10;PALMAR EL HACIENDA ;Caldas; La Dorada ; Magdalena Cauca ; Directos Magdalena entre rÌos GuarinÛ y La Miel 
+23040070;86;24;CANAVERAL ;Caldas; Victoria ; Magdalena Cauca ; rÌo La Miel (Saman·) 
+23050070;18;10;NORCASIA ;Caldas; Victoria ; Magdalena Cauca ; Directos Magdalena entre rÌos GuarinÛ y La Miel 
+23050080;94;24;MARQUETALIA ;Caldas; Marquetalia ; Magdalena Cauca ; rÌo La Miel (Saman·) 
+23050100;77;10;SAN MIGUEL ;Antioquia; SonsÛn ; Magdalena Cauca ; rÌo La Miel (Saman·) 
+23050230;84;5;SAN JOSE PENSILVAN ;Caldas; Pensilvania ; Magdalena Cauca ; rÌo La Miel (Saman·) 
+23050250;74;5;NORCASIA RADIO ;Caldas; Norcasia ; Magdalena Cauca ; rÌo La Miel (Saman·) 
+23055040;85;5;SAMANA ;Caldas; Saman· ; Magdalena Cauca ; rÌo La Miel (Saman·) 
+23055070;52;5;ARGELIA ;Antioquia; Argelia; Magdalena Cauca ; rÌo La Miel (Saman·) 
+23055080;18;5;FLORENCIA ;Caldas; Saman· ; Magdalena Cauca ; rÌo La Miel (Saman·) 
+23060090;10;10;YACOPI ;Cundinamarca; YacopÌ; Magdalena Cauca ; rÌo Negro 
+23060110;92;12;CAPARRAPI ;Cundinamarca; CaparrapÌ ; Magdalena Cauca ; rÌo Negro 
+23060140;89;12;TUSCOLO EL ;Cundinamarca; Guaduas ; Magdalena Cauca ; rÌo Negro 
+23060150;87;10;PUERTO LIBRE ;Cundinamarca; Puerto Salgar ; Magdalena Cauca ; rÌo Negro 
+23060160;87;10;SAN PABLO ;Cundinamarca; CaparrapÌ ; Magdalena Cauca ; rÌo Negro 
+23060170;73;12;PALMA LA ;Cundinamarca; La Palma ; Magdalena Cauca ; rÌo Negro 
+23060180;90;6;PENON EL ;Cundinamarca; El Pe√±Ûn; Magdalena Cauca ; rÌo Negro 
+23060190;86;12;UTICA ;Cundinamarca; Ì≈°tica ; Magdalena Cauca ; rÌo Negro 
+23060260;64;12;CHILAGUA FINCA ;Cundinamarca; Nocaima ; Magdalena Cauca ; rÌo Negro 
+23060270;5;6;CABRERA LA ;Cundinamarca; Pacho ; Magdalena Cauca ; rÌo Negro 
+23060290;67;12;SILENCIO EL ;Cundinamarca; Sasaima ; Magdalena Cauca ; rÌo Negro 
+23060370;23;12;ESTANCIA LA ;Cundinamarca; La Vega ; Magdalena Cauca ; rÌo Negro 
+23065110;83;15;YACOPI Aut;Cundinamarca; YacopÌ; Magdalena Cauca ; rÌo Negro 
+23065120;86;6;CABRERA LA ;Cundinamarca; Pacho ; Magdalena Cauca ; rÌo Negro 
+23065200;9;12;TRAPICHE EL ;Cundinamarca; Villeta ; Magdalena Cauca ; rÌo Negro 
+23070010;54;6;CLARO DE LUNA ;Antioquia; SonsÛn ; Magdalena Cauca ; Directos Magdalena Medio entre rÌos La Miel y Nare 
+23070020;66;13;RIO CLARO ;Antioquia; SonsÛn ; Magdalena Cauca ; Directos Magdalena Medio entre rÌos La Miel y Nare 
+23080390;83;20;SANTO DOMINGO ;Antioquia; Santo Domingo ; Magdalena Cauca ; rÌo Nare 
+23080490;33;13;SAN CARLOS ;Antioquia; San Carlos; Magdalena Cauca ; rÌo Nare 
+23080630;30;20;TOPACIO EL ;Antioquia; San Rafael ; Magdalena Cauca ; rÌo Nare 
+23080640;93;19;MARINILLA ;Antioquia; Marinilla ; Magdalena Cauca ; rÌo Nare 
+23080650;92;19;CAMPOALEGRE ;Antioquia; Carmen De Viboral ; Magdalena Cauca ; rÌo Nare 
+23080660;25;20;MORRO EL ;Antioquia; Santo Domingo ; Magdalena Cauca ; rÌo Nare 
+23080680;29;20;ALEJANDRIA ;Antioquia; AlejandrÌa ; Magdalena Cauca ; rÌo Nare 
+23080720;64;9;CANTERAS ;Antioquia; Puerto Nare ; Magdalena Cauca ; rÌo Nare 
+23080730;47;20;TEJAR EL ;Antioquia; San Rafael ; Magdalena Cauca ; rÌo Nare 
+23080740;89;20;CONCEPCION ;Antioquia; ConcepciÛn; Magdalena Cauca ; rÌo Nare 
+23080750;88;13;COCORNA ;Antioquia; Cocorn· ; Magdalena Cauca ; rÌo Nare 
+23080760;88;20;SAN ROQUE ;Antioquia; San Roque ; Magdalena Cauca ; rÌo Nare 
+23080790;37;19;LINDA LA ;Antioquia; Carmen De Viboral ; Magdalena Cauca ; rÌo Nare 
+23080800;36;13;PATIO BONITO ;Antioquia; San Carlos; Magdalena Cauca ; rÌo Nare 
+23080810;66;13;JORDAN EL ;Antioquia; San Carlos; Magdalena Cauca ; rÌo Nare 
+23080820;63;13;TAFETANES ;Antioquia; Granada; Magdalena Cauca ; rÌo Nare 
+23080910;15;13;MEDIOS LOS ;Antioquia; Granada; Magdalena Cauca ; rÌo Nare 
+23080920;55;19;SANTUARIO ;Antioquia; Santuario; Magdalena Cauca ; rÌo Nare 
+23080930;20;13;POPO EL ;Antioquia; San Carlos; Magdalena Cauca ; rÌo Nare 
+23080940;46;20;PRESA SAN LORENZO ;Antioquia; AlejandrÌa ; Magdalena Cauca ; rÌo Nare 
+23080950;20;20;VIENTO EL ;Antioquia; AlejandrÌa ; Magdalena Cauca ; rÌo Nare 
+23085010;5;13;CALDERAS ;Antioquia; San Carlos; Magdalena Cauca ; rÌo Nare 
+23085030;63;20;ALEJANDRIA ;Antioquia; AlejandrÌa ; Magdalena Cauca ; rÌo Nare 
+23085080;87;20;Granja Experimental El Nus Aut;Antioquia; San Roque ; Magdalena Cauca ; rÌo Nare 
+23085100;3;19;CARMELO EL HACIENDA ;Antioquia; La Ceja ; Magdalena Cauca ; rÌo Nare 
+23085110;87;13;PENOL EL ;Antioquia; Pe√±ol; Magdalena Cauca ; rÌo Nare 
+23085130;11;13;SAN CARLOS ;Antioquia; San Carlos; Magdalena Cauca ; rÌo Nare 
+23085140;87;13;SAN FRANCISCO ;Antioquia; San Francisco; Magdalena Cauca ; rÌo Nare 
+23085160;81;20;CORRIENTES ;Antioquia; San Vicente ; Magdalena Cauca ; rÌo Nare 
+23085210;54;20;VIOLETAS LAS ;Antioquia; San Rafael ; Magdalena Cauca ; rÌo Nare 
+23085220;68;13;SAN CARLOS ;Antioquia; San Carlos; Magdalena Cauca ; rÌo Nare 
+23085260;81;19;LA SELVA Aut;Antioquia; Rionegro; Magdalena Cauca ; rÌo Nare 
+23085270;74;19;Aerop. J.M. CORDOVA Aut;Antioquia; Rionegro; Magdalena Cauca ; rÌo Nare 
+23090020;84;9;VIRGINIAS ;Antioquia; Puerto BerrÌo ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23090040;14;9;PUERTO BERRIO ;Antioquia; Puerto BerrÌo ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23090080;0;9;PUERTO BERRIO ;Antioquia; Puerto BerrÌo ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23090090;13;9;POZOS LOS ;Antioquia; Puerto BerrÌo ; Magdalena Cauca ; Directos al Magdalena Medio entre rÌos Negro 
+23090100;32;9;SAN JUAN BEDUTH ;Antioquia; Puerto BerrÌo ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23090110;69;9;MURILLO ;Antioquia; Puerto BerrÌo ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23095010;72;9;AEROPUERTO PUERTO BERRIO ;Antioquia; Puerto BerrÌo ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23100030;98;8;TIGRE EL ;Antioquia; VegachÌ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23100040;87;20;YOLOMBO ;Antioquia; YolombÛ ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23100050;46;8;BODEGA LA ;Antioquia; Puerto BerrÌo ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23100070;60;9;RAMBLAS ;Antioquia; YondÛ (Casabe) ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23100080;29;8;SANTA CLARA ;Antioquia; YondÛ (Casabe) ; Magdalena Cauca ; rÌo Cimitarra y otros directos al Magdalena 
+23105020;4;8;AMPARO EL ;Antioquia; YondÛ (Casabe) ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23105030;82;8;VEGACHI ;Antioquia; VegachÌ; Magdalena Cauca ; RiÛ San Bartolo y otros directos al Magdalena Medio 
+23110010;1;6;PUERTO BOYACA ;Boyac·; Puerto Boyac· ; Magdalena Cauca ; Directos al Magdalena Medio entre rÌos Negro 
+23110030;88;6;PUERTO NINO ;Boyac·; Puerto Boyac· ; Magdalena Cauca ; Directos al Magdalena Medio entre rÌos Negro 
+23110040;87;6;TRIQUE EL ;Boyac·; Puerto Boyac· ; Magdalena Cauca ; Directos al Magdalena Medio entre rÌos Negro 
+23110060;68;2;PADILLA ;Santander; Cimitarra ; Magdalena Cauca ; Directos al Magdalena Medio entre rÌos Negro 
+23115010;73;6;PUERTO BOYACA ;Boyac·; Puerto Boyac· ; Magdalena Cauca ; Directos al Magdalena Medio entre rÌos Negro 
+23115020;11;6;PADILLA ;Santander; Cimitarra ; Magdalena Cauca ; Directos al Magdalena Medio entre rÌos Negro 
+23120010;83;5;VERDE LA ;Santander; Cimitarra ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120050;94;15;MUZO ;Boyac·; Muzo ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120070;46;8;PUERTO ARAUJO ;Santander; Cimitarra ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120080;12;15;BORBUR 1 ;Boyac·; San Pablo De Borbur ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120090;10;8;LANDAZURI ;Santander; VÈlez ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120100;10;15;ALBANIA ;Santander; Albania; Magdalena Cauca ; rÌo Carare (Minero) 
+23120140;41;15;PAUNA ;Boyac·; Pauna ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120150;4;15;MARIPI ;Boyac·; MaripÌ ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120180;1;8;CIMITARRA ;Santander; Cimitarra ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120200;75;8;PUERTO ARAUJO ALERTAS ;Santander; Cimitarra ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120210;77;15;COPER ;Boyac·; Coper ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120220;78;2;PRADERA LA ;Santander; Jes√∫s MarÌa ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120240;98;15;PAIME ;Cundinamarca; Paime ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120250;87;15;BORBUR 2 ;Boyac·; San Pablo De Borbur ; Magdalena Cauca ; rÌo Carare (Minero) 
+23120260;10;15;OTANCHE ;Boyac·; Otanche ; Magdalena Cauca ; rÌo Carare (Minero) 
+23125040;87;8;CAMPO CAPOTE ;Santander; Puerto Parra ; Magdalena Cauca ; rÌo OpÛn 
+23125050;83;8;CARARE ;Santander; Puerto Parra ; Magdalena Cauca ; rÌo Carare (Minero) 
+23125060;84;15;ALBANIA ;Santander; Albania; Magdalena Cauca ; rÌo Carare (Minero) 
+23125070;55;6;SAN CAYETANO ;Cundinamarca; San Cayetano; Magdalena Cauca ; rÌo Carare (Minero) 
+23125080;88;15;OTANCHE ;Boyac·; Otanche ; Magdalena Cauca ; rÌo Carare (Minero) 
+23125090;54;15;PAUNA ;Boyac·; Pauna ; Magdalena Cauca ; rÌo Carare (Minero) 
+23125100;96;15;BUENAVISTA ;Boyac·; Buenavista; Magdalena Cauca ; rÌo Carare (Minero) 
+23125110;4;8;PORTUGAL HACIENDA ;Santander; Cimitarra ; Magdalena Cauca ; rÌo Carare (Minero) 
+23125120;82;8;CIMITARRA ;Santander; Cimitarra ; Magdalena Cauca ; rÌo Carare (Minero) 
+23125130;78;8;LANDAZURI ;Santander; Land·zuri ; Magdalena Cauca ; rÌo Carare (Minero) 
+23125140;55;15;Aerop. Furatena Aut;Boyac·; QuÌpama ; Magdalena Cauca ; rÌo Carare (Minero) 
+23125150;41;6;VILLAGOMEZ ;Cundinamarca; VillagÛmez ; Magdalena Cauca ; rÌo Carare (Minero) 
+23130010;99;4;CHUCURI ;Santander; Barrancabermeja ; Magdalena Cauca ; rÌo OpÛn 
+23140030;8;5;CARMEN EL ;Santander; El Carmen; Magdalena Cauca ; rÌo OpÛn 
+23140060;8;5;MELITOSA LA ;Santander; Simacota ; Magdalena Cauca ; rÌo OpÛn 
+23140070;69;5;DOS BOCAS HACIENDA ;Santander; El Carmen; Magdalena Cauca ; rÌo OpÛn 
+23145020;84;5;CARMEN EL ;Santander; El Carmen; Magdalena Cauca ; rÌo OpÛn 
+23147020;77;4;PUENTE FERROCARRIL ;Santander; Simacota ; Magdalena Cauca ; rÌo OpÛn 
+23155030;97;5;AEROPUERTO YARIGUIES ;Santander; Barrancabermeja ; Magdalena Cauca ; rÌo OpÛn 
+23155040;86;5;CENTRO EL ;Santander; Barrancabermeja ; Magdalena Cauca ; rÌo OpÛn 
+23160010;88;4;YONDO ;Antioquia; YondÛ (Casabe) ; Magdalena Cauca ; rÌo Cimitarra y otros directos al Magdalena 
+23170030;32;5;YANACUE ;BolÌvar; Cantagallo ; Magdalena Cauca ; rÌo Cimitarra y otros directos al Magdalena 
+23170050;21;4;SANTO DOMINGO ;BolÌvar; Cantagallo ; Magdalena Cauca ; rÌo Cimitarra y otros directos al Magdalena 
+23170060;23;5;MONTERRUBIO FINCA ;BolÌvar; Cantagallo ; Magdalena Cauca ; rÌo Cimitarra y otros directos al Magdalena 
+23175020;93;8;AEROPUERTO OTU ;Antioquia; Remedios ; Magdalena Cauca ; rÌo Cimitarra y otros directos al Magdalena 
+23180020;98;18;PUERTO WILCHES ;Santander; Puerto Wilches ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23180030;53;18;CASA NUEVA ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23180040;90;18;PORVENIR EL ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23180050;89;18;ESTABLO EL ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23180060;55;18;RETIRADA LA ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23180070;96;18;SABANA DE TORRES ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23180080;90;18;ELOY VALENZUELA ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23180100;90;4;SITIO NUEVO ;Santander; Puerto Wilches ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23180110;89;18;PATURIA ;Santander; Puerto Wilches ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23180120;88;5;COQUERA LA ;Santander; Puerto Wilches ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23185010;96;18;VILLA LEIVA ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190110;84;5;LIBANO EL ;Cesar; San Alberto ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190120;4;18;MATANZA ;Santander; Matanza ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190140;99;18;PLAYON EL ;Santander; El PlayÛn ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190210;61;18;MAGARA ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190240;11;18;CNO SIETE ;Santander; Rionegro; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190250;15;18;CAMPOHERMOSO ;Santander; Rionegro; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190260;94;27;LAGUNA LA ;Santander; Lebrija ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190270;7;27;LIMONCITO ;Santander; Floridablanca ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190280;99;27;PALO GORDO ;Santander; GirÛn ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190310;3;18;SAN IGNACIO ;Santander; Rionegro; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190320;55;18;PROVINCIA ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190330;3;27;BUENAVISTA ;Santander; Piedecuesta ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190340;100;18;MATAJIRA ;Santander; Matanza ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190350;99;18;LLANO DE PALMAS ;Santander; Rionegro; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190360;95;18;PORTACHUELO ;Santander; Rionegro; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190370;0;18;MATANZA ;Santander; Matanza ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190380;98;18;PALMAS ;Santander; Lebrija ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190400;96;27;GALVICIA LA ;Santander; Floridablanca ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190410;4;27;BRASIL EL ;Santander; Tona ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190420;44;18;NORMA LA ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190430;4;27;PIEDECUESTA ;Santander; Piedecuesta ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190440;90;18;NARANJO EL ;Santander; Lebrija ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190460;80;18;PAPAYAL ;Santander; Rionegro; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190470;13;18;PALMERAS HACIENDA ;Santander; Rionegro; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190500;88;5;SAN ALBERTO ;Cesar; San Alberto ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190510;87;18;CAOBO EL ;Norte de Santander; La Esperanza ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190520;82;5;DORADA LA ;Cesar; San MartÌn; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190530;40;18;COOPERATIVA LA ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190540;82;5;VEGA LA ;Norte de Santander; C·chira ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190550;2;4;SAMARKANDA ;Santander; Rionegro; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190560;85;18;SAN RAFAEL ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190570;10;18;TAMBOR EL HACIENDA ;Santander; Rionegro; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190580;75;4;SAN DANIEL HACIENDA ;Cesar; rÌo De Oro ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190590;82;27;FLORESTA LA ;Santander; Bucaramanga ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190600;98;27;PANTANO EL ;Santander; GirÛn ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190690;0;2;MARIANA LA HACIENDA ;Santander; Tona ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190700;98;27;PIEDECUESTA GRANJA ;Santander; Piedecuesta ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190710;72;4;BARRANCA LEBRIJA ;Cesar; Aguachica ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190800;9;27;HIMAT R11;Santander; Bucaramanga ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23190830;47;27;BUCARAMANGA IDEAM ;Santander; Bucaramanga ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195030;9;27;AEROPUERTO GOMEZ NINO ;Santander; Bucaramanga ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195040;62;27;UNIVERSIDAD INDUSTRIAL SANTANDER ;Santander; Bucaramanga ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195050;3;27;VIVERO CHIMITA ;Santander; Bucaramanga ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195060;11;2;MARIANA LA ;Santander; Tona ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195070;0;18;MAGARA ;Santander; Rionegro; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195080;12;18;URBINA LA ;Santander; Lebrija ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195110;89;27;Llano Grande Aut;Santander; GirÛn ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195120;1;18;SABANA DE TORRES ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195140;24;4;LLANA LA ;Cesar; San Alberto ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195170;32;18;PROVINCIA ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195190;1;27;SAN ANTONIO SANTANDER ;Santander; Floridablanca ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23195502;87;27;AEROPUERTO PALONEGRO ;Santander; Lebrija ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23197190;3;27;PIEDECUESTA ;Santander; Piedecuesta ; Magdalena Cauca ; rÌo Lebrija y otros directos al Magdalena 
+23200010;89;5;SIMITI ;BolÌvar; SimitÌ; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+23200020;9;5;Los Canelos;BolÌvar; Santa Rosa Del Sur ; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+23200060;78;5;SANTO DOMINGO ;BolÌvar; San Pablo; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+23200070;28;5;TIERRABUENA FINCA ;BolÌvar; San Pablo; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+23205020;84;5;COL COOPERATIVO ;BolÌvar; San Pablo; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+23205030;86;5;SANTA ROSA D SIMITI ;BolÌvar; Santa Rosa Del Sur ; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+23205040;32;4;MORALES La Cruz;BolÌvar; Morales; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+23205050;70;5;CANELOS Aut;BolÌvar; Santa Rosa Del Sur ; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+23210010;100;4;PUERTO MOSQUITO ;Cesar; Gamarra ; Magdalena Cauca ; Quebrada El Carmen y Otros Directos al Magdalena 
+23210160;79;4;GAMARRA ;Cesar; Gamarra ; Magdalena Cauca ; Quebrada El Carmen y Otros Directos al Magdalena 
+24010150;93;3;SIMIJACA ;Cundinamarca; Simijaca ; Magdalena Cauca ; rÌo Su·rez 
+24010210;98;8;JESUS MARIA ;Santander; Jes√∫s MarÌa ; Magdalena Cauca ; rÌo Su·rez 
+24010220;10;13;CHIMA ;Santander; Chima; Magdalena Cauca ; rÌo Su·rez 
+24010610;71;6;CARMEN DE CARUPA ;Cundinamarca; Carmen De Carupa ; Magdalena Cauca ; rÌo Su·rez 
+24010640;87;8;BOLIVAR ;Santander; Bolivar; Magdalena Cauca ; rÌo Su·rez 
+24010660;90;13;SIMACOTA ;Santander; Simacota ; Magdalena Cauca ; rÌo Su·rez 
+24010670;88;8;SUCRE ;Santander; Sucre; Magdalena Cauca ; rÌo Su·rez 
+24010740;37;13;RODEO EL HACIENDA ;Santander; Chima; Magdalena Cauca ; rÌo Su·rez 
+24010750;82;8;MIRAVALLES ;Boyac·; Moniquir· ; Magdalena Cauca ; rÌo Su·rez 
+24010780;10;13;SOCORRO ;Santander; Socorro ; Magdalena Cauca ; rÌo Su·rez 
+24010820;75;8;GUAVATA ;Santander; Guavat· ; Magdalena Cauca ; rÌo Su·rez 
+24011010;2;3;SIMIJACA ;Cundinamarca; Simijaca ; Magdalena Cauca ; rÌo Su·rez 
+24011070;70;5;SANTUARIO EL ;Santander; El Guacamayo ; Magdalena Cauca ; rÌo Su·rez 
+24015250;89;1;LAJA LA ;Santander; Guadalupe; Magdalena Cauca ; rÌo Su·rez 
+24015260;89;13;CHIMA ;Santander; Chima; Magdalena Cauca ; rÌo Su·rez 
+24015270;94;8;VELEZ GRANJA ;Santander; VÈlez ; Magdalena Cauca ; rÌo Su·rez 
+24015360;89;3;SABOYA LA GRANJA ;Boyac·; Saboy· ; Magdalena Cauca ; rÌo Su·rez 
+24015370;6;13;HACIENDA MAJAVITA UL ;Santander; Socorro ; Magdalena Cauca ; rÌo Su·rez 
+24015380;17;1;CARMEN DE CARUPA Aut;Cundinamarca; Carmen De Carupa ; Magdalena Cauca ; rÌo Su·rez 
+24020150;61;13;MAMONAL EL HACIENDA ;Santander; San Gil ; Magdalena Cauca ; rÌo Fonce 
+24025020;94;13;CUCHARO EL ;Santander; Pinchote ; Magdalena Cauca ; rÌo Fonce 
+24040050;92;13;SANTA ISABEL ;Santander; Barichara ; Magdalena Cauca ; rÌo Su·rez 
+24040060;80;13;REMOLINO ;Santander; Cabrera; Magdalena Cauca ; rÌo Su·rez 
+24050060;100;27;SAN VICENTE ;Santander; San Vicente De ChucurÌ ; Magdalena Cauca ; rÌo Sogamoso 
+24050070;90;5;PUTANA LA ;Santander; San Vicente De ChucurÌ ; Magdalena Cauca ; rÌo Sogamoso 
+24050080;20;13;PALMAR EL ;Santander; Palmar ; Magdalena Cauca ; rÌo Su·rez 
+24050100;91;13;FUENTE LA ;Santander; Zapatoca ; Magdalena Cauca ; rÌo Su·rez 
+24050110;90;5;ALBANIA ;Santander; San Vicente De ChucurÌ ; Magdalena Cauca ; rÌo Sogamoso 
+24055030;88;27;ZAPATOCA ;Santander; Zapatoca ; Magdalena Cauca ; rÌo Sogamoso 
+24055040;69;13;PALMAR EL ;Santander; Palmar ; Magdalena Cauca ; rÌo Su·rez 
+24060010;0;27;PARROQUIA LA ;Santander; GirÛn ; Magdalena Cauca ; rÌo Sogamoso 
+24060040;87;18;AGUASCLARAS ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Sogamoso 
+24060050;92;27;MESA LA ;Santander; Los Santos ; Magdalena Cauca ; rÌo Sogamoso 
+24060060;60;27;PUENTE LA PAZ ;Santander; GirÛn ; Magdalena Cauca ; rÌo Sogamoso 
+24060070;78;27;PARROQUIA LA ;Santander; GirÛn ; Magdalena Cauca ; rÌo Sogamoso 
+24060080;70;18;PAYOA 5 ;Santander; Sabana De Torres ; Magdalena Cauca ; rÌo Sogamoso 
+24065010;83;18;BRISAS LAS HACIENDA ;Santander; Puerto Wilches ; Magdalena Cauca ; rÌo Sogamoso 
+24065020;10;27;ESPERANZA LA HACIENDA ;Santander; GirÛn ; Magdalena Cauca ; rÌo Sogamoso 
+24065030;26;27;TRIGUEROS HACIENDA ;Santander; GirÛn ; Magdalena Cauca ; rÌo Sogamoso 
+25010010;59;10;PUERTO LIBERTADOR ;CÛrdoba; Puerto Libertador ; Magdalena Cauca ; Cauca Alto San Jorge
+25010060;79;10;URE ;CÛrdoba; San Jose De Ure ; Magdalena Cauca ; Cauca Alto San Jorge
+25010080;86;10;Pica Pica Aut;CÛrdoba; MontelÌbano ; Magdalena Cauca ; Cauca Alto San Jorge
+25010090;4;10;MONTELIBANO ;CÛrdoba; MontelÌbano ; Magdalena Cauca ; Cauca Alto San Jorge
+25010100;87;10;SAN FRANCISCO ;CÛrdoba; MontelÌbano ; Caribe ; Medio Sin√∫ 
+25010110;68;10;ACACIAS LAS HACIENDA ;CÛrdoba; Puerto Libertador ; Magdalena Cauca ; Cauca Alto San Jorge
+25015010;82;6;CENTRO ALEGRE ;CÛrdoba; Planeta Rica ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020030;97;14;GUACAMAYO ;BolÌvar; AchÌ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020140;98;13;SAHAGUN Aut;CÛrdoba; Sahag√∫n ; Caribe ; Bajo Sin√∫ 
+25020160;8;9;SAN MARCOS ;Sucre; San Marcos ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020310;1;4;NECHI ;Antioquia; NechÌ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020330;87;16;CAIMITAL ;BolÌvar; San Jacinto Del Cauca ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020340;0;14;MAJAGUAL ;Sucre; Majagual ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020350;97;16;GUARANDA ;BolÌvar; AchÌ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020370;83;11;MONEDA LA HACIENDA ;Antioquia; Caucasia ; Magdalena Cauca ; Directos al Cauca entre Pto Valdivia y rÌo NechÌ 
+25020380;10;14;PINILLOS ;BolÌvar; Pinillos ; Magdalena Cauca ; Directos Bajo Magdalena entre El Banco y El Plato 
+25020410;95;16;CANDELARIA LA ;BolÌvar; San Jacinto Del Cauca ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020420;64;16;VARAS LAS ;BolÌvar; San Jacinto Del Cauca ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020440;13;16;SAN PEDRO Aut;Sucre; San Pedro; Magdalena Cauca ; Cauca San Jorge La Mojana
+25020480;94;4;PAJAROS LOS ;CÛrdoba; Ayapel ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020490;5;9;SAN BENITO A VILLA ;Sucre; San Benito Abad ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020500;97;14;VILLA CECILIA HACIENDA ;Sucre; Sucre; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020510;34;16;ALPES LOS ;BolÌvar; San Jacinto Del Cauca ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020520;88;6;Buenavista Aut;CÛrdoba; Buenavista; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020530;94;11;LA ILUSION ;Antioquia; Caucasia ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020540;77;7;PATIO BONITO ;Antioquia; NechÌ; Magdalena Cauca ; Bajo NechÌ(md) 
+25020570;29;9;PALITO ;Sucre; San Benito Abad ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020600;65;6;Sajonia Hda Aut;CÛrdoba; Pueblo Nuevo ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020700;90;10;APARTADA LA ;CÛrdoba; La Apartada ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020710;90;6;CINTURA ;CÛrdoba; Pueblo Nuevo ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020720;87;13;JOBO EL TABLON ;CÛrdoba; Sahag√∫n ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020740;83;9;EUREKA HACIENDA ;Sucre; San Marcos ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020760;89;1;SANTIAGO APOSTOL ;Sucre; San Benito Abad ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020780;84;4;CECILIA ;CÛrdoba; Ayapel ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020790;87;14;PALMARITO ;Sucre; Majagual ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020800;81;14;BUENAVISTA ;BolÌvar; AchÌ; Magdalena Cauca ; Directos Bajo Cauca Cga La Raya entre rÌo NechÌ
+25020810;91;16;ASTILLEROS ;BolÌvar; San Jacinto Del Cauca ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020820;87;14;ZAPATA ;Sucre; Majagual ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020850;29;16;REGENCIA ;BolÌvar; Montecristo ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020940;90;16;VILLANUEVA ;Sucre; Guaranda ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020950;87;2;SAN ANTONIO ALERTA ;BolÌvar; MaganguÈ ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25020970;86;3;ARENAL ;BolÌvar; Arenal ; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+25020980;91;9;CAIMITO ;Sucre; Caimito ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25021110;30;3;DIAMANTE EL ;BolÌvar; Arenal ; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+25021120;21;3;SERRANIA SAN LUCAS ;BolÌvar; Montecristo ; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+25021210;89;13;TREMENTINO ;CÛrdoba; Sahag√∫n ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25021280;76;14;COYONGAL ;BolÌvar; Pinillos ; Magdalena Cauca ; Directos Bajo Magdalena entre El Banco y El Plato 
+25021320;83;3;EL SUDAN ;BolÌvar; Tiquisio (Puerto Rico) ; Magdalena Cauca ; Cauca San Jorge Directos Bajo Cauca Cga La Raya RÌo NechÌ
+25021360;90;14;CAMPO ALEGRE ;Sucre; Sucre; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25021370;85;14;SAN LUIS ;Sucre; Sucre; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25021390;65;11;CAUCASIA ;Antioquia; Caucasia ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25021470;66;9;Hda El Torno;Sucre; San Marcos ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25021480;82;7;ESPERANZA LA RADIO ;Antioquia; NechÌ; Magdalena Cauca ; Directos al Bajo NechÌ(mi) 
+25021530;1;16;TALADRO EL ;BolÌvar; San Jacinto Del Cauca ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25021550;8;6;PLANETA RICA ;CÛrdoba; Planeta Rica ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25021560;87;14;ISLA DEL COCO ;Sucre; Sucre; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25021570;5;9;FLORIDA LA ;Sucre; Majagual ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25021660;53;9;MIRASOL ;Sucre; San Marcos ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25025030;90;4;Ayapel Aut;CÛrdoba; Ayapel ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25025040;32;9;AEROPUERTO LA FLORIDA ;Sucre; San Marcos ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25025130;1;16;VICTORIA LA ;BolÌvar; AchÌ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25025140;32;16;NECHI ;Antioquia; NechÌ; Magdalena Cauca ; Bajo NechÌ(md) 
+25025160;85;10;CUBA HACIENDA ;CÛrdoba; MontelÌbano ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25025170;85;13;COLOMBOY ;CÛrdoba; Sahag√∫n ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25025190;77;6;Planeta Rica Aut ;CÛrdoba; Planeta Rica ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25025200;1;16;TALADRO EL ;BolÌvar; San Jacinto Del Cauca ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25025210;84;14;PINILLOS ;BolÌvar; Pinillos ; Magdalena Cauca ; Directos Bajo Magdalena entre El Banco y El Plato 
+25025220;44;3;NOROSI ;BolÌvar; rÌoviejo ; Magdalena Cauca ; Directos al Magdalena (Brazo Morales) 
+25025230;50;16;MONTECRISANTO ;BolÌvar; Montecristo ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25025240;78;14;MAJAGUAL ;Sucre; Majagual ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25027110;0;14;SUCRE ;Sucre; Sucre; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25027530;84;2;BARBOSA ;BolÌvar; MaganguÈ ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+25027630;87;3;RIO NUEVO ;BolÌvar; Barranco De Loba ; Magdalena Cauca ; Directos Bajo Magdalena entre El Banco y El Plato 
+25027910;81;16;LA RAYA ;BolÌvar; San Jacinto Del Cauca ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+26100300;96;14;OBANDO ;Valle del Cauca; Obando ; Magdalena Cauca ; Rios Las CaÌ¬±as Los Micos y Obando 
+26100830;77;14;PALMASOLA ;Valle del Cauca; Cartago ; Magdalena Cauca ; Rios Las CaÌ¬±as Los Micos y Obando 
+26110070;58;14;SAN ANTONIO ;Valle del Cauca; Toro ; Magdalena Cauca ; Rios Pescador RUT Chanco Catarina y Ca√±averal
+26110120;94;17;VILLA NUEVA ;Valle del Cauca; El Ì¬Åguila ; Magdalena Cauca ; Rios Pescador RUT Chanco Catarina y Ca√±averal
+26110150;91;14;La Inmaculada;Valle del Cauca; Ansermanuevo ; Magdalena Cauca ; Rios Pescador RUT Chanco Catarina y Ca√±averal
+26110160;93;14;SAN FRANCISCO ;Valle del Cauca; Toro ; Magdalena Cauca ; Rios Pescador RUT Chanco Catarina y Ca√±averal
+26110300;78;14;CEROS ;Valle del Cauca; Toro ; Magdalena Cauca ; Rios Pescador RUT Chanco Catarina y Ca√±averal
+26115090;83;14;Las Brisas Aut;Valle del Cauca; Ansermanuevo ; Pacifico ; rÌo SipÌ 
+26120150;93;14;ALCALA ;Valle del Cauca; Alcal· ; Magdalena Cauca ; rÌo La Vieja 
+26120160;82;24;SALENTO ;QuindÌo; Salento ; Magdalena Cauca ; rÌo La Vieja 
+26130020;95;24;TERMALES ;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26130170;97;24;POTREROS ;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26130180;97;14;SAN ISIDRO ;Risaralda; Pereira ; Magdalena Cauca ; rÌo La Vieja 
+26130190;17;24;BOQUERON ;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26130200;91;17;RECUERDO EL ;Risaralda; Marsella ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26130220;81;14;MARACAY ;Risaralda; Pereira ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26130270;4;17;Marsella Ita;Risaralda; Marsella ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26130540;52;24;PLAYA RICA ;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26130550;5;24;BRISAS LAS HACIENDA ;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26130560;52;24;PEZ FRESCO ;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26130570;30;24;NUEVO LIBARE ;Risaralda; Pereira ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135040;98;14;AEROPUERTO MATECANA ;Risaralda; Pereira ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135080;3;24;UNIV PEREIRA UTP;Risaralda; Pereira ; Magdalena Cauca ; rÌo La Vieja 
+26135090;26;17;JARDIN BOTANICO ;Risaralda; Marsella ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135100;89;14;BOHEMIA LA ;Risaralda; Pereira ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135110;63;24;VERACRUZ ;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135120;14;17;Marsella Ita;Risaralda; Marsella ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135140;38;24;LAGUNA LA ;Risaralda; Pereira ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135150;2;24;MIRANDA LA ;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135160;57;24;SAN REMO ;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135170;3;24;El BoquerÛn;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135230;0;24;PICO PARAMO SANTA R ;Risaralda; Santa Rosa De Cabal ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26135330;0;24;La Laguna del Otun Aut ;Risaralda; Pereira ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26140080;57;17;TAIJARA ALEJANDRIA ;Risaralda; Gu·tica ; Magdalena Cauca ; rÌo Risaralda 
+26140090;96;17;TAPARCAL ;Risaralda; BelÈn De UmbrÌa ; Magdalena Cauca ; rÌo Risaralda 
+26140110;84;17;SAN CLEMENTE ;Risaralda; Gu·tica ; Magdalena Cauca ; rÌo Risaralda 
+26140120;96;17;MISTRATO ;Risaralda; MistratÛ ; Magdalena Cauca ; rÌo Risaralda 
+26140180;79;14;La Virginia Alerta;Risaralda; La Virginia ; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26140330;5;17;VIRGINIA LA ;Risaralda; La Virginia ; Magdalena Cauca ; rÌo Risaralda 
+26145010;5;17;CECILIA LA ;Caldas; Viterbo ; Magdalena Cauca ; rÌo Risaralda 
+26145020;78;17;BELLAVISTA ;Caldas; Anserma ; Magdalena Cauca ; rÌo Risaralda 
+26145030;84;17;CAMELIA LA ;Risaralda; Santuario; Magdalena Cauca ; rÌo Risaralda 
+26145050;35;17;SAMARIA LA ;Caldas; Viterbo ; Magdalena Cauca ; rÌo Risaralda 
+26150060;96;13;ARAUCA ;Caldas; Palestina; Magdalena Cauca ; rÌo Ot√∫n y otros directos al Cauca 
+26150150;94;13;PAPAYAL ;Caldas; Villamaria ; Magdalena Cauca ; rÌo Chinchin· 
+26150160;95;13;LA ESPERANZA ;Caldas; Manizales ; Magdalena Cauca ; rÌo Chinchin· 
+26155110;97;13;AEROPUERTO LA NUBIA ;Caldas; Manizales ; Magdalena Cauca ; rÌo Chinchin· 
+26155120;26;13;AEROPUERTO SANTAGUEDA ;Caldas; Palestina; Magdalena Cauca ; rÌo Chinchin· 
+26155150;63;13;Las Brisas Aut;Caldas; Villamaria ; Magdalena Cauca ; rÌo GualÌ 
+26155170;43;13;Tesorito Finca Aut;Caldas; Manizales ; Magdalena Cauca ; rÌo Chinchin· 
+26160080;97;20;SALAMINA CONC BARC ;Caldas; Salamina; Magdalena Cauca ; Rio Tapias y otros directos al Cauca 
+26160090;95;20;PACORA PLAZA FERIA ;Caldas; P·cora ; Magdalena Cauca ; Rio Tapias y otros directos al Cauca 
+26160100;91;13;NEIRA ;Caldas; Neira ; Magdalena Cauca ; Rio Tapias y otros directos al Cauca 
+26160120;92;13;CRISTALINA LA ;Caldas; Neira ; Magdalena Cauca ; Rio Tapias y otros directos al Cauca 
+26160160;99;20;MARIA LA ;Caldas; Aguadas ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26170150;98;11;PUEBLORRICO ;Antioquia; Pueblorrico ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26170160;15;11;NACIONAL LA GRANJA ;Antioquia; T·mesis ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26170170;33;20;PRADERA LA ;Antioquia; Caramanta ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26170180;90;20;CARAMANTA ;Antioquia; Caramanta ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26170190;96;12;DIQUE EL ;Antioquia; JericÛ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26170250;29;13;IRRA ;Risaralda; QuinchÌa ; Magdalena Cauca ; Rio Tapias y otros directos al Cauca 
+26170260;80;13;GUERRERITO ;Risaralda; QuinchÌa ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26170270;18;17;MARGARITA LA ;Caldas; Risaralda ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26170290;68;11;RIOSUCIO ;Caldas; Riosucio; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26170350;2;20;FLECHA LA ;Caldas; Marmato ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26175010;2;20;RIOSUCIO ;Caldas; Riosucio; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26175020;14;11;Inst. Los Fundadores;Caldas; Riosucio; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26175030;83;20;NACIONAL GRANJA LA ;Antioquia; T·mesis ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26175040;76;20;TUNEZ HACIENDA ;Antioquia; Fredonia ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26175050;8;20;RIOSUCIO ;Caldas; Riosucio; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26180130;2;20;PINTADA LA ;Caldas; Aguadas ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26180160;96;20;ABEJORRAL ;Antioquia; Abejorral ; Magdalena Cauca ; rÌo Arma 
+26180170;96;19;UNION LA ;Antioquia; La UniÛn; Magdalena Cauca ; rÌo Arma 
+26180180;99;20;SONSON ;Antioquia; SonsÛn ; Magdalena Cauca ; rÌo Arma 
+26180190;96;20;AGUADAS ;Caldas; Aguadas ; Magdalena Cauca ; Rio Tapias y otros directos al Cauca 
+26180200;97;19;MONTEBELLO ;Antioquia; Montebello ; Magdalena Cauca ; rÌo Arma 
+26180220;76;20;LA PINTADA ALERTAS ;Antioquia; La Pintada ; Magdalena Cauca ; rÌo FrÌo y Otros Directos al Cauca 
+26180240;50;20;PAVAS LAS ;Caldas; Aguadas ; Magdalena Cauca ; rÌo Arma 
+26180250;39;13;Valle Alto Aut;Caldas; Salamina; Magdalena Cauca ; rÌo Arma 
+26180260;32;20;La Miranda;Caldas; Salamina; Magdalena Cauca ; rÌo Arma 
+26185010;49;20;PELADA LA ;Caldas; Aguadas ; Magdalena Cauca ; rÌo Arma 
+26185020;97;19;MESOPOTAMIA ;Antioquia; La UniÛn; Magdalena Cauca ; rÌo Arma 
+26185040;93;20;SAN FELIX ;Caldas; Salamina; Magdalena Cauca ; rÌo Arma 
+26190080;2;11;Betania Volga;Antioquia; Betania ; Magdalena Cauca ; rÌo San Juan 
+26190090;98;11;Betania las Guacas;Antioquia; Betania ; Magdalena Cauca ; rÌo San Juan 
+26190100;96;11;SANTA BARBARA ;Antioquia; Andes ; Magdalena Cauca ; rÌo San Juan 
+26190120;34;11;CAMPAMENTO ;Antioquia; Andes ; Magdalena Cauca ; rÌo San Juan 
+26190130;5;11;La Mansa;ChocÛ; El Carmen; Caribe ; DariÈn Alto Atrato
+26195020;95;11;ITA ANDES ;Antioquia; Andes ; Magdalena Cauca ; rÌo San Juan 
+26195030;48;11;El JardÌn;Antioquia; JardÌn; Magdalena Cauca ; rÌo San Juan 
+26200120;97;12;OTRAMINA ;Antioquia; TitiribÌ ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26200130;79;12;BOLOMBOLO ;Antioquia; Venecia; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26200140;86;12;ARMENIA ;Antioquia; Armenia; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26200150;87;19;FREDONIA ;Antioquia; Fredonia ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26205030;4;20;FARALLONES ;Antioquia; La Pintada ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26205040;2;18;IGUINA HACIENDA ;Antioquia; Anz· ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26205060;11;18;NOQUE LA ;Antioquia; Anz· ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26205070;18;12;PLATA LA ;Antioquia; Venecia; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26205080;59;14;La Aldea;Antioquia; MedellÌn ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26210070;94;18;CAICEDO ;Antioquia; Caicedo ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26210080;95;12;HERRADURA LA ;Antioquia; Concordia; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26210090;98;18;ANZA ;Antioquia; Anz· ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26210110;97;12;PENALISA ;Antioquia; Salgar ; Magdalena Cauca ; rÌo San Juan 
+26210130;87;18;GUASABRA ;Antioquia; Santa Fe De Antioquia ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26210140;88;12;ALTAMIRA ;Antioquia; Betulia; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26215010;92;12;CONCORDIA ;Antioquia; Concordia; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26215020;26;18;CANAFISANTO ;Antioquia; Santa Fe De Antioquia ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26220050;63;8;CUMBRE LA ;Antioquia; Peque ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26220060;0;18;TUNAL EL ;Antioquia; Santa Fe De Antioquia ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26220090;98;18;GIRALDO ;Antioquia; Giraldo ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26220100;88;2;GRANJA LA ;Antioquia; Ituango ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26220110;75;13;SANTA RITA ;Antioquia; Ituango ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26225010;6;2;ITUANGO ;Antioquia; Ituango ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26225030;78;18;COTOVE HACIENDA ;Antioquia; Santa Fe De Antioquia ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26225040;77;8;PIUNTI HACIENDA ;Antioquia; Buritic· ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26225050;12;14;PALMAR EL ;Antioquia; Ituango ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26225060;7;18;HACIENDA COTOVE Aut;Antioquia; Santa Fe De Antioquia ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26230010;88;18;OLAYA ;Antioquia; Olaya ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26230110;98;14;SAN ANDRES ;Antioquia; San AndrÈs; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26230130;94;14;CRUCES ARRIBA ;Antioquia; San AndrÈs; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26230140;97;8;PLACITA LA ;Antioquia; Liborina ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26230160;97;14;BRICENO ;Antioquia; Brice√±o; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26230180;55;18;LLANOS DE SAN JUAN ;Antioquia; San JerÛnimo ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26230190;32;8;El Oro;Antioquia; Sabanalarga; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26230200;88;8;SABANALARGA ;Antioquia; Sabanalarga; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26230220;71;14;OCULTA LA ;Antioquia; Belmira ; Magdalena Cauca ; rÌo Porce 
+26230240;47;14;ABERTURA LA ;Antioquia; San AndrÈs; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26235020;14;18;La Vega Tab Rubios;Antioquia; Sopetr·n ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26235030;87;14;MATANZAS ;Antioquia; Toledo; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+26240050;14;10;UNION LA HACIENDA ;Antioquia; C·ceres ; Magdalena Cauca ; rÌo Taraza rÌo Man 
+26240060;99;10;MANIZALES ;Antioquia; C·ceres ; Magdalena Cauca ; Cauca San Jorge La Mojana 
+26240070;21;13;ALTO EL MUNECO ;Antioquia; Taraz· ; Magdalena Cauca ; rÌo Taraza rÌo Man 
+26240080;23;13;HOYO RICO ;Antioquia; Taraz· ; Magdalena Cauca ; rÌo Taraza rÌo Man 
+26240090;77;10;PUERTO BELGICA ;Antioquia; C·ceres ; Magdalena Cauca ; rÌo Taraza rÌo Man 
+26240100;94;11;Guarumo La Lucha;Antioquia; C·ceres ; Magdalena Cauca ; rÌo Taraza rÌo Man 
+26240120;20;13;PUERTO VALDIVIA ;Antioquia; Valdivia ; Magdalena Cauca ; rÌo Taraza rÌo Man 
+26240150;73;13;PUERTO VALDIVIA ;Antioquia; Valdivia ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdia 
+26240160;77;11;La Coquera;Antioquia; Caucasia ; Magdalena Cauca ; Directos al Cauca entre Pto Valdivia y rÌo NechÌ 
+26240170;70;13;PLAYALTA ;Antioquia; Taraz· ; Magdalena Cauca ; rÌo Taraza rÌo Man 
+26245020;4;13;MARY LAND ;Antioquia; C·ceres ; Magdalena Cauca ; rÌo Taraza rÌo Man 
+26245030;9;13;TARAZA ;Antioquia; Taraz· ; Magdalena Cauca ; rÌo Taraza rÌo Man 
+26245040;12;11;JHB CAUCASIA ;Antioquia; Caucasia ; Magdalena Cauca ; Directos al Cauca entre Pto Valdivia y rÌo NechÌ 
+26250010;0;13;CACERES ;Antioquia; C·ceres ; Magdalena Cauca ; Directos al Cauca entre Pto Valdivia y rÌo NechÌ 
+26250020;14;11;Hda La Trinidad;Antioquia; C·ceres ; Magdalena Cauca ; Directos al Cauca entre Pto Valdivia y rÌo NechÌ 
+26250030;97;13;CACERES ;Antioquia; C·ceres ; Magdalena Cauca ; Directos al Cauca entre Pto Valdivia y rÌo NechÌ 
+26250060;87;13;PUERTO RAUDAL ;Antioquia; Valdivia ; Magdalena Cauca ; rÌo Taraza rÌo Man 
+26250090;17;11;PIAMONTE ;Antioquia; C·ceres ; Magdalena Cauca ; Directos al Cauca entre Pto Valdivia y rÌo NechÌ 
+26250100;1;8;Hda Santa Cruz;Antioquia; C·ceres ; Magdalena Cauca ; Directos al Cauca entre Pto Valdivia y rÌo NechÌ 
+26250110;71;8;BARRO BLANCO ;Antioquia; Taraz· ; Magdalena Cauca ; Directos al Cauca entre Pto Valdivia y rÌo NechÌ 
+26255020;86;14;SANTA ISABEL ;Antioquia; Santa Rosa De Osos ; Magdalena Cauca ; rÌo Porce 
+26255030;6;19;Santa Isabel Valdivia Aut;Antioquia; Rionegro; Magdalena Cauca ; rÌo Nare 
+26255040;70;11;CACAOTERAS DEL DIQ ;Antioquia; Caucasia ; Magdalena Cauca ; Directos al Cauca entre Pto Valdivia y rÌo NechÌ 
+27010160;6;20;GOMEZ PLATA ;Antioquia; GÛmez Plata ; Magdalena Cauca ; rÌo Porce 
+27010680;5;10;MACARENA LA HACIENDA ;Antioquia; Remedios ; Magdalena Cauca ; rÌo Porce 
+27010770;97;19;CHUSCAL EL ;Antioquia; Heliconia ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+27010780;37;14;BOQUERON ;Antioquia; MedellÌn ; Magdalena Cauca ; Directos rÌo Cauca entre rÌo San Juan y Pto Valdivia 
+27010790;26;19;Sena La Meseta;Antioquia; Caldas; Magdalena Cauca ; rÌo Porce 
+27010800;95;14;La Meseta San Pedro;Antioquia; Bello ; Magdalena Cauca ; rÌo Porce 
+27010810;95;19;SANTA HELENA ;Antioquia; MedellÌn ; Magdalena Cauca ; rÌo Porce 
+27010820;98;14;La Cuchilla;Antioquia; Girardota ; Magdalena Cauca ; rÌo Porce 
+27010830;97;14;SAN ISIDRO ;Antioquia; Entrerrios ; Magdalena Cauca ; rÌo Porce 
+27010840;94;20;SAN PABLO ;Antioquia; Santa Rosa De Osos ; Magdalena Cauca ; rÌo Porce 
+27010850;96;10;AMALFI ;Antioquia; Amalfi ; Magdalena Cauca ; rÌo Porce 
+27010860;20;20;Hacienda NormandÌa;Antioquia; YolombÛ ; Magdalena Cauca ; rÌo Porce 
+27010870;96;14;BELMIRA ;Antioquia; Belmira ; Magdalena Cauca ; rÌo Porce 
+27010880;98;14;MONTANITAS ;Antioquia; Santa Rosa De Osos ; Magdalena Cauca ; Alto NechÌ 
+27010890;94;10;CUEVA SANTA ;Antioquia; Amalfi ; Magdalena Cauca ; rÌo Porce 
+27010900;98;20;GOMEZ PLATA ;Antioquia; GÛmez Plata ; Magdalena Cauca ; rÌo Porce 
+27010960;76;10;Hacienda Monos;Antioquia; Amalfi ; Magdalena Cauca ; rÌo Porce 
+27011100;67;10;Las Brisas;Antioquia; Segovia ; Magdalena Cauca ; rÌo Porce 
+27011110;59;14;ASTILLEROS ;Antioquia; MedellÌn ; Magdalena Cauca ; rÌo Porce 
+27011120;59;14;La Iguan·;Antioquia; MedellÌn ; Magdalena Cauca ; rÌo Porce 
+27011230;39;20;SAN ANTONIO ;Antioquia; YolombÛ ; Magdalena Cauca ; rÌo Porce 
+27011270;19;19;LAURELES medellin;Antioquia; MedellÌn ; Magdalena Cauca ; rÌo Porce 
+27015090;96;14;TULIO OSPINA ;Antioquia; Bello ; Magdalena Cauca ; rÌo Porce 
+27015110;87;14;ARAGON ;Antioquia; Santa Rosa De Osos ; Magdalena Cauca ; rÌo Porce 
+27015120;16;14;PIEDRAS BLANCAS ;Antioquia; MedellÌn ; Magdalena Cauca ; rÌo Porce 
+27015150;79;14;Hacienda El Progreso;Antioquia; Don MatÌas ; Magdalena Cauca ; rÌo Porce 
+27015160;5;19;La Clara;Antioquia; Caldas; Magdalena Cauca ; rÌo Porce 
+27015190;98;20;GUAYABITO ;Antioquia; Santo Domingo ; Magdalena Cauca ; rÌo Porce 
+27015200;21;10;Hacienda NormandÌa;Antioquia; YolombÛ ; Magdalena Cauca ; rÌo Porce 
+27015210;26;14;El Vivero;Antioquia; Guarne ; Magdalena Cauca ; rÌo Porce 
+27015260;71;19;SALADA LA ;Antioquia; Caldas; Magdalena Cauca ; rÌo Porce 
+27015270;2;14;JARDIN BOTANICO ;Antioquia; MedellÌn ; Magdalena Cauca ; rÌo Porce 
+27015330;95;19;Aerop Olaya Herrera Aut;Antioquia; MedellÌn ; Magdalena Cauca ; rÌo Porce 
+27020040;6;14;ANGOSTURA ;Antioquia; Angostura ; Magdalena Cauca ; Alto NechÌ 
+27020160;20;8;TENCHE LA RISARALD ;Antioquia; AnorÌ ; Magdalena Cauca ; Alto NechÌ 
+27020170;92;10;CARMEN EL HACIENDA ;Antioquia; AnorÌ ; Magdalena Cauca ; Alto NechÌ 
+27020180;34;10;ANORI ;Antioquia; AnorÌ ; Magdalena Cauca ; Alto NechÌ 
+27020190;93;14;YARUMAL ;Antioquia; Yarumal ; Magdalena Cauca ; Alto NechÌ 
+27020200;96;14;CEDENO ;Antioquia; Yarumal ; Magdalena Cauca ; Alto NechÌ 
+27020210;98;14;ANGOSTURA ;Antioquia; Angostura ; Magdalena Cauca ; Alto NechÌ 
+27020220;97;14;LLANOS D CUIBA LOS ;Antioquia; Yarumal ; Magdalena Cauca ; Alto NechÌ 
+27020260;79;13;TESORO EL ;Antioquia; Valdivia ; Magdalena Cauca ; Alto NechÌ 
+27020280;15;13;MARGARITAS LAS ;Antioquia; Taraz· ; Magdalena Cauca ; Alto NechÌ 
+27025010;4;10;MONTEFRIO ;Antioquia; AnorÌ ; Magdalena Cauca ; Alto NechÌ 
+27025020;16;8;CHARCON LIBERIA ;Antioquia; AnorÌ ; Magdalena Cauca ; Alto NechÌ 
+27025030;85;10;ANORI ;Antioquia; AnorÌ ; Magdalena Cauca ; Alto NechÌ 
+27030030;2;8;ZARAGOZA ;Antioquia; Zaragoza ; Magdalena Cauca ; Bajo NechÌ (md) 
+27030040;89;7;GUAMO EL ;Antioquia; NechÌ; Magdalena Cauca ; Directos al Bajo NechÌ(mi) 
+27030060;32;7;AMACERI ;Antioquia; El Bagre ; Magdalena Cauca ; Bajo NechÌ (md) 
+27030080;77;8;CRUZADA LA ;Antioquia; Remedios ; Magdalena Cauca ; Bajo NechÌ (md) 
+27030090;98;8;BOSQUE EL ;Antioquia; Zaragoza ; Magdalena Cauca ; rÌo Porce 
+27030130;22;6;LONDRE EL ;Antioquia; El Bagre ; Magdalena Cauca ; Bajo NechÌ (md) 
+27030140;88;6;PALMA DE COCO LA ;Antioquia; Segovia ; Magdalena Cauca ; Bajo NechÌ (md) 
+27030150;22;7;ASI ES LA VIDA ;Antioquia; El Bagre ; Magdalena Cauca ; Bajo NechÌ (md) 
+27030160;24;6;BUENAVISTA ;Antioquia; El Bagre ; Magdalena Cauca ; Bajo NechÌ (md) 
+27030210;97;8;ZARAGOZA ;Antioquia; Zaragoza ; Magdalena Cauca ; Bajo NechÌ (md) 
+27030220;24;6;ORIENTE EL ;Antioquia; El Bagre ; Magdalena Cauca ; Bajo NechÌ (md) 
+27030230;1;6;MONTEVERDE ;Antioquia; Segovia ; Magdalena Cauca ; Bajo NechÌ (md) 
+27030240;30;8;PUENTE BAGRE ;Antioquia; Remedios ; Magdalena Cauca ; Bajo NechÌ (md) 
+27035010;5;6;MONTES NEGROS ;Antioquia; Zaragoza ; Magdalena Cauca ; Bajo NechÌ (md) 
+27035020;7;8;BOQUETE EL ;Antioquia; Segovia ; Magdalena Cauca ; Bajo NechÌ (md) 
+27035030;19;7;SANTA MARGARITA ;Antioquia; El Bagre ; Magdalena Cauca ; Bajo NechÌ (md) 
+27040020;91;8;ALTO DEL INDIO ;Antioquia; Zaragoza ; Magdalena Cauca ; Directos al Bajo NechÌ (mi) 
+27040030;94;11;ESMERALDA LA ;Antioquia; Caucasia ; Magdalena Cauca ; Directos al Bajo NechÌ (mi) 
+27040040;28;16;NECHI ;Antioquia; NechÌ; Magdalena Cauca ; Bajo NechÌ(md) 
+27045020;56;11;CASERI ;Antioquia; Caucasia ; Magdalena Cauca ; Directos al Bajo NechÌ (mi) 
+27047010;32;7;BAGRE EL ;Antioquia; El Bagre ; Magdalena Cauca ; Bajo NechÌ (md) 
+54010010;92;6;ISTMINA ;ChocÛ; Istmina ; Pacifico ; rÌo San Juan Alto 
+54010020;93;17;LINEA LA PORVENIR ;Risaralda; Pueblo Rico ; Magdalena Cauca ; rÌo Risaralda 
+54015010;72;17;Pueblo Rico Aut;Risaralda; Pueblo Rico ; Pacifico ; rÌo San Juan Alto 
+54020010;92;6;ANDAGOYA ;ChocÛ; Medio San Juan ; Pacifico ; rÌo Taman· y otros Directos San Juan 
+54020020;95;4;NOVITA ;ChocÛ; NÛvita ; Pacifico ; rÌo Taman· y otros Directos San Juan 
+54020040;92;4;VALENCIA LA DIVISA ;ChocÛ; San JosÈ Del Palmar ; Pacifico ; rÌo Taman· y otros Directos San Juan 
+54020050;68;1;SINAI EL ;ChocÛ; San JosÈ Del Palmar ; Pacifico ; rÌo Taman· y otros Directos San Juan 
+54020060;84;6;OPOGODO ;ChocÛ; Condoto ; Pacifico ; rÌo Taman· y otros Directos San Juan 
+54020090;25;6;AEROPUERTO CONDOTO ;ChocÛ; Condoto ; Pacifico ; rÌo Taman· y otros Directos San Juan 
+54025010;78;4;SAN JOSE PALMAR ;ChocÛ; San JosÈ Del Palmar ; Pacifico ; rÌo Taman· y otros Directos San Juan 
+54025020;60;6;AEROPUERTO CONDOTO ;ChocÛ; Condoto ; Pacifico ; rÌo Taman· y otros Directos San Juan 
+54025030;4;4;SAN JOSE ;ChocÛ; Condoto ; Pacifico ; rÌo Taman· y otros Directos San Juan 
+54035020;41;14;ARGELIA EL RECREO ;Valle del Cauca; Argelia; Pacifico ; rÌo SipÌ 
+55015010;92;7;PIE DE PATO Aut ;ChocÛ; Alto BaudÛ (Pie De Pato) ; Pacifico ; Directos Pacifico RÌo BaudÛ 
+56010030;43;2;CUPICA ;ChocÛ; BahÌa Solano (Mutis) ; Pacifico ; Directos Directos Pacifico Frontera Panam·
+56010040;33;1;NUQUI ;ChocÛ; NuquÌ; Pacifico ; Directos Pacifico Frontera Panam· 
+56015010;87;1;PANAMERICANA ;ChocÛ; BahÌa Solano (Mutis) ; Pacifico ; Directos Pacifico Frontera Panam· 
+56015020;0;1;ALTO CURICHE ;ChocÛ; JuradÛ ; Pacifico ; Directos Directos Pacifico Frontera Panam· 
