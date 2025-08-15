@@ -124,7 +124,7 @@ def cargar_datos(prec_file_obj=None, meta_file_obj=None):
 # ==========================
 # Función para cargar shapefiles
 # ==========================
-@st.cache_resource # <--- CAMBIO APLICADO AQUÍ
+@st.cache_resource
 def cargar_shapefiles():
     """Carga los archivos de shapefile desde la carpeta de datos."""
     shp_path = os.path.join(DATA_DIR, "mapa.shp")
@@ -216,6 +216,10 @@ if prec_long is None or prec_long.empty:
     st.error("No se pudo procesar el CSV de precipitaciones. Revisa el formato.")
     st.stop()
 
+# --- CÓDIGO AÑADIDO PARA SOLUCIONAR EL ERROR ---
+prec_long['Estacion'] = prec_long['Estacion'].astype(str)
+meta_df['Estacion'] = meta_df['Estacion'].astype(str)
+# ---------------------------------------------
 merged = pd.merge(prec_long, meta_df, on='Estacion', how='left')
 
 # -----------------------
