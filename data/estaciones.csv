@@ -1,4 +1,4 @@
-Estación,Porc_datos,Celda_XY,Cont_celda,Nom_Est,Depto,Mpio,AH,ZSZH,x,y
+Estacion,Porc_datos,Celda_XY,Cont_celda,Nom_Est,Depto,Mpio,AH,ZSZH,x,y
 11010010,78,(3-4),5,VUELTALA,Chocó,Cértegui,Caribe,DariénRíoAndágueda,4607247,2162360
 11020010,100,(4-5),12,CARMENDEATRATO,Chocó,ElCarmen,Caribe,DariénAltoAtrato,4652177,2211863
 11020020,42,(3-4),5,GUADUAS,Chocó,ElCarmen,Caribe,DariénAltoAtrato,4647517,2196190
@@ -788,4 +788,5 @@ Estación,Porc_datos,Celda_XY,Cont_celda,Nom_Est,Depto,Mpio,AH,ZSZH,x,y
 56010040,33,(3-2),1,NUQUI,Chocó,Nuquí,Pacifico,DirectosPacificoFronteraPanamá,4527415,2190481
 56015010,87,(4-2),1,PANAMERICANA,Chocó,BahíaSolano(Mutis),Pacifico,DirectosPacificoFronteraPanamá,4512487,2247700
 56015020,0,(6-1),1,ALTOCURICHE,Chocó,Juradó,Pacifico,DirectosDirectosPacificoFronteraPanamá,4486111,2339577
+
 
