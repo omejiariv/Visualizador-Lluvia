@@ -398,12 +398,11 @@ with tabs[4]:
                     mm = mm.drop(columns=['ppt_media', 'color', 'radius'], errors='ignore')
                     mm = mm.merge(ppt_y, on='Estacion', how='left')
 
-                    # --- CÓDIGO CORREGIDO AQUÍ ---
-                    # Verificación adicional para asegurar que la columna existe
+                    # Verificación para la existencia de la columna `ppt_media` después del merge.
                     if 'ppt_media' not in mm.columns:
                         mm['ppt_media'] = np.nan
                         mapa_placeholder.warning(f"No hay datos de precipitación para el año {y}.")
-                        # Para este caso, el resto del código asignará colores grises
+                        # El resto del código asignará colores grises
                     
                     min_p_y = float(mm['ppt_media'].min(skipna=True) if not mm['ppt_media'].isna().all() else 0.0)
                     max_p_y = float(mm['ppt_media'].max(skipna=True) if not mm['ppt_media'].isna().all() else 1.0)
@@ -472,7 +471,7 @@ with tabs[5]:
 # -----------------------
 def to_excel_bytes(df_):
     out = BytesIO()
-    with pd.ExcelWriter(out, engine='xlsxwriter') as writer:
+    with pd.ExcelWriter(out, engine='openpyxl') as writer:
         df_.to_excel(writer, index=False, sheet_name='Datos')
     return out.getvalue()
 
