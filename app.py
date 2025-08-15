@@ -29,7 +29,7 @@ except Exception:
 # ==========================
 # Configuración inicial
 # ==========================
-st.set_page_config(page_title="Visualizador de Lluvia - robusto", layout="wide")
+st.set_page_config(page_title="Visualizador de Lluvia", layout="wide")
 st.title("🌧️ Visualizador de Lluvia - Antioquia (solución final)")
 
 DATA_DIR = "data"
@@ -116,7 +116,7 @@ def cargar_datos_csv(prec_file_obj=None, meta_file_obj=None):
     """
     pptn_raw = leer_csv_flexible(prec_file_obj) if prec_file_obj else None
     meta_df = leer_csv_flexible(meta_file_obj) if meta_file_obj else None
-
+    
     if pptn_raw is not None:
         pptn_raw = estandarizar_nombre_columna(pptn_raw)
     if meta_df is not None:
