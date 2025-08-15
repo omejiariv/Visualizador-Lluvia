@@ -11,3 +11,6 @@ rasterio
 pyshp
 rtree
 xlsxwriter
+pydeck
+seaborn
+openpyxl
