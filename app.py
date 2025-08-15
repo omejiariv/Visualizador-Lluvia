@@ -120,6 +120,47 @@ def cargar_shapefiles(uploaded_files):
         return None, f"Error al leer shapefile: {e}"
 
 # ==========================
+# Procesar precipitación y unir con metadatos
+# ==========================
+def procesar_precipitaciones(pptn_raw):
+    """
+    Convierte el DataFrame de precipitaciones a formato largo.
+    Maneja varios formatos de entrada.
+    """
+    if pptn_raw is None:
+        return None
+
+    first_col = pptn_raw.columns[0]
+    first_val = str(pptn_raw.iloc[0, 0]).strip()
+
+    def es_anio(v):
+        try:
+            n = int(v)
+            return 1900 <= n <= 2100
+        except Exception:
+            return False
+
+    if es_anio(first_val) or first_col.lower() in ['año', 'ano', 'year', 'fecha']:
+        df_wide = pptn_raw.rename(columns={first_col: "Año"})
+        df_long = df_wide.melt(id_vars=["Año"], var_name="Estacion", value_name="Precipitacion")
+    else:
+        try:
+            df_trans = pptn_raw.set_index(first_col).transpose().reset_index()
+            df_trans = df_trans.rename(columns={"index": "Año"})
+            df_long = df_trans.melt(id_vars=["Año"], var_name="Estacion", value_name="Precipitacion")
+        except Exception:
+            df_long = pptn_raw.melt(id_vars=[first_col], var_name="Año", value_name="Precipitacion")
+            df_long = df_long.rename(columns={first_col: "Estacion", "Año": "Año"})
+
+    df_long['Año'] = pd.to_numeric(df_long['Año'], errors='coerce')
+    df_long['Estacion'] = df_long['Estacion'].astype(str)
+    df_long['Precipitacion'] = pd.to_numeric(df_long['Precipitacion'], errors='coerce')
+    df_long = df_long.dropna(subset=['Año', 'Estacion']).reset_index(drop=True)
+    df_long['Año'] = df_long['Año'].astype(int)
+
+    return df_long
+
+# ==========================
 # Interfaz de usuario para carga de archivos
 # ==========================
 with st.sidebar:
@@ -140,9 +181,7 @@ with st.sidebar:
     pptn_raw, meta_df = cargar_datos_csv(prec_file_u, meta_file_u)
 
     sf = None
-    if os.path.exists(os.path.join(DATA_DIR, "mapa.shp")):
-        sf, error_sf = cargar_shapefiles([])
-    elif uploaded_shapefiles:
+    if uploaded_shapefiles:
         sf, error_sf = cargar_shapefiles(uploaded_shapefiles)
         if error_sf:
             st.error(error_sf)
