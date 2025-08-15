@@ -394,13 +394,17 @@ with tabs[4]:
                     
                     ppt_y = df_y.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
                     
-                    # CÓDIGO CORREGIDO AQUÍ
-                    # Creamos un DataFrame para el mapa que incluya todas las estaciones,
-                    # incluso las que no tienen datos para el año seleccionado.
                     mm = meta_map.copy()
                     mm = mm.drop(columns=['ppt_media', 'color', 'radius'], errors='ignore')
                     mm = mm.merge(ppt_y, on='Estacion', how='left')
 
+                    # --- CÓDIGO CORREGIDO AQUÍ ---
+                    # Verificación adicional para asegurar que la columna existe
+                    if 'ppt_media' not in mm.columns:
+                        mm['ppt_media'] = np.nan
+                        mapa_placeholder.warning(f"No hay datos de precipitación para el año {y}.")
+                        # Para este caso, el resto del código asignará colores grises
+                    
                     min_p_y = float(mm['ppt_media'].min(skipna=True) if not mm['ppt_media'].isna().all() else 0.0)
                     max_p_y = float(mm['ppt_media'].max(skipna=True) if not mm['ppt_media'].isna().all() else 1.0)
                     
