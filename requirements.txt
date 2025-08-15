@@ -10,3 +10,4 @@ fiona
 rasterio
 pyshp
 rtree
+xlsxwriter
