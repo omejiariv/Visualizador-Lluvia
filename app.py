@@ -110,9 +110,6 @@ def cargar_datos(prec_file_obj=None, meta_file_obj=None):
     if meta_df is not None:
         meta_df = estandarizar_nombre_columna(meta_df)
 
-    if pptn_raw is None or meta_df is None:
-        return None, None, prec_source, meta_source
-
     if "Estacion" not in pptn_raw.columns or "Estacion" not in meta_df.columns:
         st.error(
             "Los CSV deben contener una columna de estación con un nombre como: 'Estacion', 'estacion', 'ID_Estacion', etc."
@@ -388,29 +385,43 @@ with tabs[4]:
                 def render_year(y):
                     df_y = df_filtrado[df_filtrado['Año'] == int(y)]
                     
-                    # --- CÓDIGO AÑADIDO PARA SOLUCIONAR EL ERROR ---
                     if df_y.empty:
                         mapa_placeholder.write(f"No hay datos para el año {y}.")
                         return
-                    # ---------------------------------------------
-
+                    
                     ppt_y = df_y.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
+                    
+                    # --- CÓDIGO CORREGIDO AQUÍ ---
+                    if ppt_y.empty:
+                        mapa_placeholder.write(f"No hay datos de precipitación para el año {y}.")
+                        return
+                    
                     mm = meta_map.copy()
                     mm = mm.merge(ppt_y, on='Estacion', how='left')
 
-                    # --- CÓDIGO AÑADIDO PARA SOLUCIONAR EL ERROR ---
-                    if mm['ppt_media'].isna().all():
-                        mapa_placeholder.write(f"No hay datos de precipitación para el año {y}.")
-                        return
-                    # ---------------------------------------------
-                    
-                    mm['color'] = mm['ppt_media'].map(lambda v: color_from_p(v))
-                    mm['radius'] = mm['ppt_media'].map(lambda v: (((v - min_p) / (max_p - min_p + 1e-9)) * (MAX_R - MIN_R) + MIN_R) if not pd.isna(v) else MIN_R)
-                    
-                    if mm.empty:
-                        mapa_placeholder.write(f"No hay datos para el año {y}")
-                        return
+                    # Las siguientes líneas ya no son necesarias aquí porque la verificación se hizo antes.
+                    # if mm['ppt_media'].isna().all():
+                    #     mapa_placeholder.write(f"No hay datos de precipitación para el año {y}.")
+                    #     return
+                    # ----------------------------
 
+                    # Si el mapa principal tiene un min/max de precipitación definido, utilízalo.
+                    # Si no, calcula uno para el año actual para evitar errores.
+                    min_p_y = float(ppt_y['ppt_media'].min(skipna=True) if not ppt_y['ppt_media'].isna().all() else 0.0)
+                    max_p_y = float(ppt_y['ppt_media'].max(skipna=True) if not ppt_y['ppt_media'].isna().all() else 1.0)
+                    
+                    def color_from_p_y(p):
+                        if pd.isna(p):
+                            return [150, 150, 150, 160]
+                        ratio = (p - min_p_y) / (max_p_y - min_p_y + 1e-9)
+                        r = int(255 * (1 - ratio))
+                        g = int(122 * ratio)
+                        b = int(255 * ratio)
+                        return [r, g, b, 180]
+
+                    mm['color'] = mm['ppt_media'].map(lambda v: color_from_p_y(v))
+                    mm['radius'] = mm['ppt_media'].map(lambda v: (((v - min_p_y) / (max_p_y - min_p_y + 1e-9)) * (MAX_R - MIN_R) + MIN_R) if not pd.isna(v) else MIN_R)
+                    
                     layer_y = pdk.Layer("ScatterplotLayer", data=mm, get_position=[lon_col, lat_col], get_color="color", get_radius="radius", pickable=True)
                     deck_y = pdk.Deck(layers=[layer_y], initial_view_state=view, tooltip=tooltip)
                     mapa_placeholder.pydeck_chart(deck_y, use_container_width=True)
