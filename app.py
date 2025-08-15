@@ -72,38 +72,16 @@ def estandarizar_nombre_columna(df):
 # Cargar datos (robusto)
 # ==========================
 @st.cache_data
-def cargar_datos(prec_file_obj=None, meta_file_obj=None):
+def cargar_datos_csv(prec_file_obj=None, meta_file_obj=None):
     """
     Carga los archivos CSV de precipitación y metadatos.
     Prioriza el uploader, luego busca en el disco.
     """
-    prec_path = None
-    meta_path = None
+    prec_path = buscar_archivo_parcial("Transp_Est_Pptn") or buscar_archivo_parcial("lluvia")
+    meta_path = buscar_archivo_parcial("EstHM_CV") or buscar_archivo_parcial("estaciones")
 
-    if prec_file_obj is None:
-        prec_path = buscar_archivo_parcial("Transp_Est_Pptn") or buscar_archivo_parcial("lluvia")
-    if meta_file_obj is None:
-        meta_path = buscar_archivo_parcial("EstHM_CV") or buscar_archivo_parcial("estaciones")
-
-    if prec_file_obj is not None:
-        pptn_raw = leer_csv_flexible(prec_file_obj)
-        prec_source = "uploader"
-    elif prec_path is not None:
-        pptn_raw = leer_csv_flexible(prec_path)
-        prec_source = str(prec_path)
-    else:
-        pptn_raw = None
-        prec_source = None
-
-    if meta_file_obj is not None:
-        meta_df = leer_csv_flexible(meta_file_obj)
-        meta_source = "uploader"
-    elif meta_path is not None:
-        meta_df = leer_csv_flexible(meta_path)
-        meta_source = str(meta_path)
-    else:
-        meta_df = None
-        meta_source = None
+    pptn_raw = leer_csv_flexible(prec_file_obj) if prec_file_obj else (leer_csv_flexible(prec_path) if prec_path else None)
+    meta_df = leer_csv_flexible(meta_file_obj) if meta_file_obj else (leer_csv_flexible(meta_path) if meta_path else None)
 
     if pptn_raw is not None:
         pptn_raw = estandarizar_nombre_columna(pptn_raw)
@@ -111,105 +89,72 @@ def cargar_datos(prec_file_obj=None, meta_file_obj=None):
         meta_df = estandarizar_nombre_columna(meta_df)
 
     if pptn_raw is None or meta_df is None:
-        return None, None, prec_source, meta_source
-
+        return None, None
+    
     if "Estacion" not in pptn_raw.columns or "Estacion" not in meta_df.columns:
-        st.error(
-            "Los CSV deben contener una columna de estación con un nombre como: 'Estacion', 'estacion', 'ID_Estacion', etc."
-        )
-        st.stop()
-
-    return pptn_raw, meta_df, prec_source, meta_source
+        return None, None
+    
+    return pptn_raw, meta_df
 
 # ==========================
 # Función para cargar shapefiles
 # ==========================
 @st.cache_resource
-def cargar_shapefiles():
+def cargar_shapefiles(uploaded_files):
     """Carga los archivos de shapefile desde la carpeta de datos."""
+    for file in uploaded_files:
+        with open(os.path.join(DATA_DIR, file.name), "wb") as f:
+            f.write(file.getbuffer())
+    
     shp_path = os.path.join(DATA_DIR, "mapa.shp")
     shx_path = os.path.join(DATA_DIR, "mapa.shx")
     dbf_path = os.path.join(DATA_DIR, "mapa.dbf")
 
     if not (os.path.exists(shp_path) and os.path.exists(shx_path) and os.path.exists(dbf_path)):
-        st.warning("No se encontraron shapefiles. Por favor súbelos (.shp, .shx, .dbf).")
-        uploaded_files = st.file_uploader(
-            "Sube shapefiles", type=["shp", "shx", "dbf"], accept_multiple_files=True
-        )
-        if uploaded_files:
-            for file in uploaded_files:
-                with open(os.path.join(DATA_DIR, file.name), "wb") as f:
-                    f.write(file.getbuffer())
-            st.success("Shapefiles guardados en data/. Por favor, recarga la aplicación.")
-            st.stop()
-        else:
-            st.stop()
+        return None, "Error: No se encontraron todos los archivos shapefile (.shp, .shx, .dbf)."
 
-    sf = shapefile.Reader(shp_path)
-    return sf
+    try:
+        sf = shapefile.Reader(shp_path)
+        return sf, None
+    except Exception as e:
+        return None, f"Error al leer shapefile: {e}"
 
 # ==========================
-# Procesar precipitación y unir con metadatos
+# Interfaz de usuario para carga de archivos
 # ==========================
-def procesar_precipitaciones(pptn_raw):
-    """
-    Convierte el DataFrame de precipitaciones a formato largo.
-    Maneja varios formatos de entrada.
-    """
-    if pptn_raw is None:
-        return None
+with st.sidebar:
+    st.header("Archivos")
+    st.markdown("Carga los archivos CSV y de mapa para visualizar los datos.")
 
-    first_col = pptn_raw.columns[0]
-    first_val = str(pptn_raw.iloc[0, 0]).strip()
+    st.subheader("Archivos de datos CSV")
+    prec_file_u = st.file_uploader("CSV precipitaciones (ej. Transp_Est_Pptn...)", type=["csv"])
+    meta_file_u = st.file_uploader("CSV metadatos (ej. EstHM_CV...)", type=["csv"])
 
-    def es_anio(v):
-        try:
-            n = int(v)
-            return 1900 <= n <= 2100
-        except Exception:
-            return False
+    st.subheader("Archivos de mapa (Shapefile)")
+    uploaded_shapefiles = st.file_uploader(
+        "Sube los archivos de tu mapa (.shp, .shx, .dbf)",
+        type=["shp", "shx", "dbf"],
+        accept_multiple_files=True
+    )
 
-    if es_anio(first_val) or first_col.lower() in ['año', 'ano', 'year', 'fecha']:
-        df_wide = pptn_raw.rename(columns={first_col: "Año"})
-        df_long = df_wide.melt(id_vars=["Año"], var_name="Estacion", value_name="Precipitacion")
+    pptn_raw, meta_df = cargar_datos_csv(prec_file_u, meta_file_u)
+
+    sf = None
+    if os.path.exists(os.path.join(DATA_DIR, "mapa.shp")):
+        sf, error_sf = cargar_shapefiles([])
+    elif uploaded_shapefiles:
+        sf, error_sf = cargar_shapefiles(uploaded_shapefiles)
+        if error_sf:
+            st.error(error_sf)
     else:
-        try:
-            df_trans = pptn_raw.set_index(first_col).transpose().reset_index()
-            df_trans = df_trans.rename(columns={"index": "Año"})
-            df_long = df_trans.melt(id_vars=["Año"], var_name="Estacion", value_name="Precipitacion")
-        except Exception:
-            df_long = pptn_raw.melt(id_vars=[first_col], var_name="Año", value_name="Precipitacion")
-            df_long = df_long.rename(columns={first_col: "Estacion", "Año": "Año"})
-
-    df_long['Año'] = pd.to_numeric(df_long['Año'], errors='coerce')
-    df_long['Estacion'] = df_long['Estacion'].astype(str)
-    df_long['Precipitacion'] = pd.to_numeric(df_long['Precipitacion'], errors='coerce')
-    df_long = df_long.dropna(subset=['Año', 'Estacion']).reset_index(drop=True)
-    df_long['Año'] = df_long['Año'].astype(int)
-
-    return df_long
+        st.info("Sube los archivos de mapa para ver las visualizaciones geoespaciales.")
 
 # ==========================
-# App principal
+# Validación y procesamiento principal
 # ==========================
-st.sidebar.header("Archivos")
-prec_file_u = st.sidebar.file_uploader("CSV precipitaciones (ej. Transp_Est_Pptn...)", type=["csv"])
-meta_file_u = st.sidebar.file_uploader("CSV metadatos (ej. EstHM_CV...)", type=["csv"])
-
-try:
-    pptn_raw, meta_df, prec_source, meta_source = cargar_datos(prec_file_obj=prec_file_u, meta_file_obj=meta_file_u)
-    sf = cargar_shapefiles()
-except Exception as e:
-    st.error(f"Error al cargar datos o shapefiles. Detalles: {e}")
-    st.stop()
-
 if pptn_raw is None or meta_df is None:
-    st.error("No se encontraron los archivos necesarios. Súbelos o colócalos en la carpeta 'data/'.")
+    st.warning("Por favor, carga los archivos CSV de precipitación y metadatos para comenzar.")
     st.stop()
-
-st.sidebar.markdown("**Fuentes detectadas**")
-st.sidebar.write(f"- Precipitaciones: `{prec_source}`")
-st.sidebar.write(f"- Metadatos: `{meta_source}`" if meta_source else "- Metadatos: (no cargados)")
 
 prec_long = procesar_precipitaciones(pptn_raw)
 if prec_long is None or prec_long.empty:
@@ -326,6 +271,8 @@ with tabs[4]:
     st.subheader("Mapa de estaciones - puntos tamaño/color por precipitación")
     if meta_df is None or pdk is None:
         st.info("Para mostrar el mapa, sube el archivo de metadatos con coordenadas (ej. 'x' y 'y') y asegúrate de tener instalado pydeck.")
+    elif sf is None:
+        st.info("Sube los archivos de mapa (shapefile) para ver la visualización geoespacial.")
     else:
         colnames = [c.lower() for c in meta_df.columns]
         lon_candidates = [c for c in meta_df.columns if c.lower() in ['x', 'lon', 'long', 'longitud', 'longitude']]
@@ -398,11 +345,9 @@ with tabs[4]:
                     mm = mm.drop(columns=['ppt_media', 'color', 'radius'], errors='ignore')
                     mm = mm.merge(ppt_y, on='Estacion', how='left')
 
-                    # Verificación para la existencia de la columna `ppt_media` después del merge.
                     if 'ppt_media' not in mm.columns:
                         mm['ppt_media'] = np.nan
                         mapa_placeholder.warning(f"No hay datos de precipitación para el año {y}.")
-                        # El resto del código asignará colores grises
                     
                     min_p_y = float(mm['ppt_media'].min(skipna=True) if not mm['ppt_media'].isna().all() else 0.0)
                     max_p_y = float(mm['ppt_media'].max(skipna=True) if not mm['ppt_media'].isna().all() else 1.0)
@@ -491,4 +436,3 @@ st.sidebar.download_button(
 )
 
 st.info("Si sigues viendo errores en lectura de archivos: comprueba que los CSV y shapefiles existen en la carpeta `data/` del repo (o súbelos con los uploaders).")
-
