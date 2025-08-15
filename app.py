@@ -18,7 +18,7 @@ try:
     import pydeck as pdk
 except Exception:
     pdk = None
-    st.warning("pydeck no instalado: el mapa interactivo no estará disponible. Añade 'pydeck' a requirements.txt para habilitarlo.")
+    st.warning("pydeck no instalado: el mapa interactivo no estará disponible. Añade 'pydeck' a requirements.txt para habilitarlos.")
 
 try:
     import seaborn as sns
@@ -216,10 +216,9 @@ if prec_long is None or prec_long.empty:
     st.error("No se pudo procesar el CSV de precipitaciones. Revisa el formato.")
     st.stop()
 
-# --- CÓDIGO AÑADIDO PARA SOLUCIONAR EL ERROR ---
 prec_long['Estacion'] = prec_long['Estacion'].astype(str)
 meta_df['Estacion'] = meta_df['Estacion'].astype(str)
-# ---------------------------------------------
+
 merged = pd.merge(prec_long, meta_df, on='Estacion', how='left')
 
 # -----------------------
@@ -388,9 +387,23 @@ with tabs[4]:
 
                 def render_year(y):
                     df_y = df_filtrado[df_filtrado['Año'] == int(y)]
+                    
+                    # --- CÓDIGO AÑADIDO PARA SOLUCIONAR EL ERROR ---
+                    if df_y.empty:
+                        mapa_placeholder.write(f"No hay datos para el año {y}.")
+                        return
+                    # ---------------------------------------------
+
                     ppt_y = df_y.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
                     mm = meta_map.copy()
                     mm = mm.merge(ppt_y, on='Estacion', how='left')
+
+                    # --- CÓDIGO AÑADIDO PARA SOLUCIONAR EL ERROR ---
+                    if mm['ppt_media'].isna().all():
+                        mapa_placeholder.write(f"No hay datos de precipitación para el año {y}.")
+                        return
+                    # ---------------------------------------------
+                    
                     mm['color'] = mm['ppt_media'].map(lambda v: color_from_p(v))
                     mm['radius'] = mm['ppt_media'].map(lambda v: (((v - min_p) / (max_p - min_p + 1e-9)) * (MAX_R - MIN_R) + MIN_R) if not pd.isna(v) else MIN_R)
                     
