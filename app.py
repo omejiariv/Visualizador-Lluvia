@@ -491,3 +491,4 @@ st.sidebar.download_button(
 )
 
 st.info("Si sigues viendo errores en lectura de archivos: comprueba que los CSV y shapefiles existen en la carpeta `data/` del repo (o súbelos con los uploaders).")
+
