@@ -395,7 +395,8 @@ with tabs[4]:
                     ppt_y = df_y.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
                     
                     # --- CÓDIGO CORREGIDO AQUÍ ---
-                    if ppt_y.empty:
+                    # Verificación si no hay datos de precipitación para el año en ppt_y
+                    if ppt_y['ppt_media'].isna().all() or ppt_y.empty:
                         mapa_placeholder.write(f"No hay datos de precipitación para el año {y}.")
                         return
                     
