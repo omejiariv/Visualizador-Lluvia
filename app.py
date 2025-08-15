@@ -311,7 +311,7 @@ with tabs[4]:
             layer = pdk.Layer("ScatterplotLayer", data=meta_map, get_position=[lon_col, lat_col], get_color="color", get_radius="radius", pickable=True)
             view = pdk.ViewState(latitude=midpoint[0], longitude=midpoint[1], zoom=7, pitch=30)
             tooltip = {"html": "<b>Estación:</b> {Estacion}<br/><b>Precipación (media):</b> {ppt_media:.2f} mm", "style": {"color": "white"}}
-            deck = pdk.Deck(layers=[layer], initial_view_state=view, tooltip=tooltip)
+            deck = pdk.Deck(layers=[layer], initial_view_state=view, tooltip=tooltip, map_style='mapbox://styles/mapbox/satellite-v9')
             st.pydeck_chart(deck, use_container_width=True)
 
             # Animación por año (manual + automático)
@@ -369,7 +369,7 @@ with tabs[4]:
                     mm['radius'] = mm['ppt_media'].map(lambda v: (((v - min_p_y) / (max_p_y - min_p_y + 1e-9)) * (MAX_R - MIN_R) + MIN_R) if not pd.isna(v) else MIN_R)
                     
                     layer_y = pdk.Layer("ScatterplotLayer", data=mm, get_position=[lon_col, lat_col], get_color="color", get_radius="radius", pickable=True)
-                    deck_y = pdk.Deck(layers=[layer_y], initial_view_state=view, tooltip=tooltip)
+                    deck_y = pdk.Deck(layers=[layer_y], initial_view_state=view, tooltip=tooltip, map_style='mapbox://styles/mapbox/satellite-v9')
                     mapa_placeholder.pydeck_chart(deck_y, use_container_width=True)
 
                 if auto:
@@ -434,4 +434,5 @@ st.sidebar.download_button(
     file_name="precipitacion_filtrada.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
+
 st.info("Si sigues viendo errores en lectura de archivos: comprueba que los CSV y shapefiles existen en la carpeta `data/` del repo (o súbelos con los uploaders).")
