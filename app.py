@@ -1,8 +1,3 @@
-Un script de Streamlit completo y funcional que: Carga archivos de forma robusta: Busca automáticamente los archivos CSV (lluvia.csv, estaciones.csv) y shapefiles (mapa.shp, etc.) en la carpeta data/ o permite subirlos, y maneja de manera flexible los diferentes nombres de columnas y formatos.
-Ofrece una interfaz completa: Organiza la visualización en varias pestañas (Tabla, Gráficos, Estadísticas, Info estaciones, Mapa, y Animación de Imágenes) para una mejor navegación.
-Muestra un mapa interactivo: Utiliza pydeck para mostrar las estaciones de lluvia en un mapa, con puntos cuyo tamaño y color reflejan la precipitación promedio.
-Incluye una animación temporal:
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -467,3 +462,4 @@ st.sidebar.download_button(
 )
 
 st.info("Si sigues viendo errores en lectura de archivos: comprueba que los CSV y shapefiles existen en la carpeta `data/` del repo (o súbelos con los uploaders).")
+
