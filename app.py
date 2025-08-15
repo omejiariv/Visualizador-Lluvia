@@ -394,22 +394,20 @@ with tabs[4]:
                     
                     ppt_y = df_y.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
                     
+                    # CÓDIGO CORREGIDO AQUÍ
+                    # Creamos un DataFrame para el mapa que incluya todas las estaciones,
+                    # incluso las que no tienen datos para el año seleccionado.
                     mm = meta_map.copy()
+                    mm = mm.drop(columns=['ppt_media', 'color', 'radius'], errors='ignore')
                     mm = mm.merge(ppt_y, on='Estacion', how='left')
 
-                    # --- CÓDIGO CORREGIDO AQUÍ ---
-                    # Calcula el min/max de los datos del año actual.
-                    # Esto evita errores si el rango de datos del año es estrecho o solo hay un punto.
-                    min_p_y = float(ppt_y['ppt_media'].min(skipna=True) if not ppt_y['ppt_media'].isna().all() else 0.0)
-                    max_p_y = float(ppt_y['ppt_media'].max(skipna=True) if not ppt_y['ppt_media'].isna().all() else 1.0)
+                    min_p_y = float(mm['ppt_media'].min(skipna=True) if not mm['ppt_media'].isna().all() else 0.0)
+                    max_p_y = float(mm['ppt_media'].max(skipna=True) if not mm['ppt_media'].isna().all() else 1.0)
                     
-                    # Ahora, maneja el caso de que solo haya un valor o todos sean NaN
                     if min_p_y == max_p_y:
-                        # Si solo hay un valor, el rango es 0. Evita la división por cero.
                         min_p_y = 0
                         max_p_y = max_p_y if max_p_y > 0 else 1.0
-                    
-                    # Nueva función que usa los valores min/max del año actual.
+
                     def color_from_p_y(p):
                         if pd.isna(p):
                             return [150, 150, 150, 160] # Color gris para estaciones sin datos
