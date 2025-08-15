@@ -30,13 +30,12 @@ except Exception:
 # Configuración inicial
 # ==========================
 st.set_page_config(page_title="Visualizador de Lluvia - robusto", layout="wide")
-st.title("🌧️ Visualizador de Lluvia - Antioquia (solución radical)")
+st.title("🌧️ Visualizador de Lluvia - Antioquia (solución final)")
 
 DATA_DIR = "data"
 IMAGES_DIR = "imagenes"
 os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(IMAGES_DIR, exist_ok=True)
-BASE_PATHS = [Path("data"), Path(".")]
 
 # ==========================
 # Datos del mapa codificados (SOLUCIÓN RADICAL)
@@ -53,16 +52,6 @@ df_mapa_duro = pd.DataFrame(datos_mapa_duro)
 # ==========================
 # Funciones auxiliares
 # ==========================
-def buscar_archivo_parcial(patron):
-    """Busca un CSV cuyo nombre contenga 'patron' en data/ o en la raíz."""
-    for base in BASE_PATHS:
-        if not base.exists():
-            continue
-        for file in base.glob("*.csv"):
-            if patron.lower() in file.name.lower():
-                return file
-    return None
-
 def leer_csv_flexible(f):
     """Lee un pd.read_csv aceptando Path o UploadedFile, con fallback de engine."""
     try:
@@ -124,24 +113,14 @@ def procesar_precipitaciones(pptn_raw):
 def cargar_datos_csv(prec_file_obj=None, meta_file_obj=None):
     """
     Carga los archivos CSV de precipitación y metadatos.
-    Prioriza el uploader, luego busca en el disco.
     """
-    prec_path = buscar_archivo_parcial("Transp_Est_Pptn") or buscar_archivo_parcial("lluvia")
-    meta_path = buscar_archivo_parcial("EstHM_CV") or buscar_archivo_parcial("estaciones")
-
-    pptn_raw = leer_csv_flexible(prec_file_obj) if prec_file_obj else (leer_csv_flexible(prec_path) if prec_path else None)
-    meta_df = leer_csv_flexible(meta_file_obj) if meta_file_obj else (leer_csv_flexible(meta_path) if meta_path else None)
+    pptn_raw = leer_csv_flexible(prec_file_obj) if prec_file_obj else None
+    meta_df = leer_csv_flexible(meta_file_obj) if meta_file_obj else None
 
     if pptn_raw is not None:
         pptn_raw = estandarizar_nombre_columna(pptn_raw)
     if meta_df is not None:
         meta_df = estandarizar_nombre_columna(meta_df)
-
-    if pptn_raw is None or meta_df is None:
-        return None, None
-    
-    if "Estacion" not in pptn_raw.columns or "Estacion" not in meta_df.columns:
-        return None, None
     
     return pptn_raw, meta_df
 
@@ -155,7 +134,7 @@ with st.sidebar:
     st.subheader("Archivos de datos CSV")
     prec_file_u = st.file_uploader("CSV precipitaciones (ej. Transp_Est_Pptn...)", type=["csv"])
     meta_file_u = st.file_uploader("CSV metadatos (ej. EstHM_CV...)", type=["csv"])
-
+    
     pptn_raw, meta_df = cargar_datos_csv(prec_file_u, meta_file_u)
 
 # ==========================
@@ -278,111 +257,107 @@ with tabs[3]:
 # TAB 5: Mapa
 with tabs[4]:
     st.subheader("Mapa de estaciones - puntos tamaño/color por precipitación")
-    if meta_df is None or pdk is None:
-        st.info("Para mostrar el mapa, sube el archivo de metadatos con coordenadas (ej. 'x' y 'y') y asegúrate de tener instalado pydeck.")
+    if pdk is None:
+        st.info("Para mostrar el mapa, asegúrate de tener instalado pydeck.")
     else:
-        colnames = [c.lower() for c in meta_df.columns]
-        lon_candidates = [c for c in meta_df.columns if c.lower() in ['x', 'lon', 'long', 'longitud', 'longitude']]
-        lat_candidates = [c for c in meta_df.columns if c.lower() in ['y', 'lat', 'latitude', 'latitud']]
+        # Unir datos de precipitación con los metadatos y los datos del mapa
+        ppt_prom = df_filtrado.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
+        meta_map = meta_df.copy().merge(df_mapa_duro, on='Estacion', how='inner')
+        meta_map = meta_map.merge(ppt_prom, on='Estacion', how='left')
+        
+        # Elimina las columnas duplicadas de latitud y longitud, si las hay
+        meta_map = meta_map.loc[:,~meta_map.columns.duplicated()]
 
-        if not lon_candidates or not lat_candidates:
-            st.warning("No se encontraron columnas de coordenadas en metadatos.")
+        lon_col = 'Longitud'
+        lat_col = 'Latitud'
+
+        min_p = float(meta_map['ppt_media'].min(skipna=True) if not meta_map['ppt_media'].isna().all() else 0.0)
+        max_p = float(meta_map['ppt_media'].max(skipna=True) if not meta_map['ppt_media'].isna().all() else 1.0)
+        MIN_R, MAX_R = 2000, 8000
+
+        def color_from_p(p):
+            if pd.isna(p):
+                return [150, 150, 150, 160]
+            ratio = (p - min_p) / (max_p - min_p + 1e-9)
+            r = int(255 * (1 - ratio))
+            g = int(122 * ratio)
+            b = int(255 * ratio)
+            return [r, g, b, 180]
+
+        meta_map['color'] = meta_map['ppt_media'].map(lambda v: color_from_p(v))
+        meta_map['radius'] = meta_map['ppt_media'].map(lambda v: (((v - min_p) / (max_p - min_p + 1e-9)) * (MAX_R - MIN_R) + MIN_R) if not pd.isna(v) else MIN_R)
+
+        midpoint = (meta_map[lat_col].mean(), meta_map[lon_col].mean())
+        layer = pdk.Layer("ScatterplotLayer", data=meta_map, get_position=[lon_col, lat_col], get_color="color", get_radius="radius", pickable=True)
+        view = pdk.ViewState(latitude=midpoint[0], longitude=midpoint[1], zoom=7, pitch=30)
+        tooltip = {"html": "<b>Estación:</b> {Estacion}<br/><b>Precipación (media):</b> {ppt_media:.2f} mm", "style": {"color": "white"}}
+        deck = pdk.Deck(layers=[layer], initial_view_state=view, tooltip=tooltip, map_style='mapbox://styles/mapbox/satellite-v9')
+        st.pydeck_chart(deck, use_container_width=True)
+        
+        # Animación por año (manual + automático)
+        st.markdown("---")
+        st.markdown("**Animación temporal (año por año)**")
+        years = sorted(df_filtrado['Año'].unique())
+        if not years:
+            st.info("No hay años en el conjunto de datos filtrado.")
         else:
-            lon_col = lon_candidates[0]
-            lat_col = lat_candidates[0]
+            colA, colB, colC = st.columns([2, 1, 1])
+            with colA:
+                year_slider = st.slider("Año (manual)", min_value=int(min(years)), max_value=int(max(years)), value=int(min(years)))
+            with colB:
+                auto = st.checkbox("Modo automático (time-lapse)", value=False)
+            with colC:
+                speed = st.selectbox("Velocidad", options=['Lento (2s)', 'Medio (1s)', 'Rápido (0.5s)'], index=0)
             
-            # Unir datos de precipitación con los datos del mapa
-            ppt_prom = df_filtrado.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
-            meta_map = meta_df.copy()
-            meta_map = meta_map.merge(ppt_prom, on='Estacion', how='left')
+            delay = 2.0 if speed.startswith('Lento') else (1.0 if speed.startswith('Medio') else 0.5)
+            mapa_placeholder = st.empty()
 
-            min_p = float(meta_map['ppt_media'].min(skipna=True) if not meta_map['ppt_media'].isna().all() else 0.0)
-            max_p = float(meta_map['ppt_media'].max(skipna=True) if not meta_map['ppt_media'].isna().all() else 1.0)
-            MIN_R, MAX_R = 2000, 8000
-
-            def color_from_p(p):
-                if pd.isna(p):
-                    return [150, 150, 150, 160]
-                ratio = (p - min_p) / (max_p - min_p + 1e-9)
-                r = int(255 * (1 - ratio))
-                g = int(122 * ratio)
-                b = int(255 * ratio)
-                return [r, g, b, 180]
-
-            meta_map['color'] = meta_map['ppt_media'].map(lambda v: color_from_p(v))
-            meta_map['radius'] = meta_map['ppt_media'].map(lambda v: (((v - min_p) / (max_p - min_p + 1e-9)) * (MAX_R - MIN_R) + MIN_R) if not pd.isna(v) else MIN_R)
-
-            midpoint = (meta_map[lat_col].mean(), meta_map[lon_col].mean())
-            layer = pdk.Layer("ScatterplotLayer", data=meta_map, get_position=[lon_col, lat_col], get_color="color", get_radius="radius", pickable=True)
-            view = pdk.ViewState(latitude=midpoint[0], longitude=midpoint[1], zoom=7, pitch=30)
-            tooltip = {"html": "<b>Estación:</b> {Estacion}<br/><b>Precipación (media):</b> {ppt_media:.2f} mm", "style": {"color": "white"}}
-            deck = pdk.Deck(layers=[layer], initial_view_state=view, tooltip=tooltip, map_style='mapbox://styles/mapbox/satellite-v9')
-            st.pydeck_chart(deck, use_container_width=True)
-            
-            # Animación por año (manual + automático)
-            st.markdown("---")
-            st.markdown("**Animación temporal (año por año)**")
-            years = sorted(df_filtrado['Año'].unique())
-            if not years:
-                st.info("No hay años en el conjunto de datos filtrado.")
-            else:
-                colA, colB, colC = st.columns([2, 1, 1])
-                with colA:
-                    year_slider = st.slider("Año (manual)", min_value=int(min(years)), max_value=int(max(years)), value=int(min(years)))
-                with colB:
-                    auto = st.checkbox("Modo automático (time-lapse)", value=False)
-                with colC:
-                    speed = st.selectbox("Velocidad", options=['Lento (2s)', 'Medio (1s)', 'Rápido (0.5s)'], index=0)
+            def render_year(y):
+                df_y = df_filtrado[df_filtrado['Año'] == int(y)]
                 
-                delay = 2.0 if speed.startswith('Lento') else (1.0 if speed.startswith('Medio') else 0.5)
-                mapa_placeholder = st.empty()
+                if df_y.empty:
+                    mapa_placeholder.write(f"No hay datos para el año {y}.")
+                    return
+                
+                ppt_y = df_y.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
+                
+                mm = meta_map.copy()
+                mm = mm.drop(columns=['ppt_media', 'color', 'radius'], errors='ignore')
+                mm = mm.merge(ppt_y, on='Estacion', how='left')
 
-                def render_year(y):
-                    df_y = df_filtrado[df_filtrado['Año'] == int(y)]
-                    
-                    if df_y.empty:
-                        mapa_placeholder.write(f"No hay datos para el año {y}.")
-                        return
-                    
-                    ppt_y = df_y.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
-                    
-                    mm = meta_map.copy()
-                    mm = mm.drop(columns=['ppt_media', 'color', 'radius'], errors='ignore')
-                    mm = mm.merge(ppt_y, on='Estacion', how='left')
+                if 'ppt_media' not in mm.columns:
+                    mm['ppt_media'] = np.nan
+                    mapa_placeholder.warning(f"No hay datos de precipitación para el año {y}.")
+                
+                min_p_y = float(mm['ppt_media'].min(skipna=True) if not mm['ppt_media'].isna().all() else 0.0)
+                max_p_y = float(mm['ppt_media'].max(skipna=True) if not mm['ppt_media'].isna().all() else 1.0)
+                
+                if min_p_y == max_p_y:
+                    min_p_y = 0
+                    max_p_y = max_p_y if max_p_y > 0 else 1.0
 
-                    if 'ppt_media' not in mm.columns:
-                        mm['ppt_media'] = np.nan
-                        mapa_placeholder.warning(f"No hay datos de precipitación para el año {y}.")
-                    
-                    min_p_y = float(mm['ppt_media'].min(skipna=True) if not mm['ppt_media'].isna().all() else 0.0)
-                    max_p_y = float(mm['ppt_media'].max(skipna=True) if not mm['ppt_media'].isna().all() else 1.0)
-                    
-                    if min_p_y == max_p_y:
-                        min_p_y = 0
-                        max_p_y = max_p_y if max_p_y > 0 else 1.0
+                def color_from_p_y(p):
+                    if pd.isna(p):
+                        return [150, 150, 150, 160] # Color gris para estaciones sin datos
+                    ratio = (p - min_p_y) / (max_p_y - min_p_y + 1e-9)
+                    r = int(255 * (1 - ratio))
+                    g = int(122 * ratio)
+                    b = int(255 * ratio)
+                    return [r, g, b, 180]
 
-                    def color_from_p_y(p):
-                        if pd.isna(p):
-                            return [150, 150, 150, 160] # Color gris para estaciones sin datos
-                        ratio = (p - min_p_y) / (max_p_y - min_p_y + 1e-9)
-                        r = int(255 * (1 - ratio))
-                        g = int(122 * ratio)
-                        b = int(255 * ratio)
-                        return [r, g, b, 180]
+                mm['color'] = mm['ppt_media'].map(lambda v: color_from_p_y(v))
+                mm['radius'] = mm['ppt_media'].map(lambda v: (((v - min_p_y) / (max_p_y - min_p_y + 1e-9)) * (MAX_R - MIN_R) + MIN_R) if not pd.isna(v) else MIN_R)
+                
+                layer_y = pdk.Layer("ScatterplotLayer", data=mm, get_position=[lon_col, lat_col], get_color="color", get_radius="radius", pickable=True)
+                deck_y = pdk.Deck(layers=[layer_y], initial_view_state=view, tooltip=tooltip, map_style='mapbox://styles/mapbox/satellite-v9')
+                mapa_placeholder.pydeck_chart(deck_y, use_container_width=True)
 
-                    mm['color'] = mm['ppt_media'].map(lambda v: color_from_p_y(v))
-                    mm['radius'] = mm['ppt_media'].map(lambda v: (((v - min_p_y) / (max_p_y - min_p_y + 1e-9)) * (MAX_R - MIN_R) + MIN_R) if not pd.isna(v) else MIN_R)
-                    
-                    layer_y = pdk.Layer("ScatterplotLayer", data=mm, get_position=[lon_col, lat_col], get_color="color", get_radius="radius", pickable=True)
-                    deck_y = pdk.Deck(layers=[layer_y], initial_view_state=view, tooltip=tooltip, map_style='mapbox://styles/mapbox/satellite-v9')
-                    mapa_placeholder.pydeck_chart(deck_y, use_container_width=True)
-
-                if auto:
-                    for y in years:
-                        render_year(y)
-                        time.sleep(delay)
-                else:
-                    render_year(year_slider)
+            if auto:
+                for y in years:
+                    render_year(y)
+                    time.sleep(delay)
+            else:
+                render_year(year_slider)
 
 # TAB 6: Animación de imágenes
 with tabs[5]:
