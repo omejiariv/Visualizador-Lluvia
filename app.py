@@ -110,6 +110,9 @@ def cargar_datos(prec_file_obj=None, meta_file_obj=None):
     if meta_df is not None:
         meta_df = estandarizar_nombre_columna(meta_df)
 
+    if pptn_raw is None or meta_df is None:
+        return None, None, prec_source, meta_source
+
     if "Estacion" not in pptn_raw.columns or "Estacion" not in meta_df.columns:
         st.error(
             "Los CSV deben contener una columna de estación con un nombre como: 'Estacion', 'estacion', 'ID_Estacion', etc."
@@ -398,15 +401,7 @@ with tabs[4]:
                     
                     mm = meta_map.copy()
                     mm = mm.merge(ppt_y, on='Estacion', how='left')
-
-                    # Las siguientes líneas ya no son necesarias aquí porque la verificación se hizo antes.
-                    # if mm['ppt_media'].isna().all():
-                    #     mapa_placeholder.write(f"No hay datos de precipitación para el año {y}.")
-                    #     return
-                    # ----------------------------
-
-                    # Si el mapa principal tiene un min/max de precipitación definido, utilízalo.
-                    # Si no, calcula uno para el año actual para evitar errores.
+                    
                     min_p_y = float(ppt_y['ppt_media'].min(skipna=True) if not ppt_y['ppt_media'].isna().all() else 0.0)
                     max_p_y = float(ppt_y['ppt_media'].max(skipna=True) if not ppt_y['ppt_media'].isna().all() else 1.0)
                     
