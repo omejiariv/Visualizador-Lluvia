@@ -121,7 +121,10 @@ def cargar_datos(prec_file_obj=None, meta_file_obj=None):
 
     return pptn_raw, meta_df, prec_source, meta_source
 
-@st.cache_data
+# ==========================
+# Función para cargar shapefiles
+# ==========================
+@st.cache_resource # <--- CAMBIO APLICADO AQUÍ
 def cargar_shapefiles():
     """Carga los archivos de shapefile desde la carpeta de datos."""
     shp_path = os.path.join(DATA_DIR, "mapa.shp")
@@ -145,9 +148,9 @@ def cargar_shapefiles():
     sf = shapefile.Reader(shp_path)
     return sf
 
-# -----------------------
-# Procesar precipitaciones
-# -----------------------
+# ==========================
+# Procesar precipitación y unir con metadatos
+# ==========================
 def procesar_precipitaciones(pptn_raw):
     """
     Convierte el DataFrame de precipitaciones a formato largo.
@@ -186,9 +189,9 @@ def procesar_precipitaciones(pptn_raw):
 
     return df_long
 
-# -----------------------
-# UI: Cargar archivos y mostrar fuentes
-# -----------------------
+# ==========================
+# App principal
+# ==========================
 st.sidebar.header("Archivos")
 prec_file_u = st.sidebar.file_uploader("CSV precipitaciones (ej. Transp_Est_Pptn...)", type=["csv"])
 meta_file_u = st.sidebar.file_uploader("CSV metadatos (ej. EstHM_CV...)", type=["csv"])
@@ -208,9 +211,6 @@ st.sidebar.markdown("**Fuentes detectadas**")
 st.sidebar.write(f"- Precipitaciones: `{prec_source}`")
 st.sidebar.write(f"- Metadatos: `{meta_source}`" if meta_source else "- Metadatos: (no cargados)")
 
-# -----------------------
-# Procesar precip y unir con meta
-# -----------------------
 prec_long = procesar_precipitaciones(pptn_raw)
 if prec_long is None or prec_long.empty:
     st.error("No se pudo procesar el CSV de precipitaciones. Revisa el formato.")
@@ -462,4 +462,3 @@ st.sidebar.download_button(
 )
 
 st.info("Si sigues viendo errores en lectura de archivos: comprueba que los CSV y shapefiles existen en la carpeta `data/` del repo (o súbelos con los uploaders).")
-
