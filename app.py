@@ -5,6 +5,7 @@ import time
 import os
 from pathlib import Path
 from io import BytesIO
+import shapefile
 
 # Optional libs (no fatales)
 try:
@@ -30,28 +31,26 @@ except Exception:
 # Configuración inicial
 # ==========================
 st.set_page_config(page_title="Visualizador de Lluvia", layout="wide")
-st.title("🌧️ Visualizador de Lluvia - Antioquia (solución final)")
+st.title("🌧️ Visualizador de Lluvia - Antioquia (simplificado)")
 
 DATA_DIR = "data"
 IMAGES_DIR = "imagenes"
 os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(IMAGES_DIR, exist_ok=True)
-
-# ==========================
-# Datos del mapa codificados (SOLUCIÓN RADICAL)
-# ==========================
-# TODO: Reemplaza estos datos de ejemplo con la información real de tu mapa.
-# Copia las columnas de tu archivo .dbf (Estacion, Latitud, Longitud) aquí.
-datos_mapa_duro = {
-    'Estacion': ['Estacion A', 'Estacion B', 'Estacion C', 'Estacion D', 'Estacion E'],
-    'Latitud': [6.2518, 6.2446, 6.2415, 6.2575, 6.2492],
-    'Longitud': [-75.5636, -75.5746, -75.5861, -75.5841, -75.5901]
-}
-df_mapa_duro = pd.DataFrame(datos_mapa_duro)
+BASE_PATHS = [Path("data"), Path(".")]
 
 # ==========================
 # Funciones auxiliares
 # ==========================
+def buscar_archivo_parcial(patron):
+    """Busca un CSV cuyo nombre contenga 'patron' en data/ o en la raíz."""
+    for base in BASE_PATHS:
+        if not base.exists():
+            continue
+        for file in base.glob(f"*{patron}*"):
+            return file
+    return None
+
 def leer_csv_flexible(f):
     """Lee un pd.read_csv aceptando Path o UploadedFile, con fallback de engine."""
     try:
@@ -68,35 +67,47 @@ def estandarizar_nombre_columna(df):
             return df
     return df
 
+@st.cache_data
+def cargar_datos_csv(prec_file_obj=None, meta_file_obj=None):
+    """
+    Carga los archivos CSV de precipitación y metadatos.
+    Prioriza el uploader, luego busca en el disco.
+    """
+    prec_path = buscar_archivo_parcial("lluvia.csv")
+    meta_path = buscar_archivo_parcial("estaciones.csv")
+
+    pptn_raw = leer_csv_flexible(prec_file_obj) if prec_file_obj else (leer_csv_flexible(prec_path) if prec_path else None)
+    meta_df = leer_csv_flexible(meta_file_obj) if meta_file_obj else (leer_csv_flexible(meta_path) if meta_path else None)
+    
+    if pptn_raw is not None:
+        pptn_raw = estandarizar_nombre_columna(pptn_raw)
+    if meta_df is not None:
+        meta_df = estandarizar_nombre_columna(meta_df)
+    
+    if pptn_raw is None or meta_df is None:
+        return None, None
+    
+    if "Estacion" not in pptn_raw.columns or "Estacion" not in meta_df.columns:
+        return None, None
+    
+    return pptn_raw, meta_df
+
 def procesar_precipitaciones(pptn_raw):
     """
     Convierte el DataFrame de precipitaciones a formato largo.
-    Maneja varios formatos de entrada.
     """
     if pptn_raw is None:
         return None
 
     first_col = pptn_raw.columns[0]
-    first_val = str(pptn_raw.iloc[0, 0]).strip()
-
-    def es_anio(v):
-        try:
-            n = int(v)
-            return 1900 <= n <= 2100
-        except Exception:
-            return False
-
-    if es_anio(first_val) or first_col.lower() in ['año', 'ano', 'year', 'fecha']:
+    
+    # Asume que la primera columna es el Año si el primer valor es numérico
+    if str(pptn_raw.iloc[0, 0]).strip().isdigit():
         df_wide = pptn_raw.rename(columns={first_col: "Año"})
         df_long = df_wide.melt(id_vars=["Año"], var_name="Estacion", value_name="Precipitacion")
     else:
-        try:
-            df_trans = pptn_raw.set_index(first_col).transpose().reset_index()
-            df_trans = df_trans.rename(columns={"index": "Año"})
-            df_long = df_trans.melt(id_vars=["Año"], var_name="Estacion", value_name="Precipitacion")
-        except Exception:
-            df_long = pptn_raw.melt(id_vars=[first_col], var_name="Año", value_name="Precipitacion")
-            df_long = df_long.rename(columns={first_col: "Estacion", "Año": "Año"})
+        df_long = pptn_raw.melt(id_vars=[first_col], var_name="Año", value_name="Precipitacion")
+        df_long = df_long.rename(columns={first_col: "Estacion", "Año": "Año"})
 
     df_long['Año'] = pd.to_numeric(df_long['Año'], errors='coerce')
     df_long['Estacion'] = df_long['Estacion'].astype(str)
@@ -106,23 +117,18 @@ def procesar_precipitaciones(pptn_raw):
 
     return df_long
 
-# ==========================
-# Cargar datos (robusto)
-# ==========================
 @st.cache_data
-def cargar_datos_csv(prec_file_obj=None, meta_file_obj=None):
-    """
-    Carga los archivos CSV de precipitación y metadatos.
-    """
-    pptn_raw = leer_csv_flexible(prec_file_obj) if prec_file_obj else None
-    meta_df = leer_csv_flexible(meta_file_obj) if meta_file_obj else None
-    
-    if pptn_raw is not None:
-        pptn_raw = estandarizar_nombre_columna(pptn_raw)
-    if meta_df is not None:
-        meta_df = estandarizar_nombre_columna(meta_df)
-    
-    return pptn_raw, meta_df
+def cargar_mapa_datos(dbf_file):
+    """Carga los datos desde un archivo DBF de shapefile."""
+    try:
+        sf = shapefile.Reader(dbf_file)
+        # Convertir a DataFrame
+        records = sf.records()
+        fields = [f[0] for f in sf.fields[1:]]
+        df = pd.DataFrame(records, columns=fields)
+        return df, None
+    except Exception as e:
+        return None, f"Error al leer el archivo .dbf: {e}"
 
 # ==========================
 # Interfaz de usuario para carga de archivos
@@ -132,10 +138,13 @@ with st.sidebar:
     st.markdown("Carga los archivos CSV para visualizar los datos.")
 
     st.subheader("Archivos de datos CSV")
-    prec_file_u = st.file_uploader("CSV precipitaciones (ej. Transp_Est_Pptn...)", type=["csv"])
-    meta_file_u = st.file_uploader("CSV metadatos (ej. EstHM_CV...)", type=["csv"])
-    
+    prec_file_u = st.file_uploader("CSV precipitaciones (ej. lluvia.csv)", type=["csv"])
+    meta_file_u = st.file_uploader("CSV metadatos (ej. estaciones.csv)", type=["csv"])
+
     pptn_raw, meta_df = cargar_datos_csv(prec_file_u, meta_file_u)
+
+    st.subheader("Archivos de mapa (Shapefile)")
+    dbf_file_u = st.file_uploader("Sube el archivo de tu mapa (.dbf)", type=["dbf"])
 
 # ==========================
 # Validación y procesamiento principal
@@ -259,17 +268,39 @@ with tabs[4]:
     st.subheader("Mapa de estaciones - puntos tamaño/color por precipitación")
     if pdk is None:
         st.info("Para mostrar el mapa, asegúrate de tener instalado pydeck.")
+    elif dbf_file_u is None:
+        st.info("Por favor, sube el archivo 'mapaCV.dbf' para visualizar el mapa.")
     else:
-        # Unir datos de precipitación con los metadatos y los datos del mapa
-        ppt_prom = df_filtrado.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
-        meta_map = meta_df.copy().merge(df_mapa_duro, on='Estacion', how='inner')
-        meta_map = meta_map.merge(ppt_prom, on='Estacion', how='left')
-        
-        # Elimina las columnas duplicadas de latitud y longitud, si las hay
-        meta_map = meta_map.loc[:,~meta_map.columns.duplicated()]
+        df_mapa, error = cargar_mapa_datos(dbf_file_u)
+        if error:
+            st.error(error)
+            st.stop()
 
-        lon_col = 'Longitud'
-        lat_col = 'Latitud'
+        # Estandarizar nombres de columnas
+        df_mapa.columns = [c.lower() for c in df_mapa.columns]
+        
+        # Validar columnas necesarias
+        expected_cols = ['estacion', 'latitud', 'longitud', 'ano', 'precipitac']
+        if not all(col in df_mapa.columns for col in expected_cols):
+            st.error(f"El archivo DBF no tiene las columnas esperadas: {expected_cols}.")
+            st.stop()
+
+        # Convertir tipos de datos
+        df_mapa['ano'] = pd.to_numeric(df_mapa['ano'], errors='coerce').astype(int)
+        df_mapa['precipitac'] = pd.to_numeric(df_mapa['precipitac'], errors='coerce')
+        df_mapa['latitud'] = pd.to_numeric(df_mapa['latitud'], errors='coerce')
+        df_mapa['longitud'] = pd.to_numeric(df_mapa['longitud'], errors='coerce')
+        
+        # Filtrar por el rango de años
+        df_mapa_filtrado = df_mapa[(df_mapa['ano'] >= rango[0]) & (df_mapa['ano'] <= rango[1])]
+
+        # Obtener precipitación media para el rango de años seleccionado
+        ppt_prom = df_mapa_filtrado.groupby('estacion')['precipitac'].mean().reset_index()
+        ppt_prom.columns = ['estacion', 'ppt_media']
+        
+        # Unir datos del mapa con la precipitación media
+        meta_map = df_mapa_filtrado[['estacion', 'latitud', 'longitud']].drop_duplicates()
+        meta_map = meta_map.merge(ppt_prom, on='estacion', how='left')
 
         min_p = float(meta_map['ppt_media'].min(skipna=True) if not meta_map['ppt_media'].isna().all() else 0.0)
         max_p = float(meta_map['ppt_media'].max(skipna=True) if not meta_map['ppt_media'].isna().all() else 1.0)
@@ -287,17 +318,16 @@ with tabs[4]:
         meta_map['color'] = meta_map['ppt_media'].map(lambda v: color_from_p(v))
         meta_map['radius'] = meta_map['ppt_media'].map(lambda v: (((v - min_p) / (max_p - min_p + 1e-9)) * (MAX_R - MIN_R) + MIN_R) if not pd.isna(v) else MIN_R)
 
-        midpoint = (meta_map[lat_col].mean(), meta_map[lon_col].mean())
-        layer = pdk.Layer("ScatterplotLayer", data=meta_map, get_position=[lon_col, lat_col], get_color="color", get_radius="radius", pickable=True)
+        midpoint = (meta_map['latitud'].mean(), meta_map['longitud'].mean())
+        layer = pdk.Layer("ScatterplotLayer", data=meta_map, get_position=['longitud', 'latitud'], get_color="color", get_radius="radius", pickable=True)
         view = pdk.ViewState(latitude=midpoint[0], longitude=midpoint[1], zoom=7, pitch=30)
-        tooltip = {"html": "<b>Estación:</b> {Estacion}<br/><b>Precipación (media):</b> {ppt_media:.2f} mm", "style": {"color": "white"}}
+        tooltip = {"html": "<b>Estación:</b> {estacion}<br/><b>Precipación (media):</b> {ppt_media:.2f} mm", "style": {"color": "white"}}
         deck = pdk.Deck(layers=[layer], initial_view_state=view, tooltip=tooltip, map_style='mapbox://styles/mapbox/satellite-v9')
         st.pydeck_chart(deck, use_container_width=True)
         
-        # Animación por año (manual + automático)
         st.markdown("---")
         st.markdown("**Animación temporal (año por año)**")
-        years = sorted(df_filtrado['Año'].unique())
+        years = sorted(df_mapa_filtrado['ano'].unique())
         if not years:
             st.info("No hay años en el conjunto de datos filtrado.")
         else:
@@ -313,21 +343,19 @@ with tabs[4]:
             mapa_placeholder = st.empty()
 
             def render_year(y):
-                df_y = df_filtrado[df_filtrado['Año'] == int(y)]
+                df_y = df_mapa_filtrado[df_mapa_filtrado['ano'] == int(y)]
                 
                 if df_y.empty:
                     mapa_placeholder.write(f"No hay datos para el año {y}.")
                     return
                 
-                ppt_y = df_y.groupby('Estacion')['Precipitacion'].mean().reset_index().rename(columns={'Precipitacion': 'ppt_media'})
+                ppt_y = df_y.groupby('estacion')['precipitac'].mean().reset_index().rename(columns={'precipitac': 'ppt_media'})
                 
-                mm = meta_map.copy()
-                mm = mm.drop(columns=['ppt_media', 'color', 'radius'], errors='ignore')
-                mm = mm.merge(ppt_y, on='Estacion', how='left')
+                mm = meta_map.copy().drop(columns=['ppt_media', 'color', 'radius'], errors='ignore')
+                mm = mm.merge(ppt_y, on='estacion', how='left')
 
                 if 'ppt_media' not in mm.columns:
                     mm['ppt_media'] = np.nan
-                    mapa_placeholder.warning(f"No hay datos de precipitación para el año {y}.")
                 
                 min_p_y = float(mm['ppt_media'].min(skipna=True) if not mm['ppt_media'].isna().all() else 0.0)
                 max_p_y = float(mm['ppt_media'].max(skipna=True) if not mm['ppt_media'].isna().all() else 1.0)
@@ -338,7 +366,7 @@ with tabs[4]:
 
                 def color_from_p_y(p):
                     if pd.isna(p):
-                        return [150, 150, 150, 160] # Color gris para estaciones sin datos
+                        return [150, 150, 150, 160] # Color gris
                     ratio = (p - min_p_y) / (max_p_y - min_p_y + 1e-9)
                     r = int(255 * (1 - ratio))
                     g = int(122 * ratio)
@@ -348,7 +376,7 @@ with tabs[4]:
                 mm['color'] = mm['ppt_media'].map(lambda v: color_from_p_y(v))
                 mm['radius'] = mm['ppt_media'].map(lambda v: (((v - min_p_y) / (max_p_y - min_p_y + 1e-9)) * (MAX_R - MIN_R) + MIN_R) if not pd.isna(v) else MIN_R)
                 
-                layer_y = pdk.Layer("ScatterplotLayer", data=mm, get_position=[lon_col, lat_col], get_color="color", get_radius="radius", pickable=True)
+                layer_y = pdk.Layer("ScatterplotLayer", data=mm, get_position=['longitud', 'latitud'], get_color="color", get_radius="radius", pickable=True)
                 deck_y = pdk.Deck(layers=[layer_y], initial_view_state=view, tooltip=tooltip, map_style='mapbox://styles/mapbox/satellite-v9')
                 mapa_placeholder.pydeck_chart(deck_y, use_container_width=True)
 
@@ -414,5 +442,3 @@ st.sidebar.download_button(
     file_name="precipitacion_filtrada.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
-
-st.info("Si sigues viendo errores en lectura de archivos: comprueba que los CSV y shapefiles existen en la carpeta `data/` del repo (o súbelos con los uploaders).")
