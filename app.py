@@ -31,7 +31,7 @@ except Exception:
 # Configuración inicial
 # ==========================
 st.set_page_config(page_title="Visualizador de Lluvia", layout="wide")
-st.title("🌧️ Visualizador de Lluvia - Antioquia (simplificado)")
+st.title("🌧️ Visualizador de Lluvia - Antioquia (solución final)")
 
 DATA_DIR = "data"
 IMAGES_DIR = "imagenes"
@@ -118,17 +118,21 @@ def procesar_precipitaciones(pptn_raw):
     return df_long
 
 @st.cache_data
-def cargar_mapa_datos(dbf_file):
-    """Carga los datos desde un archivo DBF de shapefile."""
+def cargar_mapa_datos(files):
+    """Carga los datos de los tres archivos de un shapefile."""
     try:
-        sf = shapefile.Reader(dbf_file)
-        # Convertir a DataFrame
+        # Crea un diccionario de archivos en memoria
+        in_memory_files = {f.name: BytesIO(f.getvalue()) for f in files}
+        sf = shapefile.Reader(shp=in_memory_files.get("mapaCV.shp"),
+                              shx=in_memory_files.get("mapaCV.shx"),
+                              dbf=in_memory_files.get("mapaCV.dbf"))
+        
         records = sf.records()
         fields = [f[0] for f in sf.fields[1:]]
         df = pd.DataFrame(records, columns=fields)
         return df, None
     except Exception as e:
-        return None, f"Error al leer el archivo .dbf: {e}"
+        return None, f"Error al leer los archivos del shapefile: {e}"
 
 # ==========================
 # Interfaz de usuario para carga de archivos
@@ -141,10 +145,10 @@ with st.sidebar:
     prec_file_u = st.file_uploader("CSV precipitaciones (ej. lluvia.csv)", type=["csv"])
     meta_file_u = st.file_uploader("CSV metadatos (ej. estaciones.csv)", type=["csv"])
 
-    pptn_raw, meta_df = cargar_datos_csv(prec_file_u, meta_file_u)
-
     st.subheader("Archivos de mapa (Shapefile)")
-    dbf_file_u = st.file_uploader("Sube el archivo de tu mapa (.dbf)", type=["dbf"])
+    map_files_u = st.file_uploader("Sube los archivos de tu mapa (.shp, .shx y .dbf)", type=["shp", "shx", "dbf"], accept_multiple_files=True)
+
+    pptn_raw, meta_df = cargar_datos_csv(prec_file_u, meta_file_u)
 
 # ==========================
 # Validación y procesamiento principal
@@ -268,10 +272,10 @@ with tabs[4]:
     st.subheader("Mapa de estaciones - puntos tamaño/color por precipitación")
     if pdk is None:
         st.info("Para mostrar el mapa, asegúrate de tener instalado pydeck.")
-    elif dbf_file_u is None:
-        st.info("Por favor, sube el archivo 'mapaCV.dbf' para visualizar el mapa.")
+    elif not map_files_u:
+        st.info("Por favor, sube los archivos de tu mapa (.shp, .shx, .dbf) para visualizarlo.")
     else:
-        df_mapa, error = cargar_mapa_datos(dbf_file_u)
+        df_mapa, error = cargar_mapa_datos(map_files_u)
         if error:
             st.error(error)
             st.stop()
@@ -293,7 +297,7 @@ with tabs[4]:
         
         # Filtrar por el rango de años
         df_mapa_filtrado = df_mapa[(df_mapa['ano'] >= rango[0]) & (df_mapa['ano'] <= rango[1])]
-
+        
         # Obtener precipitación media para el rango de años seleccionado
         ppt_prom = df_mapa_filtrado.groupby('estacion')['precipitac'].mean().reset_index()
         ppt_prom.columns = ['estacion', 'ppt_media']
@@ -301,6 +305,9 @@ with tabs[4]:
         # Unir datos del mapa con la precipitación media
         meta_map = df_mapa_filtrado[['estacion', 'latitud', 'longitud']].drop_duplicates()
         meta_map = meta_map.merge(ppt_prom, on='estacion', how='left')
+        
+        # Filtrar por estaciones seleccionadas
+        meta_map = meta_map[meta_map['estacion'].isin(estaciones_sel)]
 
         min_p = float(meta_map['ppt_media'].min(skipna=True) if not meta_map['ppt_media'].isna().all() else 0.0)
         max_p = float(meta_map['ppt_media'].max(skipna=True) if not meta_map['ppt_media'].isna().all() else 1.0)
