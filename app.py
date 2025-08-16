@@ -123,9 +123,18 @@ def cargar_mapa_datos(files):
     try:
         # Crea un diccionario de archivos en memoria
         in_memory_files = {f.name: BytesIO(f.getvalue()) for f in files}
-        sf = shapefile.Reader(shp=in_memory_files.get("mapaCV.shp"),
-                              shx=in_memory_files.get("mapaCV.shx"),
-                              dbf=in_memory_files.get("mapaCV.dbf"))
+        
+        # Encuentra los archivos por extensión para evitar errores de nombre
+        shp_file = next((f.name for f in files if f.name.endswith(".shp")), None)
+        shx_file = next((f.name for f in files if f.name.endswith(".shx")), None)
+        dbf_file = next((f.name for f in files if f.name.endswith(".dbf")), None)
+        
+        if not shp_file or not shx_file or not dbf_file:
+            return None, "Faltan uno o más archivos del shapefile (.shp, .shx, .dbf)."
+
+        sf = shapefile.Reader(shp=in_memory_files[shp_file],
+                              shx=in_memory_files[shx_file],
+                              dbf=in_memory_files[dbf_file])
         
         records = sf.records()
         fields = [f[0] for f in sf.fields[1:]]
@@ -133,6 +142,30 @@ def cargar_mapa_datos(files):
         return df, None
     except Exception as e:
         return None, f"Error al leer los archivos del shapefile: {e}"
+
+def mapear_columnas(df):
+    """Mapea nombres de columnas flexibles a nombres estandarizados."""
+    column_mapping = {
+        'estacion': ['estacion', 'estacion_id', 'nombre'],
+        'latitud': ['latitud', 'y'],
+        'longitud': ['longitud', 'x'],
+        'ano': ['ano', 'año'],
+        'precipitac': ['precipitac', 'precipitacion', 'lluvia']
+    }
+    
+    df.columns = [c.lower() for c in df.columns]
+    
+    for estandar, posibles in column_mapping.items():
+        found = False
+        for pos in posibles:
+            if pos in df.columns:
+                df.rename(columns={pos: estandar}, inplace=True)
+                found = True
+                break
+        if not found:
+            return None, f"No se encontró una columna para '{estandar}'. Posibles nombres: {posibles}"
+    
+    return df, None
 
 # ==========================
 # Interfaz de usuario para carga de archivos
@@ -279,14 +312,10 @@ with tabs[4]:
         if error:
             st.error(error)
             st.stop()
-
-        # Estandarizar nombres de columnas
-        df_mapa.columns = [c.lower() for c in df_mapa.columns]
         
-        # Validar columnas necesarias
-        expected_cols = ['estacion', 'latitud', 'longitud', 'ano', 'precipitac']
-        if not all(col in df_mapa.columns for col in expected_cols):
-            st.error(f"El archivo DBF no tiene las columnas esperadas: {expected_cols}.")
+        df_mapa, error = mapear_columnas(df_mapa)
+        if error:
+            st.error(error)
             st.stop()
 
         # Convertir tipos de datos
@@ -307,7 +336,7 @@ with tabs[4]:
         meta_map = meta_map.merge(ppt_prom, on='estacion', how='left')
         
         # Filtrar por estaciones seleccionadas
-        meta_map = meta_map[meta_map['estacion'].isin(estaciones_sel)]
+        meta_map = meta_map[meta_map['estacion'].isin([e.lower() for e in estaciones_sel])]
 
         min_p = float(meta_map['ppt_media'].min(skipna=True) if not meta_map['ppt_media'].isna().all() else 0.0)
         max_p = float(meta_map['ppt_media'].max(skipna=True) if not meta_map['ppt_media'].isna().all() else 1.0)
